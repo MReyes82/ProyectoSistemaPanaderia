@@ -23,19 +23,26 @@ public class Login extends JFrame {
     // credenciales para ingreso
     private String user = "marcuchi";
     private String pass = "VivaJava";
-
-    /*public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Login frame = new Login();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }*/
+    
+    public void iniciarFrontEnd()
+    {
+    	EventQueue.invokeLater(
+    	new Runnable() 
+    	{
+    		public void run()
+    		{
+    			try {
+    				Login pantallaInicio = new Login();
+    				pantallaInicio.setVisible(true);
+    				
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
+    		}
+    	}
+    	
+    	);
+    }
 
     public Login() 
     {
@@ -47,27 +54,27 @@ public class Login extends JFrame {
         contentPane.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Usuario");
-        lblNewLabel.setBounds(432, 264, 107, 20);
+        lblNewLabel.setBounds(450, 264, 107, 20);
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
         contentPane.add(lblNewLabel);
         
         Usuario = new JTextField();
-        Usuario.setBounds(380, 295, 212, 20);
+        Usuario.setBounds(386, 295, 235, 20);
         contentPane.add(Usuario);
         Usuario.setColumns(10);
         
         JLabel Contra = new JLabel("Contraseña");
-        Contra.setBounds(415, 337, 150, 29);
+        Contra.setBounds(429, 337, 150, 29);
         Contra.setFont(new Font("Times New Roman", Font.BOLD, 30));
         contentPane.add(Contra);
         
         contra_usuario = new JPasswordField();
-        contra_usuario.setBounds(380, 377, 212, 20);
+        contra_usuario.setBounds(386, 377, 235, 20);
         contentPane.add(contra_usuario);
         
         JButton Ingreso_usuario = new JButton("Ingresar");
         Ingreso_usuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        Ingreso_usuario.setBounds(369, 435, 235, 39);
+        Ingreso_usuario.setBounds(386, 435, 235, 39);
         contentPane.add(Ingreso_usuario);
         
         JButton btnNewButton_1 = new JButton("Soporte");

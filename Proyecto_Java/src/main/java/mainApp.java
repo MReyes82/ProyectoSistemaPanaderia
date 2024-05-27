@@ -7,6 +7,8 @@ import backend.modelos.*;
 import backend.saves.Datos;
 import static backend.modelos.herenciaEmpleados.Turno.*;
 
+import frontend.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.*;
@@ -19,37 +21,22 @@ public class mainApp
 {
     public static void main (String[] args)
     {
-        System.out.println("Test");
+        //System.out.println("Test");
 
         Datos.inicializarDatos();
 
         iniciarModulosInfo();
-        cargarDatos();
+        
 
         ModelosApp model = new ModelosApp();
         Serviciosapp servicios = new Serviciosapp();
         
-        /*
-        Empleado found = model.buscarEmpleado(1);;
+        Login comienzoDelPrograma = new Login();
+        comienzoDelPrograma.iniciarFrontEnd();
         
-        if (found == null) {
-        	System.out.println("Nulo");
-        }else {
-        	System.out.println(found.toString());
-        }*/
+        //System.out.println("Adios!");
         
-        
-
-        //model.agregarEmpleadoVendedor(1, "Juan", "Perez", 25, 65.60, 0.05, VESPERTINO);
-        //model.agregarEmpleadoPanadero(2, "Pedro", "Lopez", 30, 70.60, MATUTINO);
-        //model.agregarEmpleadoLimpieza(3, "Jose", "Garcia", 35, 75.60, VESPERTINO);
-
-        //model.registrarCliente(1, "Maria", "Gonzalez", "6645165116");
-
-        //model.registrarProducto(1, "Botella agua 600ml", 19.50, 100);
-        //model.registrarProducto(2, "Conchas", 23.50, 50);
-        //model.registrarProducto(3, "Pan de barra", 35.50, 30);
-        //iniciarModulosInfo();
+        //cargarDatos(); TODO: incorporar una tecnica de manejo de evetos para evitar que se cargue a los archivos inmediatamente
 
         return;
     }

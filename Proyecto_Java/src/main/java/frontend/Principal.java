@@ -16,6 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class Principal extends JFrame {
 
@@ -49,17 +50,20 @@ public class Principal extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         
-        JMenu bebidas = new JMenu("Bebidas");
-        menuBar.add(bebidas);
+        JMenu productos = new JMenu("Agregar producto");
+        menuBar.add(productos);
         
-        JMenuItem Agregar_bebidas = new JMenuItem("Agregar bebidas");
-        bebidas.add(Agregar_bebidas);
+        JMenuItem AgregarPorID = new JMenuItem("Ingresar ID de producto");
+        productos.add(AgregarPorID);
         
-        JMenu panes = new JMenu("Panes");
-        menuBar.add(panes);
+        JMenuItem AgregarPorNombre = new JMenuItem("Ingresar nombre de producto");
+        productos.add(AgregarPorNombre);
         
-        JMenuItem Agregar_panes = new JMenuItem("Agregar panes");
-        panes.add(Agregar_panes);
+        JMenu Eliminar = new JMenu("Eliminar producto");
+        menuBar.add(Eliminar);
+        
+        JMenuItem EliminarProducto = new JMenuItem("Eliminar...");
+        Eliminar.add(EliminarProducto);
         
         JMenu otro = new JMenu("Opciones");
         menuBar.add(otro);
@@ -74,6 +78,8 @@ public class Principal extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
         
         Tabla_Cobro = new JTable();
+        Tabla_Cobro.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        
         Tabla_Cobro.setModel(new DefaultTableModel(
             new Object[][] {
                 {null, null, null},
@@ -84,38 +90,32 @@ public class Principal extends JFrame {
         ));
         scrollPane.setViewportView(Tabla_Cobro);
         
-        JButton btn_borrar_tabla_cobro = new JButton("Borrar");
-        
-        JButton aceptar_pagar = new JButton("Pagar");
+        JButton aceptar_pagar = new JButton("Cobrar cuenta");
+        aceptar_pagar.setFont(new Font("Tahoma", Font.PLAIN, 25));
         
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                            .addComponent(btn_borrar_tabla_cobro)
-                            .addPreferredGap(ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
-                            .addComponent(aceptar_pagar)))
-                    .addContainerGap())
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+        				.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap())
         );
         gl_contentPane.setVerticalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(btn_borrar_tabla_cobro)
-                        .addComponent(aceptar_pagar))
-                    .addContainerGap())
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+        			.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap())
         );
         contentPane.setLayout(gl_contentPane);
 
         // Agregar ActionListener para abrir la ventana Tipo_bebida
-        Agregar_bebidas.addActionListener(new ActionListener() {
+        AgregarPorID.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TipoBebida tipoBebida = new TipoBebida();
                 tipoBebida.setVisible(true);
@@ -123,7 +123,7 @@ public class Principal extends JFrame {
         });
         
         // Agregar ActionListener para abrir la ventana Tipo_de_panes
-        Agregar_panes.addActionListener(new ActionListener() {
+        EliminarProducto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TipoPanes tipoDePanes = new TipoPanes();
                 tipoDePanes.setVisible(true);
@@ -139,11 +139,11 @@ public class Principal extends JFrame {
             }
         });
         
-        // Agregar ActionListener para abrir la ventana Resibo al hacer clic en "Pagar"
+        // Agregar ActionListener para abrir la ventana Recibo al hacer clic en "Pagar"
         aceptar_pagar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Recibo resibo = new Recibo();
-                resibo.setVisible(true);
+                Recibo recibo = new Recibo();
+                recibo.setVisible(true);
                 dispose(); // Cerrar la ventana actual de Principal
             }
         });

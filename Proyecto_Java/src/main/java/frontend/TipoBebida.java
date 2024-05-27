@@ -11,6 +11,7 @@ import javax.swing.JButton;
 
 public class TipoBebida extends JFrame {
 
+	// TODO: REFACTOR
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -34,7 +35,7 @@ public class TipoBebida extends JFrame {
 	 * Create the frame.
 	 */
 	public TipoBebida() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
