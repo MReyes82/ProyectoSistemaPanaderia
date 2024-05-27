@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import backend.modelos.Producto;
 import backend.modelos.herenciaEmpleados.Vendedor;
+import java.io.Serializable;
 
-public class Venta
+public class Venta implements Serializable
 {
     private int id;
     private Date fecha;
@@ -76,13 +77,5 @@ public class Venta
 
     public void setIdentificadorVendedor(Vendedor identificadorVendedor) {
         this.identificadorVendedor = identificadorVendedor;
-    }
-
-    public double calcularTotal() {
-        double total = 0;
-        for (Producto producto : productosAdquiridos) {
-            total += producto.getPrecio();
-        }
-        return total;
     }
 }

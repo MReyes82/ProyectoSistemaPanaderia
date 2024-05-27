@@ -89,6 +89,10 @@ public class Cliente implements Serializable
         this.puntos -= puntos;
     }
 
+    public void agregarCompra(Factura factura) {
+        this.compras.add(factura);
+    }
+
     public ArrayList<Factura> getCompras() {
         return this.compras;
     }

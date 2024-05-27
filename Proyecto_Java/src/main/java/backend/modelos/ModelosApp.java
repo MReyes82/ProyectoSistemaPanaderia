@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public class ModelosApp
 {
-    public static void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno)
+    public void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno)
     {
         ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
@@ -44,7 +44,7 @@ public class ModelosApp
         return;
     }
 
-    public static void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno)
+    public void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
         ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
@@ -69,7 +69,7 @@ public class ModelosApp
         return;
     }
 
-    public static void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, ArrayList<Producto> especialidades, Turno turno)
+    public void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, ArrayList<Producto> especialidades, Turno turno)
     {
         ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();

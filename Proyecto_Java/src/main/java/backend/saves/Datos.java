@@ -2,8 +2,9 @@ package backend.saves;
 import backend.modelos.Cliente;
 import backend.modelos.Producto;
 import backend.modelos.herenciaEmpleados.*;
-import backend.saves.archivosAlmacenamiento.*;
+//import backend.saves.archivosAlmacenamiento.*;
 import backend.saves.archivosClases.*;
+import backend.servicios.Venta;
 
 import java.io.IOException;
 import java.io.*;
@@ -25,6 +26,8 @@ public class Datos // Clase control para el manejo de datos
     public static HashMap<Integer, Producto> tablaLookUpProductos;
     public static HashMap<Integer, Cliente> tablaLookUpClientes;
 
+    public static HashMap<Integer, Venta> tablaLookUpVentas;
+
     // listas de clientes registrados
 
 
@@ -39,6 +42,7 @@ public class Datos // Clase control para el manejo de datos
         tablaLookUpEmpleados = new HashMap<Integer, Empleado>();
         tablaLookUpProductos = new HashMap<Integer, Producto>();
         tablaLookUpClientes = new HashMap<Integer, Cliente>();
+        tablaLookUpVentas = new HashMap<Integer, Venta>();
     }
 
     public static ArrayList<Producto> getInventario()
@@ -120,23 +124,33 @@ public class Datos // Clase control para el manejo de datos
     {
         Datos.tablaLookUpClientes = tablaLookUpClientes;
     }
+
+    public static HashMap<Integer, Venta> getTablaLookUpVentas()
+    {
+        return tablaLookUpVentas;
+    }
+
+    public static void setTablaLookUpVentas(HashMap<Integer, Venta> tablaLookUpVentas)
+    {
+        Datos.tablaLookUpVentas = tablaLookUpVentas;
+    }
     // metodos para escribir a archivos
     public static void guardarDatosArrayList() {
         try {
             GestorProducto gestorProducto = new GestorProducto();
-            gestorProducto.guardarDatos("src/main/java/backend/saves/archivos/productos.txt", inventario);
+            gestorProducto.guardarDatos("backend/saves/archivosAlmacenamiento/productos.ser", inventario);
 
             GestorLimpieza gestorLimpieza = new GestorLimpieza();
-            gestorLimpieza.guardarDatos("src/main/java/backend/saves/archivos/empleadosLimpieza.txt", empleadosLimpieza);
+            gestorLimpieza.guardarDatos("backend/saves/archivosAlmacenamiento/empleadosLimpieza.ser", empleadosLimpieza);
 
             GestorPanadero gestorPanadero = new GestorPanadero();
-            gestorPanadero.guardarDatos("src/main/java/backend/saves/archivos/empleadosPanaderos.txt", empleadosPanaderos);
+            gestorPanadero.guardarDatos("backend/saves/archivosAlmacenamiento/empleadosPanaderos.ser", empleadosPanaderos);
 
             GestorVendedor gestorVendedor = new GestorVendedor();
-            gestorVendedor.guardarDatos("src/main/java/backend/saves/archivos/empleadosCajeros.txt", empleadosCajeros);
+            gestorVendedor.guardarDatos("backend/saves/archivosAlmacenamiento/empleadosCajeros.ser", empleadosCajeros);
 
             GestorCliente gestorCliente = new GestorCliente();
-            gestorCliente.guardarDatos("src/main/java/backend/saves/archivos/clientes.txt", clientes);
+            gestorCliente.guardarDatos("backend/saves/archivosAlmacenamiento/clientes.ser", clientes);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -146,13 +160,16 @@ public class Datos // Clase control para el manejo de datos
     public static void guardarDatosHashMap() {
         try {
             GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
-            gestorTablaProductos.guardarDatos("src/main/java/backend/saves/archivos/productosHashMap.txt", tablaLookUpProductos);
+            gestorTablaProductos.guardarDatos("backend/saves/archivosAlmacenamiento/productosHashMap.ser", tablaLookUpProductos);
 
             GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
-            gestorTablaEmpleados.guardarDatos("src/main/java/backend/saves/archivos/empleadosHashMap.txt", tablaLookUpEmpleados);
+            gestorTablaEmpleados.guardarDatos("backend/saves/archivosAlmacenamiento/empleadosHashMap.ser", tablaLookUpEmpleados);
 
             GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
-            gestorTablaClientes.guardarDatos("src/main/java/backend/saves/archivos/clientesHashMap.txt", tablaLookUpClientes);
+            gestorTablaClientes.guardarDatos("backend/saves/archivosAlmacenamiento/clientesHashMap.ser", tablaLookUpClientes);
+
+            GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
+            gestorTablaVentas.guardarDatos("backend/saves/archivosAlmacenamiento/ventasHashMap.ser", tablaLookUpVentas);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,19 +181,19 @@ public class Datos // Clase control para el manejo de datos
         // usamos los metodos set para evitar acceder directamente a los atributos
         try {
             GestorProducto gestorProducto = new GestorProducto();
-            setInventario(gestorProducto.cargarDatos("src/main/java/backend/saves/archivos/productos.txt"));
+            setInventario(gestorProducto.cargarDatos("backend/saves/archivosAlmacenamiento/productos.ser"));
 
             GestorLimpieza gestorLimpieza = new GestorLimpieza();
-            setEmpleadosLimpieza(gestorLimpieza.cargarDatos("src/main/java/backend/saves/archivos/empleadosLimpieza.txt"));
+            setEmpleadosLimpieza(gestorLimpieza.cargarDatos("backend/saves/archivosAlmacenamiento/empleadosLimpieza.ser"));
 
             GestorPanadero gestorPanadero = new GestorPanadero();
-            setEmpleadosPanaderos(gestorPanadero.cargarDatos("src/main/java/backend/saves/archivos/empleadosPanaderos.txt"));
+            setEmpleadosPanaderos(gestorPanadero.cargarDatos("backend/saves/archivosAlmacenamiento/empleadosPanaderos.ser"));
 
             GestorVendedor gestorVendedor = new GestorVendedor();
-            setEmpleadosCajeros(gestorVendedor.cargarDatos("src/main/java/backend/saves/archivos/empleadosCajeros.txt"));
+            setEmpleadosCajeros(gestorVendedor.cargarDatos("backend/saves/archivosAlmacenamiento/empleadosCajeros.ser"));
 
             GestorCliente gestorCliente = new GestorCliente();
-            setClientes(gestorCliente.cargarDatos("src/main/java/backend/saves/archivos/clientes.txt"));
+            setClientes(gestorCliente.cargarDatos("backend/saves/archivosAlmacenamiento/clientes.ser"));
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -186,13 +203,16 @@ public class Datos // Clase control para el manejo de datos
     public static void cargarDatosHashMap() {
         try {
             GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
-            setTablaLookUpProductos(gestorTablaProductos.cargarDatos("src/main/java/backend/saves/archivos/productosHashMap.txt"));
+            setTablaLookUpProductos(gestorTablaProductos.cargarDatos("backend/saves/archivosAlmacenamiento/productosHashMap.ser"));
 
             GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
-            setTablaLookUpEmpleados(gestorTablaEmpleados.cargarDatos("src/main/java/backend/saves/archivos/empleadosHashMap.txt"));
+            setTablaLookUpEmpleados(gestorTablaEmpleados.cargarDatos("backend/saves/archivosAlmacenamiento/empleadosHashMap.ser"));
 
             GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
-            setTablaLookUpClientes(gestorTablaClientes.cargarDatos("src/main/java/backend/saves/archivos/clientesHashMap.txt"));
+            setTablaLookUpClientes(gestorTablaClientes.cargarDatos("backend/saves/archivosAlmacenamiento/clientesHashMap.ser"));
+
+            GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
+            setTablaLookUpVentas(gestorTablaVentas.cargarDatos("backend/saves/archivosAlmacenamiento/ventasHashMap.ser"));
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
