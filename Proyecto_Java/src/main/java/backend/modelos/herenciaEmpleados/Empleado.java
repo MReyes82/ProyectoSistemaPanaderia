@@ -7,12 +7,15 @@ public class Empleado
     private String apellido;
     private int edad;
     private double salario;
+    Turno turno;
 
     public Empleado() {
         this.id = -1;
         this.nombre = "";
         this.apellido = "";
         this.edad = 0;
+        this.salario = 0.0;
+        this.turno = Turno.MATUTINO; // default value
     }
 
     public Empleado(
@@ -20,13 +23,15 @@ public class Empleado
         String nombre,
         String apellido,
         int edad,
-        double salario
+        double salario,
+        Turno turno
     ){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.salario = salario;
+        this.turno = turno;
     }
 
     public int getId() {
@@ -71,6 +76,14 @@ public class Empleado
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public Turno getTurno() {
+        return this.turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
     }
 
     @Override

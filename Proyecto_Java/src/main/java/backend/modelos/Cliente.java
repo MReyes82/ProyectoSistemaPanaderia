@@ -1,4 +1,6 @@
 package backend.modelos;
+import backend.servicios.Factura;
+
 import java.util.ArrayList;
 
 public class Cliente
@@ -8,7 +10,7 @@ public class Cliente
     private String apellido;
     private String telefono;
     private double puntos;
-    // private ArrayList<Factura> compras;
+    private ArrayList<Factura> compras;
 
     public Cliente() {
         this.id = -1;
@@ -16,6 +18,7 @@ public class Cliente
         this.apellido = "";
         this.telefono = "";
         this.puntos = 0;
+        this.compras = new ArrayList<Factura>();
     }
 
     public Cliente(
@@ -30,6 +33,7 @@ public class Cliente
         this.apellido = apellido;
         this.telefono = telefono;
         this.puntos = puntos;
+        this.compras = new ArrayList<Factura>();
     }
 
     public int getId() {
@@ -82,6 +86,14 @@ public class Cliente
 
     public void restarPuntos(double puntos) {
         this.puntos -= puntos;
+    }
+
+    public ArrayList<Factura> getCompras() {
+        return this.compras;
+    }
+
+    public void setCompras(ArrayList<Factura> compras) {
+        this.compras = compras;
     }
 
     @Override
