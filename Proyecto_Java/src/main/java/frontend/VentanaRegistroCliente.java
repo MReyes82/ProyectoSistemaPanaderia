@@ -1,34 +1,32 @@
 package frontend;
 
-import backend.modelos.herenciaEmpleados.Empleado;
-import backend.modelos.herenciaEmpleados.Turno;
+import backend.modelos.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaRegistroEmpleado extends JFrame {
+public class VentanaRegistroCliente extends JFrame {
 
     private JTextField nombreField;
     private JTextField apellidoField;
     private JTextField idField;
-    private JTextField edadField;
-    private JTextField salarioField;
-    private JComboBox<Turno> turnoComboBox;
+    private JTextField telefonoField;
+    private JTextField puntosField;
     private JButton registrarButton;
     private JButton cancelarButton;
 
-    public VentanaRegistroEmpleado() {
+    public VentanaRegistroCliente() {
         // Configuración de la ventana
-        setTitle("Registro de Empleado");
-        setSize(400, 400);
+        setTitle("Registro de Cliente");
+        setSize(400, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Crear el panel principal
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(7, 2, 10, 10));
+        panel.setLayout(new GridLayout(6, 2, 10, 10));
 
         // Crear y añadir los componentes al panel
         panel.add(new JLabel("ID:"));
@@ -43,17 +41,13 @@ public class VentanaRegistroEmpleado extends JFrame {
         apellidoField = new JTextField();
         panel.add(apellidoField);
 
-        panel.add(new JLabel("Edad:"));
-        edadField = new JTextField();
-        panel.add(edadField);
+        panel.add(new JLabel("Teléfono:"));
+        telefonoField = new JTextField();
+        panel.add(telefonoField);
 
-        panel.add(new JLabel("Salario (por hora):"));
-        salarioField = new JTextField();
-        panel.add(salarioField);
-
-        panel.add(new JLabel("Turno:"));
-        turnoComboBox = new JComboBox<>(Turno.values());
-        panel.add(turnoComboBox);
+        panel.add(new JLabel("Puntos:"));
+        puntosField = new JTextField();
+        panel.add(puntosField);
 
         registrarButton = new JButton("Registrar");
         panel.add(registrarButton);
@@ -68,7 +62,7 @@ public class VentanaRegistroEmpleado extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registrarEmpleado();
+                registrarCliente();
             }
         });
 
@@ -80,26 +74,25 @@ public class VentanaRegistroEmpleado extends JFrame {
         });
     }
 
-    private void registrarEmpleado() {
+    private void registrarCliente() {
         try {
             int id = Integer.parseInt(idField.getText());
             String nombre = nombreField.getText();
             String apellido = apellidoField.getText();
-            int edad = Integer.parseInt(edadField.getText());
-            double salario = Double.parseDouble(salarioField.getText());
-            Turno turno = (Turno) turnoComboBox.getSelectedItem();
+            String telefono = telefonoField.getText();
+            double puntos = Double.parseDouble(puntosField.getText());
 
             // Validación básica
-            if (nombre.isEmpty() || apellido.isEmpty() || id < 0 || edad < 0 || salario < 0) {
+            if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || id < 0 || puntos < 0) {
                 JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos y ser válidos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                // Crear un objeto Empleado
-                Empleado empleado = new Empleado(id, nombre, apellido, edad, salario, turno);
-                JOptionPane.showMessageDialog(this, "Empleado registrado con éxito:\n" + empleado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                // Crear un objeto Cliente
+                Cliente cliente = new Cliente(id, nombre, apellido, telefono, puntos);
+                JOptionPane.showMessageDialog(this, "Cliente registrado con éxito:\n" + cliente, "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCampos();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID, Edad y Salario deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID y Puntos deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -107,16 +100,15 @@ public class VentanaRegistroEmpleado extends JFrame {
         idField.setText("");
         nombreField.setText("");
         apellidoField.setText("");
-        edadField.setText("");
-        salarioField.setText("");
-        turnoComboBox.setSelectedIndex(0);
+        telefonoField.setText("");
+        puntosField.setText("");
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new VentanaRegistroEmpleado().setVisible(true);
+                new VentanaRegistroCliente().setVisible(true);
             }
         });
     }
