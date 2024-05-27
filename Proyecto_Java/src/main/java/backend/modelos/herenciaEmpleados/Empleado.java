@@ -8,7 +8,7 @@ public class Empleado implements Serializable
     private String nombre;
     private String apellido;
     private int edad;
-    private double salario;
+    private double salario; // salario por hora
     Turno turno;
 
     public Empleado() {

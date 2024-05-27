@@ -21,12 +21,11 @@ public class Vendedor extends Empleado
         int edad,
         double salario,
         double comision,
-        ArrayList<Venta> ventasRealizadas,
         Turno turno
     ){
         super(id, nombre, apellido, edad, salario, turno);
         this.comision = comision;
-        this.ventasRealizadas = ventasRealizadas;
+        this.ventasRealizadas = new ArrayList<Venta>();
     }
 
     public double getComision() {
