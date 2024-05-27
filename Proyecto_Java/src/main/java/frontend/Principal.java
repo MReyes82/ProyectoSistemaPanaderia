@@ -44,7 +44,7 @@ public class Principal extends JFrame {
      */
     public Principal() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 1028, 768);
         
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -61,7 +61,7 @@ public class Principal extends JFrame {
         JMenuItem Agregar_panes = new JMenuItem("Agregar panes");
         panes.add(Agregar_panes);
         
-        JMenu otro = new JMenu("Otro");
+        JMenu otro = new JMenu("Opciones");
         menuBar.add(otro);
         
         JMenuItem Terminar = new JMenuItem("Cerrar sesión");

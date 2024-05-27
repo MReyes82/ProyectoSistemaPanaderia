@@ -36,20 +36,6 @@ public class Login extends JFrame {
             }
         });
     }*/
-    
-    public void ejecutar()
-    {
-    	EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Login frame = new Login();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     public Login() 
     {
