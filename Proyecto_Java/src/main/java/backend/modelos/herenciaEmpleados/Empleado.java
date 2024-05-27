@@ -1,6 +1,8 @@
 package backend.modelos.herenciaEmpleados;
 
-public class Empleado
+import java.io.Serializable;
+
+public class Empleado implements Serializable
 {
     private int id;
     private String nombre;

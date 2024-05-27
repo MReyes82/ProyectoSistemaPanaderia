@@ -2,8 +2,9 @@ package backend.modelos;
 import backend.servicios.Factura;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Cliente
+public class Cliente implements Serializable
 {
     private int id;
     private String nombre;
