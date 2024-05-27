@@ -28,6 +28,17 @@ public class mainApp
 
         ModelosApp model = new ModelosApp();
         Serviciosapp servicios = new Serviciosapp();
+        
+        /*
+        Empleado found = model.buscarEmpleado(1);;
+        
+        if (found == null) {
+        	System.out.println("Nulo");
+        }else {
+        	System.out.println(found.toString());
+        }*/
+        
+        
 
         //model.agregarEmpleadoVendedor(1, "Juan", "Perez", 25, 65.60, 0.05, VESPERTINO);
         //model.agregarEmpleadoPanadero(2, "Pedro", "Lopez", 30, 70.60, MATUTINO);
