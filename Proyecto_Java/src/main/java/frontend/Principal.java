@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Font;
+import javax.swing.JLabel;
 
 public class Principal extends JFrame {
 
@@ -54,8 +55,9 @@ public class Principal extends JFrame {
     public Principal() {
         productosSeleccionados = new ArrayList<>();
         cantidadesSeleccionadas = new ArrayList<>();
-
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        setTitle("MENU PRINCIPAL DE LA PANADERIA");
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setBounds(100, 100, 1028, 768);
 
         JMenuBar menuBar = new JMenuBar();
@@ -64,13 +66,13 @@ public class Principal extends JFrame {
         JMenu productos = new JMenu("Agregar producto");
         menuBar.add(productos);
 
-        JMenuItem AgregarPorID = new JMenuItem("Elegir de inventario");
+        JMenuItem AgregarPorID = new JMenuItem("Agregar producto a carrito");
         productos.add(AgregarPorID);
 
         JMenu Eliminar = new JMenu("Eliminar producto");
         menuBar.add(Eliminar);
 
-        JMenuItem EliminarProducto = new JMenuItem("Eliminar...");
+        JMenuItem EliminarProducto = new JMenuItem("Eliminar producto de carrito");
         Eliminar.add(EliminarProducto);
 
         JMenu otro = new JMenu("Opciones");
@@ -105,25 +107,36 @@ public class Principal extends JFrame {
                 calcularTotalCuenta();
             }
         });
+        
+        JLabel LabelTextoCarrito = new JLabel("Carrito de compra");
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                        .addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap())
+        	gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE))
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addGap(21)
+        					.addComponent(LabelTextoCarrito, GroupLayout.PREFERRED_SIZE, 349, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap())
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap(719, Short.MAX_VALUE)
+        			.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
+        			.addGap(22))
         );
         gl_contentPane.setVerticalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
-                    .addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
+        	gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(LabelTextoCarrito, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE)
+        			.addGap(144)
+        			.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(47, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 
@@ -200,6 +213,24 @@ public class Principal extends JFrame {
             int cantidad = cantidadesSeleccionadas.get(i);
             total += producto.getPrecio() * cantidad;
         }
-        JOptionPane.showMessageDialog(this, "Total de la cuenta: " + total);
+        // Mostrar el total en un JOptionPane
+        //JOptionPane.showMessageDialog(this, "Total de la cuenta: " + total);
+        
+        // Crear e instanciar la ventana de recibo
+        Recibo recibo = new Recibo();
+        
+        // Establecer el total en la ventana de recibo
+        recibo.setTotal(total);
+        
+        // Agregar los productos al recibo
+        DefaultTableModel modeloRecibo = (DefaultTableModel) recibo.getTable().getModel();
+        for (int i = 0; i < productosSeleccionados.size(); i++) {
+            Producto producto = productosSeleccionados.get(i);
+            int cantidad = cantidadesSeleccionadas.get(i);
+            modeloRecibo.addRow(new Object[] {producto.getNombre(), cantidad, producto.getPrecio() * cantidad});
+        }
+        
+        // Mostrar el recibo
+        recibo.setVisible(true);
     }
 }

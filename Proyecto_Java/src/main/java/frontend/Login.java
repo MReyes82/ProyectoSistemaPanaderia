@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +52,7 @@ public class Login extends JFrame {
 
     public Login() 
     {
+    	setTitle("LOGIN DE USUARIO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
         contentPane = new JPanel();
@@ -86,35 +88,44 @@ public class Login extends JFrame {
             }
         });
 
-        
+        // Añadir imagen
+        JLabel lblImagen = new JLabel(new ImageIcon("src/main/java/backend/saves/image.jpeg"));
+        lblImagen.setBounds(380, 50, 256, 256); // Ajusta la posición y tamaño de la imagen
+        contentPane.add(lblImagen);
+
         JLabel lblNewLabel = new JLabel("Usuario");
-        lblNewLabel.setBounds(450, 264, 107, 20);
+        lblNewLabel.setBounds(440, 320, 143, 20);
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
         contentPane.add(lblNewLabel);
         
         Usuario = new JTextField();
-        Usuario.setBounds(386, 295, 235, 20);
+        Usuario.setBounds(386, 350, 235, 20);
         contentPane.add(Usuario);
         Usuario.setColumns(10);
         
         JLabel Contra = new JLabel("Contraseña");
-        Contra.setBounds(429, 337, 150, 29);
+        Contra.setBounds(400, 392, 213, 29);
         Contra.setFont(new Font("Times New Roman", Font.BOLD, 30));
         contentPane.add(Contra);
         
         contra_usuario = new JPasswordField();
-        contra_usuario.setBounds(386, 377, 235, 20);
+        contra_usuario.setBounds(386, 432, 235, 20);
         contentPane.add(contra_usuario);
         
         JButton Ingreso_usuario = new JButton("Ingresar");
         Ingreso_usuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        Ingreso_usuario.setBounds(386, 435, 235, 39);
+        Ingreso_usuario.setBounds(386, 490, 235, 39);
         contentPane.add(Ingreso_usuario);
         
-        JButton btnNewButton_1 = new JButton("Soporte");
+        JButton btnNewButton_1 = new JButton("Login de administrador");
         btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton_1.setBounds(26, 631, 161, 66);
+        btnNewButton_1.setBounds(26, 644, 267, 53);
         contentPane.add(btnNewButton_1);
+        
+        JLabel lblNewLabel_1 = new JLabel("Bienvenido");
+        lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 20));
+        lblNewLabel_1.setBounds(436, 12, 152, 39);
+        contentPane.add(lblNewLabel_1);
         
         Ingreso_usuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

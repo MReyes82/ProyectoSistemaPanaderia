@@ -42,6 +42,7 @@ public class Soporte extends JFrame {
     public Soporte() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
+        setTitle("LOGIN DE ADMINISTRADOR");
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
