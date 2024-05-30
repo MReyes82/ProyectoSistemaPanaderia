@@ -1,11 +1,14 @@
 package frontend;
 
 import backend.modelos.Cliente;
+import backend.saves.Datos;
+import backend.modelos.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class VentanaRegistroCliente extends JFrame {
 
@@ -21,7 +24,7 @@ public class VentanaRegistroCliente extends JFrame {
         // Configuración de la ventana
         setTitle("Registro de Cliente");
         setSize(400, 350);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Crear el panel principal
@@ -62,7 +65,27 @@ public class VentanaRegistroCliente extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registrarCliente();
+                Cliente clienteARegistrar = registrarCliente();
+                
+                // revisamos que no haya un id repetido en el hashmap.
+                HashMap<Integer, Cliente> lookUp = Datos.getTablaLookUpClientes();
+                
+                if (lookUp.containsKey(clienteARegistrar.getId()) )
+                {
+                	JOptionPane.showMessageDialog(null, "ERROR: EL ID PROPORCIONADO YA ESTA EN USO.", "Error", JOptionPane.ERROR_MESSAGE);
+                	dispose();
+                }
+                
+                ModelosApp callbackModelosApp = new ModelosApp();
+                callbackModelosApp.registrarCliente(clienteARegistrar.getId(), 
+                									clienteARegistrar.getNombre(), 
+                									clienteARegistrar.getApellido(),
+                									clienteARegistrar.getPuntos(),
+                									clienteARegistrar.getTelefono());
+                
+                limpiarCampos();
+                dispose();
+                
             }
         });
 
@@ -74,7 +97,7 @@ public class VentanaRegistroCliente extends JFrame {
         });
     }
 
-    private void registrarCliente() {
+    private Cliente registrarCliente() {
         try {
             int id = Integer.parseInt(idField.getText());
             String nombre = nombreField.getText();
@@ -88,12 +111,16 @@ public class VentanaRegistroCliente extends JFrame {
             } else {
                 // Crear un objeto Cliente
                 Cliente cliente = new Cliente(id, nombre, apellido, telefono, puntos);
-                JOptionPane.showMessageDialog(this, "Cliente registrado con éxito:\n" + cliente, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "Cliente registrado con éxito:" + cliente.getNombreCompleto() + "\n", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCampos();
+                
+                return cliente;
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ID y Puntos deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        return null;
     }
 
     private void limpiarCampos() {

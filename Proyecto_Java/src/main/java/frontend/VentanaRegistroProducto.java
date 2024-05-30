@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import backend.modelos.Producto;
+import backend.saves.Datos;
 import backend.servicios.Inventario;
 
 public class VentanaRegistroProducto extends JFrame
@@ -43,10 +46,10 @@ public class VentanaRegistroProducto extends JFrame
     private JList<String> listProductos;
     private DefaultListModel<String> modeloLista;
     private ArrayList<Producto> productosRegistrados;
-    private Inventario inventario;
+    private ArrayList<Producto> inventario;
 
-    public VentanaRegistroProducto(Inventario inventario) {
-        this.inventario = inventario;
+    public VentanaRegistroProducto(ArrayList<Producto> productosParametro) {
+        this.inventario = productosParametro;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 800, 500);
@@ -134,7 +137,7 @@ public class VentanaRegistroProducto extends JFrame
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                guardarProductosRegistrados();
+                //guardarProductosRegistrados();
             }
         });
     }
@@ -151,7 +154,13 @@ public class VentanaRegistroProducto extends JFrame
             Producto nuevoProducto = new Producto(id, nombre, precio, stock);
 
             // Agregar el producto al inventario
-            inventario.agregarProducto(nuevoProducto);
+            //inventario.add(nuevoProducto);
+            ArrayList<Producto> nuevoInventario = Datos.getInventario();
+            nuevoInventario.add(nuevoProducto);
+            // Actualizamos los datos de la clase central
+            Datos.setInventario(nuevoInventario);
+            HashMap<Integer, Producto> tablaActualizada = Datos.getTablaLookUpProductos();
+            tablaActualizada.put(id, nuevoProducto);
 
             // Agregar el producto a la lista de productos registrados
             productosRegistrados.add(nuevoProducto);
@@ -224,10 +233,10 @@ public class VentanaRegistroProducto extends JFrame
         }
     }
 
-    private void guardarProductosRegistrados() {
+    /*private void guardarProductosRegistrados() {
         // Guardar los productos registrados en el inventario
         for (Producto producto : productosRegistrados) {
             inventario.agregarProducto(producto);
         }
-    }
+    }*/
 }

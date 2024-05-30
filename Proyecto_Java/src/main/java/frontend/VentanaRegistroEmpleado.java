@@ -1,12 +1,18 @@
 package frontend;
 
 import backend.modelos.herenciaEmpleados.Empleado;
+import backend.modelos.herenciaEmpleados.Limpieza;
+import backend.modelos.herenciaEmpleados.Panadero;
 import backend.modelos.herenciaEmpleados.Turno;
+import backend.modelos.herenciaEmpleados.Vendedor;
+import backend.saves.Datos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VentanaRegistroEmpleado extends JFrame {
 
@@ -23,7 +29,7 @@ public class VentanaRegistroEmpleado extends JFrame {
         // Configuración de la ventana
         setTitle("Registro de Empleado");
         setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Crear el panel principal
@@ -68,7 +74,50 @@ public class VentanaRegistroEmpleado extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registrarEmpleado();
+                Empleado nuevoEmpleado = registrarEmpleado();
+                
+                if (nuevoEmpleado == null)
+                {
+                	JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR EMPLEADO", "Error de validación", JOptionPane.ERROR_MESSAGE);
+                	dispose();
+                }
+                
+                if (nuevoEmpleado instanceof Limpieza)
+                {
+                	ArrayList<Limpieza> arregloLimpieza = Datos.getEmpleadosLimpieza();
+                	arregloLimpieza.add((Limpieza) nuevoEmpleado);
+                	
+                	Datos.setEmpleadosLimpieza(arregloLimpieza);
+                }
+                else if (nuevoEmpleado instanceof Vendedor)
+                {
+                	ArrayList<Vendedor> arregloVendedores = Datos.getEmpleadosCajeros();
+                	arregloVendedores.add((Vendedor) nuevoEmpleado);
+                	
+                	Datos.setEmpleadosCajeros(arregloVendedores);
+                }
+                else if (nuevoEmpleado instanceof Panadero)
+                {
+                	ArrayList<Panadero> arregloPanaderos = Datos.getEmpleadosPanaderos();
+                	arregloPanaderos.add((Panadero) nuevoEmpleado);
+                	
+                	Datos.setEmpleadosPanaderos(arregloPanaderos);
+                }
+                
+                HashMap<Integer, Empleado> tablaActualizada = Datos.getTablaLookUpEmpleados();
+                
+                if (tablaActualizada == null)
+                {
+                	System.out.println("getTabla regreso nulo");
+                	tablaActualizada = new HashMap<Integer, Empleado>();
+                }
+                	
+                tablaActualizada.put(nuevoEmpleado.getId(), nuevoEmpleado);
+                
+                Datos.setTablaLookUpEmpleados(tablaActualizada);
+                
+                
+                JOptionPane.showMessageDialog(null, "Empleado registrado exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -76,11 +125,12 @@ public class VentanaRegistroEmpleado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 limpiarCampos();
+                //dispose();
             }
         });
     }
 
-    private void registrarEmpleado() {
+    private Empleado registrarEmpleado() {
         try {
             int id = Integer.parseInt(idField.getText());
             String nombre = nombreField.getText();
@@ -97,10 +147,14 @@ public class VentanaRegistroEmpleado extends JFrame {
                 Empleado empleado = new Empleado(id, nombre, apellido, edad, salario, turno);
                 JOptionPane.showMessageDialog(this, "Empleado registrado con éxito:\n" + empleado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCampos();
+                
+                return empleado;
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ID, Edad y Salario deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        return null;
     }
 
     private void limpiarCampos() {

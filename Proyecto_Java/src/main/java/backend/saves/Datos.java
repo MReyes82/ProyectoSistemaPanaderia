@@ -4,6 +4,7 @@ import backend.modelos.Producto;
 import backend.modelos.herenciaEmpleados.*;
 //import backend.saves.archivosAlmacenamiento.*;
 import backend.saves.archivosClases.*;
+import backend.servicios.Factura;
 import backend.servicios.Venta;
 
 import java.io.IOException;
@@ -137,18 +138,23 @@ public class Datos // Clase control para el manejo de datos
         try {
             GestorProducto gestorProducto = new GestorProducto();
             gestorProducto.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/productos.ser", inventario);
+            //gestorProducto.guardarDatos("archivosAlmacenamiento/productos.ser", inventario);
 
             GestorLimpieza gestorLimpieza = new GestorLimpieza();
             gestorLimpieza.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosLimpieza.ser", empleadosLimpieza);
+            //gestorLimpieza.guardarDatos("archivosAlmacenamiento/empleadosLimpieza.ser", empleadosLimpieza);
 
             GestorPanadero gestorPanadero = new GestorPanadero();
             gestorPanadero.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosPanaderos.ser", empleadosPanaderos);
+            //gestorPanadero.guardarDatos("archivosAlmacenamiento/empleadosPanaderos.ser", empleadosPanaderos);
 
             GestorVendedor gestorVendedor = new GestorVendedor();
             gestorVendedor.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosCajeros.ser", empleadosCajeros);
+            //gestorVendedor.guardarDatos("archivosAlmacenamiento/empleadosCajeros.ser", empleadosCajeros);
 
             GestorCliente gestorCliente = new GestorCliente();
             gestorCliente.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/clientes.ser", clientes);
+            //gestorCliente.guardarDatos("archivosAlmacenamiento/clientes.ser", clientes);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,15 +165,19 @@ public class Datos // Clase control para el manejo de datos
         try {
             GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
             gestorTablaProductos.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/productosHashMap.ser", tablaLookUpProductos);
+            //gestorTablaProductos.guardarDatos("archivosAlmacenamiento/productosHashMap.ser", tablaLookUpProductos);
 
             GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
             gestorTablaEmpleados.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosHashMap.ser", tablaLookUpEmpleados);
+            //gestorTablaEmpleados.guardarDatos("archivosAlmacenamiento/empleadosHashMap.ser", tablaLookUpEmpleados);
 
             GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
             gestorTablaClientes.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/clientesHashMap.ser", tablaLookUpClientes);
+            //gestorTablaClientes.guardarDatos("archivosAlmacenamiento/clientesHashMap.ser", tablaLookUpClientes);
 
             GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
             gestorTablaVentas.guardarDatos("src/main/java/backend/saves/archivosAlmacenamiento/ventasHashMap.ser", tablaLookUpVentas);
+            //gestorTablaVentas.guardarDatos("archivosAlmacenamiento/ventasHashMap.ser", tablaLookUpVentas);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,18 +190,23 @@ public class Datos // Clase control para el manejo de datos
         try {
             GestorProducto gestorProducto = new GestorProducto();
             setInventario(gestorProducto.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/productos.ser"));
+            //setInventario(gestorProducto.cargarDatos("archivosAlmacenamiento/productos.ser"));
 
             GestorLimpieza gestorLimpieza = new GestorLimpieza();
             setEmpleadosLimpieza(gestorLimpieza.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosLimpieza.ser"));
+            //setEmpleadosLimpieza(gestorLimpieza.cargarDatos("archivosAlmacenamiento/empleadosLimpieza.ser"));
 
             GestorPanadero gestorPanadero = new GestorPanadero();
             setEmpleadosPanaderos(gestorPanadero.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosPanaderos.ser"));
+            //setEmpleadosPanaderos(gestorPanadero.cargarDatos("archivosAlmacenamiento/empleadosPanaderos.ser"));
 
             GestorVendedor gestorVendedor = new GestorVendedor();
             setEmpleadosCajeros(gestorVendedor.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosCajeros.ser"));
+            //setEmpleadosCajeros(gestorVendedor.cargarDatos("archivosAlmacenamiento/empleadosCajeros.ser"));
 
             GestorCliente gestorCliente = new GestorCliente();
             setClientes(gestorCliente.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/clientes.ser"));
+            //setClientes(gestorCliente.cargarDatos("archivosAlmacenamiento/clientes.ser"));
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -202,18 +217,77 @@ public class Datos // Clase control para el manejo de datos
         try {
             GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
             setTablaLookUpProductos(gestorTablaProductos.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/productosHashMap.ser"));
+            //setTablaLookUpProductos(gestorTablaProductos.cargarDatos("archivosAlmacenamiento/productosHashMap.ser"));
 
             GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
             setTablaLookUpEmpleados(gestorTablaEmpleados.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/empleadosHashMap.ser"));
+            //setTablaLookUpEmpleados(gestorTablaEmpleados.cargarDatos("archivosAlmacenamiento/empleadosHashMap.ser"));
 
             GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
             setTablaLookUpClientes(gestorTablaClientes.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/clientesHashMap.ser"));
+            //setTablaLookUpClientes(gestorTablaClientes.cargarDatos("archivosAlmacenamiento/clientesHashMap.ser"));
 
             GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
             setTablaLookUpVentas(gestorTablaVentas.cargarDatos("src/main/java/backend/saves/archivosAlmacenamiento/ventasHashMap.ser"));
+            //setTablaLookUpVentas(gestorTablaVentas.cargarDatos("archivosAlmacenamiento/ventasHashMap.ser"));
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
+    // objetos predefinidos de prueba
+    public static void cargarElementosTEST()
+    {
+    	Producto pan = new Producto(1, "Pan", 1.00, 100);
+        Producto pastel = new Producto(2, "Pastel", 15.00, 50);
+        Producto sabritas = new Producto(3, "Sabritas", 22.50, 200);
+        
+        Cliente cliente = new Cliente(1, "Carlos", "Pérez", "123456789", 10.5);
+
+        // Crear objeto de prueba para Empleado
+        Vendedor empleado = new Vendedor(1, "Juan", "López", 30, 10.00, 0.05,Turno.MATUTINO);
+
+        // Crear objeto de prueba para Limpieza
+        Limpieza limpieza = new Limpieza(2, "Ana", "Gómez", 25, 8.00, Turno.VESPERTINO);
+
+        // Crear objeto de prueba para Panadero
+        Panadero panadero = new Panadero(3, "Pedro", "Martínez", 35, 12.00, Turno.MATUTINO);
+        
+        Vendedor vendedor = new Vendedor(4, "Lucía", "Fernández", 28, 9.00, 0.10, Turno.MATUTINO);
+        
+        inventario.add(pastel);
+        inventario.add(pan);
+        inventario.add(sabritas);
+        
+        tablaLookUpProductos.put(sabritas.getId(), sabritas);
+        tablaLookUpProductos.put(pan.getId(), pan);
+        tablaLookUpProductos.put(pastel.getId(), pastel);
+        
+        clientes.add(cliente);
+        tablaLookUpClientes.put(cliente.getId(), cliente);
+        
+        empleadosLimpieza.add(limpieza);
+        tablaLookUpEmpleados.put(limpieza.getId(), limpieza);
+        
+        empleadosCajeros.add(vendedor);
+        empleadosCajeros.add(empleado);
+        tablaLookUpEmpleados.put(vendedor.getId(), vendedor);
+        tablaLookUpEmpleados.put(empleado.getId(), empleado);
+        
+        empleadosPanaderos.add(panadero);
+        tablaLookUpEmpleados.put(panadero.getId(), panadero);
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+

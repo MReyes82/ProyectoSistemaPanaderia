@@ -167,7 +167,7 @@ public class ModelosApp
         return;
     }
 
-    public void registrarCliente(int id, String nombre, String apellido, String telefono)
+    public void registrarCliente(int id, String nombre, String apellido, double puntos, String telefono)
     {
         ArrayList<Cliente> clientes = Datos.getClientes();
         HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
@@ -177,7 +177,7 @@ public class ModelosApp
             nombre,
             apellido,
             telefono,
-            0.0
+            puntos
         );
 
         clientes.add(nuevoCliente);

@@ -11,7 +11,14 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+
+import backend.saves.Datos;
+import backend.saves.archivosAlmacenamiento.*;
+import backend.saves.archivosClases.*;
+import APLICACION_PRINCIPAL.mainApp;
 
 public class Login extends JFrame {
 
@@ -39,9 +46,7 @@ public class Login extends JFrame {
     				e.printStackTrace();
     			}
     		}
-    	}
-    	
-    	);
+    	});
     }
 
     public Login() 
@@ -52,6 +57,34 @@ public class Login extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+
+        // Ventana de confirmacion de salida. Utilizada para saber
+        // cuando mandar a llamar al metodo de almacenamiento de datos.
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                // Agregamos un mensaje de confirmacion para cerrar la aplicacion
+                int confirmacion = JOptionPane.showOptionDialog(
+                        Login.this,
+                        "¿Esta seguro de que desea salir?",
+                        "Confirmar cierre",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, null, null);
+
+                if (confirmacion == JOptionPane.YES_OPTION)
+                {
+                    //mainApp.cargarDatos();
+                    // System.exit es el comando que se utiliza para cerrar la aplicacion totalmente
+                    System.exit(0);
+                } else {
+                    // Si el usuario selecciona que no, se cancela el cierre de la aplicacion
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+
         
         JLabel lblNewLabel = new JLabel("Usuario");
         lblNewLabel.setBounds(450, 264, 107, 20);

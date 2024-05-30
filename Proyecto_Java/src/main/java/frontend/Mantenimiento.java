@@ -1,5 +1,12 @@
 package frontend;
 
+import backend.saves.Datos;
+import java.util.ArrayList;
+
+import backend.modelos.Producto;
+import backend.modelos.herenciaEmpleados.*;
+import backend.servicios.*;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -12,7 +19,7 @@ public class Mantenimiento extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -23,7 +30,7 @@ public class Mantenimiento extends JFrame {
                 }
             }
         });
-    }*/
+    }
 
     public Mantenimiento() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,8 +49,13 @@ public class Mantenimiento extends JFrame {
         JButton BotonAgregarProducto = new JButton("Agregar");
         BotonAgregarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
         BotonAgregarProducto.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para agregar pan
+            public void actionPerformed(ActionEvent e)
+            {
+                // Logica para registrar un producto.
+            	ArrayList<Producto> inventario = Datos.getInventario();
+            	
+                VentanaRegistroProducto registroProducto = new VentanaRegistroProducto(inventario);
+                registroProducto.setVisible(true);
             }
         });
         BotonAgregarProducto.setBounds(429, 82, 150, 31);
@@ -52,7 +64,7 @@ public class Mantenimiento extends JFrame {
         ////////////////////////////////////////////////////////////////////////////
         
         /*
-         * REGISTRO DE EMPLEADO 
+         * ELIMINAR PRODUCTO
          */
         
         JLabel LabelEliminarProducto = new JLabel("Eliminar un producto de inventario");
@@ -64,6 +76,8 @@ public class Mantenimiento extends JFrame {
         BotonEliminarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
         BotonEliminarProducto.setBounds(429, 180, 150, 31);
         getContentPane().add(BotonEliminarProducto);
+        
+        
                 
         ////////////////////////////////////////////////////////////////////////////
         
@@ -78,12 +92,18 @@ public class Mantenimiento extends JFrame {
         
         JButton BotonRegistrarEmpleado = new JButton("Agregar");
         BotonRegistrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        BotonRegistrarEmpleado.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+
         BotonRegistrarEmpleado.setBounds(429, 370, 150, 31);
         getContentPane().add(BotonRegistrarEmpleado);
+        
+        BotonRegistrarEmpleado.addActionListener(new ActionListener() 
+        {
+        	public void actionPerformed(ActionEvent e) 
+        	{
+        		VentanaRegistroEmpleado registroEmpleado = new VentanaRegistroEmpleado();
+        		registroEmpleado.setVisible(true);
+        	}
+        });
         
         ////////////////////////////////////////////////////////////////////////////
         
@@ -116,6 +136,15 @@ public class Mantenimiento extends JFrame {
         BotonRegistrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
         BotonRegistrarCliente.setBounds(429, 275, 150, 31);
         getContentPane().add(BotonRegistrarCliente);
+        
+        BotonRegistrarCliente.addActionListener(new ActionListener() 
+        {
+        		public void actionPerformed(ActionEvent e) 
+            	{
+            		VentanaRegistroCliente pantallaRegistrarCLiente = new VentanaRegistroCliente();
+            		pantallaRegistrarCLiente.setVisible(true);
+            	}
+        });
         
         ////////////////////////////////////////////////////////////////////////////
         
