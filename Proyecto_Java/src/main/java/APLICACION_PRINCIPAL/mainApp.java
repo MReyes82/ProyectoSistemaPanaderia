@@ -23,7 +23,7 @@ public class mainApp
     public static void main (String[] args)
     {
         //System.out.println("Test");
-        System.out.println(new File(".").getAbsolutePath());
+        //System.out.println(new File(".").getAbsolutePath());
 
         Datos.inicializarDatos();
         Datos.cargarElementosTEST();

@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.modelos.Cliente;
+import backend.modelos.ModelosApp;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -152,16 +153,11 @@ public class VentanaRegistroProducto extends JFrame
 
             // Crear un nuevo producto con los datos ingresados
             Producto nuevoProducto = new Producto(id, nombre, precio, stock);
+            ModelosApp callbackRegistrarProducto = new ModelosApp();
 
             // Agregar el producto al inventario
-            //inventario.add(nuevoProducto);
-            ArrayList<Producto> nuevoInventario = Datos.getInventario();
-            nuevoInventario.add(nuevoProducto);
-            // Actualizamos los datos de la clase central
-            Datos.setInventario(nuevoInventario);
-            HashMap<Integer, Producto> tablaActualizada = Datos.getTablaLookUpProductos();
-            tablaActualizada.put(id, nuevoProducto);
-
+            callbackRegistrarProducto.registrarProducto(id, nombre, precio, stock);
+            
             // Agregar el producto a la lista de productos registrados
             productosRegistrados.add(nuevoProducto);
 

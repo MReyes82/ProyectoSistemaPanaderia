@@ -11,6 +11,8 @@ import backend.servicios.Venta;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 /*
 * Metodos relacionadas con funciones para gestion de empleados
 *
@@ -101,7 +103,7 @@ public class ModelosApp
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
         if (!empleadosMap.containsKey(id)) {
-            System.out.println("Empleado no encontrado");
+            JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
@@ -171,6 +173,7 @@ public class ModelosApp
     {
         ArrayList<Cliente> clientes = Datos.getClientes();
         HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
+        // REGRESA NULO?????
 
         Cliente nuevoCliente = new Cliente(
             id,

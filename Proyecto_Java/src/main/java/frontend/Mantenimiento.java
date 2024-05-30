@@ -64,21 +64,27 @@ public class Mantenimiento extends JFrame {
         ////////////////////////////////////////////////////////////////////////////
         
         /*
-         * ELIMINAR PRODUCTO
+         * LISTA EMPLEADOS
          */
         
-        JLabel LabelEliminarProducto = new JLabel("Eliminar un producto de inventario");
-        LabelEliminarProducto.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LabelEliminarProducto.setBounds(347, 138, 313, 31);
-        getContentPane().add(LabelEliminarProducto);
+        JLabel LabelListaEmpleados = new JLabel("Mostrar lista de emplados");
+        LabelListaEmpleados.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        LabelListaEmpleados.setBounds(386, 375, 236, 31);
+        getContentPane().add(LabelListaEmpleados);
         
-        JButton BotonEliminarProducto = new JButton("Eliminar");
-        BotonEliminarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        BotonEliminarProducto.setBounds(429, 180, 150, 31);
-        getContentPane().add(BotonEliminarProducto);
+        JButton BotonListaEmpleados = new JButton("Mostar lista");
+        BotonListaEmpleados.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        BotonListaEmpleados.setBounds(429, 427, 150, 31);
+        getContentPane().add(BotonListaEmpleados);
         
-        
-                
+        BotonListaEmpleados.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		VentanaListaEmpleados listaEmpleados = new VentanaListaEmpleados();
+        		listaEmpleados.setVisible(true);
+        	}
+        });
+                        
         ////////////////////////////////////////////////////////////////////////////
         
         /*
@@ -87,13 +93,13 @@ public class Mantenimiento extends JFrame {
         
         JLabel LabelRegistrarEmpleado = new JLabel("Registrar un empleado");
         LabelRegistrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LabelRegistrarEmpleado.setBounds(399, 328, 209, 31);
+        LabelRegistrarEmpleado.setBounds(399, 263, 209, 31);
         getContentPane().add(LabelRegistrarEmpleado);
         
         JButton BotonRegistrarEmpleado = new JButton("Agregar");
         BotonRegistrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-        BotonRegistrarEmpleado.setBounds(429, 370, 150, 31);
+        BotonRegistrarEmpleado.setBounds(429, 315, 150, 31);
         getContentPane().add(BotonRegistrarEmpleado);
         
         BotonRegistrarEmpleado.addActionListener(new ActionListener() 
@@ -108,42 +114,26 @@ public class Mantenimiento extends JFrame {
         ////////////////////////////////////////////////////////////////////////////
         
         /*
-         * MODIFICACIÓN DE EMPLEADO
-         */
-        
-        JLabel LabelModificarEmpleado = new JLabel("Modificar datos de un empleado");
-        LabelModificarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LabelModificarEmpleado.setBounds(356, 418, 296, 31);
-        getContentPane().add(LabelModificarEmpleado);
-        
-        JButton BotonModificarEmpleado = new JButton("Modificar");
-        BotonModificarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        BotonModificarEmpleado.setBounds(429, 460, 150, 31);
-        getContentPane().add(BotonModificarEmpleado);
-        
-        ////////////////////////////////////////////////////////////////////////////
-        
-        /*
         * REGISTRO DE CLIENTES
         */
         
         JLabel LabelNuevoCliente = new JLabel("Registrar datos de nuevo cliente");
         LabelNuevoCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LabelNuevoCliente.setBounds(353, 234, 301, 30);
+        LabelNuevoCliente.setBounds(353, 147, 301, 30);
         getContentPane().add(LabelNuevoCliente);
         
         JButton BotonRegistrarCliente = new JButton("Agregar");
         BotonRegistrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        BotonRegistrarCliente.setBounds(429, 275, 150, 31);
+        BotonRegistrarCliente.setBounds(429, 202, 150, 31);
         getContentPane().add(BotonRegistrarCliente);
         
         BotonRegistrarCliente.addActionListener(new ActionListener() 
         {
-        		public void actionPerformed(ActionEvent e) 
-            	{
-            		VentanaRegistroCliente pantallaRegistrarCLiente = new VentanaRegistroCliente();
-            		pantallaRegistrarCLiente.setVisible(true);
-            	}
+        	public void actionPerformed(ActionEvent e) 
+            {
+            	VentanaRegistroCliente pantallaRegistrarCLiente = new VentanaRegistroCliente();
+            	pantallaRegistrarCLiente.setVisible(true);
+            }
         });
         
         ////////////////////////////////////////////////////////////////////////////
@@ -154,13 +144,22 @@ public class Mantenimiento extends JFrame {
         
         JLabel LabelMostrarEmpleado = new JLabel("Mostrar datos de un empleado");
         LabelMostrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LabelMostrarEmpleado.setBounds(368, 513, 313, 23);
+        LabelMostrarEmpleado.setBounds(364, 488, 280, 23);
         getContentPane().add(LabelMostrarEmpleado);
         
         JButton BotonMostrarEmpleado = new JButton("Buscar");
         BotonMostrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        BotonMostrarEmpleado.setBounds(429, 547, 150, 31);
+        BotonMostrarEmpleado.setBounds(429, 535, 150, 31);
         getContentPane().add(BotonMostrarEmpleado);
+        
+        BotonMostrarEmpleado.addActionListener(new ActionListener() 
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		EmpleadoIDInputFrame busquedaEmpleado = new EmpleadoIDInputFrame();
+        		busquedaEmpleado.setVisible(true);
+        	}
+        });
         
         ////////////////////////////////////////////////////////////////////////////
         

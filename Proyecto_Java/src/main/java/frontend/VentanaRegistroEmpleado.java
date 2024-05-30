@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.modelos.ModelosApp;
 import backend.modelos.herenciaEmpleados.Empleado;
 import backend.modelos.herenciaEmpleados.Limpieza;
 import backend.modelos.herenciaEmpleados.Panadero;
@@ -75,6 +76,8 @@ public class VentanaRegistroEmpleado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Empleado nuevoEmpleado = registrarEmpleado();
+                // instancia para llamar al metodo que agrega los datos
+                ModelosApp callbackRegistroDeEmpleados = new ModelosApp();
                 
                 if (nuevoEmpleado == null)
                 {
@@ -84,39 +87,39 @@ public class VentanaRegistroEmpleado extends JFrame {
                 
                 if (nuevoEmpleado instanceof Limpieza)
                 {
-                	ArrayList<Limpieza> arregloLimpieza = Datos.getEmpleadosLimpieza();
-                	arregloLimpieza.add((Limpieza) nuevoEmpleado);
-                	
-                	Datos.setEmpleadosLimpieza(arregloLimpieza);
+                	callbackRegistroDeEmpleados.agregarEmpleadoLimpieza(
+                			nuevoEmpleado.getId(),
+                			nuevoEmpleado.getNombre(),
+                			nuevoEmpleado.getApellido(),
+                			nuevoEmpleado.getEdad(),
+                			nuevoEmpleado.getSalario(),
+                			nuevoEmpleado.getTurno()
+                			);
                 }
                 else if (nuevoEmpleado instanceof Vendedor)
                 {
-                	ArrayList<Vendedor> arregloVendedores = Datos.getEmpleadosCajeros();
-                	arregloVendedores.add((Vendedor) nuevoEmpleado);
-                	
-                	Datos.setEmpleadosCajeros(arregloVendedores);
+                	callbackRegistroDeEmpleados.agregarEmpleadoVendedor(
+                			nuevoEmpleado.getId(),
+                			nuevoEmpleado.getNombre(),
+                			nuevoEmpleado.getApellido(),
+                			nuevoEmpleado.getEdad(),
+                			nuevoEmpleado.getSalario(),
+                			0.05,
+                			nuevoEmpleado.getTurno()
+                			);
                 }
                 else if (nuevoEmpleado instanceof Panadero)
                 {
-                	ArrayList<Panadero> arregloPanaderos = Datos.getEmpleadosPanaderos();
-                	arregloPanaderos.add((Panadero) nuevoEmpleado);
-                	
-                	Datos.setEmpleadosPanaderos(arregloPanaderos);
-                }
-                
-                HashMap<Integer, Empleado> tablaActualizada = Datos.getTablaLookUpEmpleados();
-                
-                if (tablaActualizada == null)
-                {
-                	System.out.println("getTabla regreso nulo");
-                	tablaActualizada = new HashMap<Integer, Empleado>();
+                	callbackRegistroDeEmpleados.agregarEmpleadoPanadero(
+                			nuevoEmpleado.getId(),
+                			nuevoEmpleado.getNombre(),
+                			nuevoEmpleado.getApellido(),
+                			nuevoEmpleado.getEdad(),
+                			nuevoEmpleado.getSalario(),
+                			nuevoEmpleado.getTurno()
+                			);
                 }
                 	
-                tablaActualizada.put(nuevoEmpleado.getId(), nuevoEmpleado);
-                
-                Datos.setTablaLookUpEmpleados(tablaActualizada);
-                
-                
                 JOptionPane.showMessageDialog(null, "Empleado registrado exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             }
         });
