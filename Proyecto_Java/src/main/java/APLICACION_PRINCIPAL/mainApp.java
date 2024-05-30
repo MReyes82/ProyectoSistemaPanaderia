@@ -34,8 +34,8 @@ public class mainApp
         //ArrayList<Producto> inventario = Datos.getInventario();
         
 
-        ModelosApp model = new ModelosApp();
-        Serviciosapp servicios = new Serviciosapp();
+        //ModelosApp model = new ModelosApp();
+        //Serviciosapp servicios = new Serviciosapp();
         
         Login comienzoDelPrograma = new Login();
         comienzoDelPrograma.iniciarFrontEnd();

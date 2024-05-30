@@ -28,8 +28,8 @@ public class Login extends JFrame {
     private JPasswordField contra_usuario;
     
     // credenciales para ingreso
-    private String user = "marcuchi";
-    private String pass = "VivaJava";
+    private String user = "marcos";
+    private String pass = "java";
     
     public void iniciarFrontEnd()
     {
