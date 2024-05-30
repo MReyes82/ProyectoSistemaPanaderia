@@ -239,9 +239,9 @@ public class Datos // Clase control para el manejo de datos
     // objetos predefinidos de prueba
     public static void cargarElementosTEST()
     {
-    	Producto pan = new Producto(1, "Pan", 1.00, 100);
-        Producto pastel = new Producto(2, "Pastel", 15.00, 50);
-        Producto sabritas = new Producto(3, "Sabritas", 22.50, 200);
+    	Producto pan = new Producto(1, "Donas bimbo", 23.00, 15);
+        Producto pastel = new Producto(2, "Agua ciel 600ml", 15.00, 20);
+        Producto sabritas = new Producto(3, "Sabritas", 22.50, 18);
         
         Cliente cliente = new Cliente(1, "Carlos", "Pérez", "123456789", 10.5);
 

@@ -20,7 +20,7 @@ import java.io.*;
 public class Serviciosapp
 {
     // regresa el total de la venta para poder usarla en la generacion de facturas
-    public double crearVenta(int idVenta, int identificadorACliente, ArrayList<Producto> productosComprados, Vendedor cajeroQueRealizaVenta)
+    public double crearVenta(int idVenta, int identificadorACliente, Vendedor cajeroQueRealizaVenta)
     {
         HashMap<Integer, Cliente> clientes = Datos.getTablaLookUpClientes();
 
@@ -54,12 +54,15 @@ public class Serviciosapp
             // obtenemos el cliente que realizo la compra
             cliente = clientes.get(identificadorACliente);
         }
+        
+        // calcular el total de la venta
+        
 
         Venta nuevaVenta = new Venta(
             idVenta,
             fecha,
             cliente,
-            productosComprados,
+            0.0,//total,
                 cajeroQueRealizaVenta
         );
 
@@ -67,15 +70,7 @@ public class Serviciosapp
         // Referencia al hashmap para actualizar el inventario
         HashMap<Integer, Producto> inventario = Datos.getTablaLookUpProductos();
 
-        // calcular el total de la venta
-        for (Producto productoActual : productosComprados)
-        {
-            // si se realizo la actualizacion del inventario
-            if (actualizarInventario(productoActual, inventario))
-            {
-                totalVenta += productoActual.getPrecio();
-            }
-        }
+        
         // valifacion de que se haya realizado la venta
         // Si el total es 0 quiere decir que no se vendio nada
         // debido a la falta de stock de todos los productos
@@ -98,9 +93,9 @@ public class Serviciosapp
         return totalVenta;
     }
 
-    public void generarFactura(int idVenta, int identificadorACliente, ArrayList<Producto> productosComprados, Vendedor cajeroQueRealizaVenta)
+    public void generarFactura(int idVenta, int identificadorACliente, double totalVenta, Vendedor cajeroQueRealizaVenta)
     {
-        double ventaRealizada = crearVenta(idVenta, identificadorACliente, productosComprados, cajeroQueRealizaVenta);
+        double ventaRealizada = crearVenta(idVenta, identificadorACliente, cajeroQueRealizaVenta);
 
         // validacion de que se haya realizado la venta
         if (ventaRealizada == -1 || identificadorACliente == -1)

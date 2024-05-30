@@ -13,7 +13,8 @@ public class Venta implements Serializable
     private Date fecha;
     private Cliente cliente;
 
-    private ArrayList<Producto> productosAdquiridos;
+    //private ArrayList<Producto> productosAdquiridos;
+    private double totalVenta;
     private Vendedor identificadorVendedor; // referenci al vendedor que realizo la venta
 
     public Venta()
@@ -21,7 +22,8 @@ public class Venta implements Serializable
         this.id = -1;
         this.fecha = new Date();
         this.cliente = new Cliente();
-        this.productosAdquiridos = new ArrayList<Producto>();
+        //this.productosAdquiridos = new ArrayList<Producto>();
+        this.totalVenta = 0;
         this.identificadorVendedor = new Vendedor();
     }
 
@@ -29,13 +31,15 @@ public class Venta implements Serializable
         int id,
         Date fecha,
         Cliente cliente,
-        ArrayList<Producto> productosAdquiridos,
+        //ArrayList<Producto> productosAdquiridos,
+        double totalVenta,
         Vendedor identificadorVendedor
     ){
         this.id = id;
         this.fecha = fecha;
         this.cliente = cliente;
-        this.productosAdquiridos = productosAdquiridos;
+        //this.productosAdquiridos = productosAdquiridos;
+        this.totalVenta = totalVenta;
         this.identificadorVendedor = identificadorVendedor;
     }
 
@@ -63,12 +67,14 @@ public class Venta implements Serializable
         this.cliente = cliente;
     }
 
-    public ArrayList<Producto> getProductosAdquiridos() {
-        return this.productosAdquiridos;
+    public void setTotalVente(double totalVenta)
+    {
+    	this.totalVenta = totalVenta;
     }
-
-    public void setProductosAdquiridos(ArrayList<Producto> productosAdquiridos) {
-        this.productosAdquiridos = productosAdquiridos;
+    
+    public double getTotalVenta()
+    {
+    	return this.totalVenta;
     }
 
     public Vendedor getIdentificadorVendedor() {
