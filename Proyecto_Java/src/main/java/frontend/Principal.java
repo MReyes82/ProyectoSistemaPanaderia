@@ -78,6 +78,9 @@ public class Principal extends JFrame {
 
         JMenuItem Terminar = new JMenuItem("Cerrar sesión");
         otro.add(Terminar);
+        
+        JMenuItem entrarEnModoAdmin = new JMenuItem("Acceder a modo admin");
+        otro.add(entrarEnModoAdmin);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -151,6 +154,16 @@ public class Principal extends JFrame {
                 login.setVisible(true);
                 dispose(); // Cerrar la ventana actual de Principal
             }
+        });
+        
+        entrarEnModoAdmin.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		dispose();
+        		Soporte soporte = new Soporte();
+        		soporte.setVisible(true);
+        	}
         });
     }
 

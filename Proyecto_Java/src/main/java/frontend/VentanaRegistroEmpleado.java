@@ -1,11 +1,6 @@
 package frontend;
 
-import backend.modelos.ModelosApp;
-import backend.modelos.herenciaEmpleados.Empleado;
-import backend.modelos.herenciaEmpleados.Limpieza;
-import backend.modelos.herenciaEmpleados.Panadero;
-import backend.modelos.herenciaEmpleados.Turno;
-import backend.modelos.herenciaEmpleados.Vendedor;
+import backend.modelos.herenciaEmpleados.*;
 import backend.saves.Datos;
 
 import javax.swing.*;
@@ -23,6 +18,7 @@ public class VentanaRegistroEmpleado extends JFrame {
     private JTextField edadField;
     private JTextField salarioField;
     private JComboBox<Turno> turnoComboBox;
+    private JComboBox<String> tipoEmpleadoComboBox;
     private JButton registrarButton;
     private JButton cancelarButton;
 
@@ -35,7 +31,7 @@ public class VentanaRegistroEmpleado extends JFrame {
 
         // Crear el panel principal
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(7, 2, 10, 10));
+        panel.setLayout(new GridLayout(8, 2, 10, 10));
 
         // Crear y añadir los componentes al panel
         panel.add(new JLabel("ID:"));
@@ -62,6 +58,10 @@ public class VentanaRegistroEmpleado extends JFrame {
         turnoComboBox = new JComboBox<>(Turno.values());
         panel.add(turnoComboBox);
 
+        panel.add(new JLabel("Tipo de Empleado:"));
+        tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Limpieza", "Vendedor", "Panadero"});
+        panel.add(tipoEmpleadoComboBox);
+
         registrarButton = new JButton("Registrar");
         panel.add(registrarButton);
 
@@ -75,52 +75,7 @@ public class VentanaRegistroEmpleado extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Empleado nuevoEmpleado = registrarEmpleado();
-                // instancia para llamar al metodo que agrega los datos
-                ModelosApp callbackRegistroDeEmpleados = new ModelosApp();
-                
-                if (nuevoEmpleado == null)
-                {
-                	JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR EMPLEADO", "Error de validación", JOptionPane.ERROR_MESSAGE);
-                	dispose();
-                }
-                
-                if (nuevoEmpleado instanceof Limpieza)
-                {
-                	callbackRegistroDeEmpleados.agregarEmpleadoLimpieza(
-                			nuevoEmpleado.getId(),
-                			nuevoEmpleado.getNombre(),
-                			nuevoEmpleado.getApellido(),
-                			nuevoEmpleado.getEdad(),
-                			nuevoEmpleado.getSalario(),
-                			nuevoEmpleado.getTurno()
-                			);
-                }
-                else if (nuevoEmpleado instanceof Vendedor)
-                {
-                	callbackRegistroDeEmpleados.agregarEmpleadoVendedor(
-                			nuevoEmpleado.getId(),
-                			nuevoEmpleado.getNombre(),
-                			nuevoEmpleado.getApellido(),
-                			nuevoEmpleado.getEdad(),
-                			nuevoEmpleado.getSalario(),
-                			0.05,
-                			nuevoEmpleado.getTurno()
-                			);
-                }
-                else if (nuevoEmpleado instanceof Panadero)
-                {
-                	callbackRegistroDeEmpleados.agregarEmpleadoPanadero(
-                			nuevoEmpleado.getId(),
-                			nuevoEmpleado.getNombre(),
-                			nuevoEmpleado.getApellido(),
-                			nuevoEmpleado.getEdad(),
-                			nuevoEmpleado.getSalario(),
-                			nuevoEmpleado.getTurno()
-                			);
-                }
-                	
-                JOptionPane.showMessageDialog(null, "Empleado registrado exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                registrarEmpleado();
             }
         });
 
@@ -128,12 +83,11 @@ public class VentanaRegistroEmpleado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 limpiarCampos();
-                //dispose();
             }
         });
     }
 
-    private Empleado registrarEmpleado() {
+    private void registrarEmpleado() {
         try {
             int id = Integer.parseInt(idField.getText());
             String nombre = nombreField.getText();
@@ -141,23 +95,80 @@ public class VentanaRegistroEmpleado extends JFrame {
             int edad = Integer.parseInt(edadField.getText());
             double salario = Double.parseDouble(salarioField.getText());
             Turno turno = (Turno) turnoComboBox.getSelectedItem();
+            String tipoEmpleado = (String) tipoEmpleadoComboBox.getSelectedItem();
 
             // Validación básica
             if (nombre.isEmpty() || apellido.isEmpty() || id < 0 || edad < 0 || salario < 0) {
                 JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos y ser válidos", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                // Crear un objeto Empleado
-                Empleado empleado = new Empleado(id, nombre, apellido, edad, salario, turno);
-                JOptionPane.showMessageDialog(this, "Empleado registrado con éxito:\n" + empleado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                limpiarCampos();
-                
-                return empleado;
+                return;
             }
+
+            // Validar que el ID no esté ocupado
+            if (Datos.getTablaLookUpEmpleados().containsKey(id)) {
+                JOptionPane.showMessageDialog(this, "El ID ya está ocupado. Por favor, ingrese un ID diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            switch (tipoEmpleado) {
+                case "Limpieza":
+                    agregarEmpleadoLimpieza(id, nombre, apellido, edad, salario, turno);
+                    break;
+                case "Vendedor":
+                    agregarEmpleadoVendedor(id, nombre, apellido, edad, salario, 0.05, turno);
+                    break;
+                case "Panadero":
+                    agregarEmpleadoPanadero(id, nombre, apellido, edad, salario, turno);
+                    break;
+            }
+
+            JOptionPane.showMessageDialog(this, "Empleado registrado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCampos();
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ID, Edad y Salario deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        return null;
+    }
+
+    private void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno) {
+        ArrayList<Vendedor> empleadosVendedores = Datos.getEmpleadosCajeros();
+        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
+
+        Vendedor nuevoVendedor = new Vendedor(id, nombre, apellido, edad, salario, comision, turno);
+
+        empleadosVendedores.add(nuevoVendedor);
+        Datos.setEmpleadosCajeros(empleadosVendedores);
+        empleadosMap.put(id, nuevoVendedor);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
+
+        System.out.println("Empleado vendedor agregado con éxito");
+    }
+
+    private void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno) {
+        ArrayList<Limpieza> empleadosLimpieza = Datos.getEmpleadosLimpieza();
+        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
+
+        Limpieza nuevoLimpieza = new Limpieza(id, nombre, apellido, edad, salario, turno);
+
+        empleadosLimpieza.add(nuevoLimpieza);
+        Datos.setEmpleadosLimpieza(empleadosLimpieza);
+        empleadosMap.put(id, nuevoLimpieza);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
+
+        System.out.println("Empleado de limpieza agregado con éxito");
+    }
+
+    private void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, Turno turno) {
+        ArrayList<Panadero> empleadosPanaderos = Datos.getEmpleadosPanaderos();
+        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
+
+        Panadero nuevoPanadero = new Panadero(id, nombre, apellido, edad, salario, turno);
+
+        empleadosPanaderos.add(nuevoPanadero);
+        Datos.setEmpleadosPanaderos(empleadosPanaderos);
+        empleadosMap.put(id, nuevoPanadero);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
+
+        System.out.println("Empleado panadero agregado con éxito");
     }
 
     private void limpiarCampos() {
@@ -167,6 +178,7 @@ public class VentanaRegistroEmpleado extends JFrame {
         edadField.setText("");
         salarioField.setText("");
         turnoComboBox.setSelectedIndex(0);
+        tipoEmpleadoComboBox.setSelectedIndex(0);
     }
 
     public static void main(String[] args) {

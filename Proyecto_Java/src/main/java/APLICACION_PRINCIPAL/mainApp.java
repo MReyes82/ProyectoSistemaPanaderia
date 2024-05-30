@@ -26,8 +26,8 @@ public class mainApp
         //System.out.println(new File(".").getAbsolutePath());
 
         Datos.inicializarDatos();
-        Datos.cargarElementosTEST();
-        //iniciarModulosInfo();
+        //Datos.cargarElementosTEST();
+        iniciarModulosInfo();
 
         //Producto producto1 = new Producto(1, "Sabritas", 55, 60);
 
@@ -40,7 +40,7 @@ public class mainApp
         Login comienzoDelPrograma = new Login();
         comienzoDelPrograma.iniciarFrontEnd();
         
-        System.out.println("Adios!");
+        
         
         //cargarDatos();
         //TODO: incorporar una tecnica de manejo de evetos para evitar que se cargue a los archivos inmediatamente
