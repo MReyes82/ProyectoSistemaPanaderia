@@ -43,7 +43,8 @@ public class Principal extends JFrame {
     /**
      * Create the frame.
      */
-    public Principal() {
+    public Principal() 
+    {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1028, 768);
         
@@ -117,9 +118,17 @@ public class Principal extends JFrame {
         // Agregar ActionListener para abrir la ventana Tipo_bebida
         AgregarPorID.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TipoBebida tipoBebida = new TipoBebida();
+            	AgregarProductoCanasta tipoBebida = new AgregarProductoCanasta();
                 tipoBebida.setVisible(true);
             }
+        });
+        
+        AgregarPorNombre.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		
+        	}
         });
         
         // Agregar ActionListener para abrir la ventana Tipo_de_panes

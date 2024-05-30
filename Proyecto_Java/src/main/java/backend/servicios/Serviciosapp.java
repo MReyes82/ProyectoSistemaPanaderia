@@ -7,6 +7,9 @@ import backend.saves.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+
 import java.io.*;
 
 /*
@@ -23,13 +26,15 @@ public class Serviciosapp
 
         if (clientes == null)
         {
-            System.out.println("No hay clientes registrados");
+            //System.out.println("No hay clientes registrados");
+            JOptionPane.showMessageDialog(null, "ERROR: NO HAY CLIENTES REGISTRADOS", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
 
         if (!clientes.containsKey(identificadorACliente))
         {
             System.out.println("Cliente no encontrado");
+            JOptionPane.showMessageDialog(null, "ERROR: CLIENTE NO ENCONTRADO", "Error", JOptionPane.ERROR_MESSAGE);
             identificadorACliente = -1;
         }
 
@@ -76,7 +81,8 @@ public class Serviciosapp
         // debido a la falta de stock de todos los productos
         if (totalVenta == 0)
         {
-            System.out.println("No se pudo realizar la venta");
+        	JOptionPane.showMessageDialog(null, "ERROR: NO SE PUDO REALIZAR LA VENTA", "Error", JOptionPane.ERROR_MESSAGE);
+        	//System.out.println("No se pudo realizar la venta");
             return -1;
         }
         // agregar la venta al historial del cajero
@@ -99,7 +105,7 @@ public class Serviciosapp
         // validacion de que se haya realizado la venta
         if (ventaRealizada == -1 || identificadorACliente == -1)
         {
-            System.out.println("ERROR GENERANDO LA FACTURA");
+        	JOptionPane.showMessageDialog(null, "ERROR GENERANDO LA FACTURA", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -142,7 +148,8 @@ public class Serviciosapp
 
         if (productoActual.getStock() == 0)
         {
-            System.out.println("STOCK INSUFICIENTE: " + productoActual.getNombre());
+            //System.out.println("STOCK INSUFICIENTE: " + productoActual.getNombre());
+            JOptionPane.showMessageDialog(null, "STOCK INSUFICIENTE: " + productoActual.getNombre(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
