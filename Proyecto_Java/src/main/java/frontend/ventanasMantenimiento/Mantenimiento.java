@@ -1,20 +1,17 @@
-package frontend;
+package frontend.ventanasMantenimiento;
 
 import backend.saves.Datos;
 import java.util.ArrayList;
 
 import backend.modelos.Producto;
-import backend.modelos.herenciaEmpleados.*;
-import backend.servicios.*;
+import frontend.ventanasLogin.Soporte;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextPane;
 
 public class Mantenimiento extends JFrame {
 

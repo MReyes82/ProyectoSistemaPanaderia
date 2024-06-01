@@ -1,6 +1,7 @@
-package frontend;
+package frontend.ventanasLogin;
 
-import java.awt.EventQueue;
+import frontend.ventanasMantenimiento.Mantenimiento;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;

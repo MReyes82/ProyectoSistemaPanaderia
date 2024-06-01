@@ -1,4 +1,4 @@
-package frontend;
+package frontend.ventanasMantenimiento;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -8,7 +8,6 @@ import java.util.List;
 
 
 import backend.saves.*;
-import backend.modelos.*;
 import backend.modelos.herenciaEmpleados.Empleado;
 
 public class VentanaListaEmpleados extends JFrame {

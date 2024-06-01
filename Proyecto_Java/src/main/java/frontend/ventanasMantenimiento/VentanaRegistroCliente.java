@@ -1,4 +1,4 @@
-package frontend;
+package frontend.ventanasMantenimiento;
 
 import backend.modelos.Cliente;
 import backend.saves.Datos;

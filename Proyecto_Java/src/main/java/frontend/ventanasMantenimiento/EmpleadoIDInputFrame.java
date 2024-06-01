@@ -1,10 +1,9 @@
-package frontend;
+package frontend.ventanasMantenimiento;
 
 import javax.swing.*;
 
 import backend.modelos.herenciaEmpleados.Empleado;
 import backend.modelos.ModelosApp;
-import backend.modelos.ModelosApp.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

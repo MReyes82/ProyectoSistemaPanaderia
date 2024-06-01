@@ -1,6 +1,5 @@
-package frontend;
+package frontend.ventanasMenuPrincipal;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import backend.modelos.Producto;
 import backend.saves.*;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 

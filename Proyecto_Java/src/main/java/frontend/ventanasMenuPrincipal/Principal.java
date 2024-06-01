@@ -1,6 +1,5 @@
-package frontend;
+package frontend.ventanasMenuPrincipal;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,19 +8,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import backend.modelos.Producto;
+import frontend.ventanasLogin.Login;
+import frontend.ventanasLogin.Soporte;
 
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.Font;
 import javax.swing.JLabel;
 
 public class Principal extends JFrame {
@@ -40,12 +40,14 @@ public class Principal extends JFrame {
      * Create the frame.
      */
     public Principal() {
+    	setResizable(false);
         productosSeleccionados = new ArrayList<>();
         cantidadesSeleccionadas = new ArrayList<>();
         
         setTitle("MENU PRINCIPAL DEL SISTEMA");
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setBounds(100, 100, 1028, 768);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setBounds(100, 100, 1090, 800);
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);

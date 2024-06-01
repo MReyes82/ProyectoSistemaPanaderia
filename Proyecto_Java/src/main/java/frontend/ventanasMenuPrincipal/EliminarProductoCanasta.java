@@ -1,4 +1,4 @@
-package frontend;
+package frontend.ventanasMenuPrincipal;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

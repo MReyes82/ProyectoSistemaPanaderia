@@ -1,4 +1,4 @@
-package frontend;
+package frontend.ventanasLogin;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -16,12 +16,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
-import backend.saves.Datos;
-import backend.saves.archivosAlmacenamiento.*;
-import backend.saves.archivosClases.*;
 import APLICACION_PRINCIPAL.mainApp;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import frontend.ventanasMenuPrincipal.Principal;
 
 public class Login extends JFrame {
 
@@ -93,7 +89,7 @@ public class Login extends JFrame {
 
         // Añadir imagen
         JLabel lblImagen = new JLabel(new ImageIcon("src/main/java/backend/saves/image.jpeg"));
-        lblImagen.setBounds(376, 50, 256, 266); // Ajusta la posición y tamaño de la imagen
+        lblImagen.setBounds(376, 59, 256, 244); // Ajusta la posición y tamaño de la imagen
         contentPane.add(lblImagen);
 
         JLabel lblNewLabel = new JLabel("Usuario");

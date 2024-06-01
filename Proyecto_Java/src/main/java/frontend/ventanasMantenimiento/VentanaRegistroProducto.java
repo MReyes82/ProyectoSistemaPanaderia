@@ -1,6 +1,5 @@
-package frontend;
+package frontend.ventanasMantenimiento;
 
-import backend.modelos.Cliente;
 import backend.modelos.ModelosApp;
 
 import java.awt.Color;
@@ -9,9 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,8 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import backend.modelos.Producto;
-import backend.saves.Datos;
-import backend.servicios.Inventario;
 
 public class VentanaRegistroProducto extends JFrame
 {
