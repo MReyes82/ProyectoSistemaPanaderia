@@ -3,10 +3,10 @@ package frontend.ventanasMantenimiento;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import backend.saves.*;
 import backend.modelos.herenciaEmpleados.Empleado;
 
@@ -22,8 +22,11 @@ public class VentanaListaEmpleados extends JFrame {
         inicializarComponentes();
     }
 
-    private void inicializarComponentes() {
+    private void inicializarComponentes() 
+    {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
+        //Datos.inicializarDatos();
+        //Datos.cargarElementosTEST();
 
         // Columnas de la tabla
         String[] columnas = {"ID", "Nombre", "Apellido", "Edad", "Salario", "Turno"};
@@ -42,12 +45,70 @@ public class VentanaListaEmpleados extends JFrame {
         // Llenar la tabla con los datos de los empleados
         llenarTabla();
 
-        panelPrincipal.add(scrollPane, BorderLayout.CENTER);
+        // Panel para la tabla
+        JPanel panelTabla = new JPanel();
+        panelTabla.setLayout(new BorderLayout());
+        panelTabla.setPreferredSize(new Dimension(780, 400));
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
+
+        // Botones "Cerrar", "Editar" y "Eliminar"
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnCerrar.setBackground(new Color(204, 0, 0));
+        btnCerrar.setForeground(Color.WHITE);
+        btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnEditar.setBackground(new Color(0, 153, 204));
+        btnEditar.setForeground(Color.WHITE);
+        btnEditar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = tablaEmpleados.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Acción de edición (a implementar)
+                    JOptionPane.showMessageDialog(null, "Función no implementada", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnEliminar.setBackground(new Color(204, 0, 0));
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = tablaEmpleados.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Acción de eliminación (a implementar)
+                    JOptionPane.showMessageDialog(null, "Función no implementada", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Panel para los botones
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panelBotones.add(btnEditar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnCerrar);
+
+        // Agregar los paneles al panel principal
+        panelPrincipal.add(panelTabla, BorderLayout.CENTER);
+        panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
+
         getContentPane().add(panelPrincipal);
     }
 
-    private void llenarTabla() 
-    {
+    private void llenarTabla() {
         List<Empleado> todosEmpleados = obtenerTodosLosEmpleados();
 
         for (Empleado empleado : todosEmpleados) {

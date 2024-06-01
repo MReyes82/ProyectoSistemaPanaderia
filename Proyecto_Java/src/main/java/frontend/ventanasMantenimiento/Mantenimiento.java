@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import backend.modelos.Producto;
 import frontend.ventanasLogin.Login;
 import frontend.ventanasLogin.Soporte;
+import frontend.ventanasMenuPrincipal.Principal;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -40,6 +41,15 @@ public class Mantenimiento extends JFrame {
         setBounds(100, 100, 1024, 768);
         setTitle("Ventana de mantenimiento");
 
+        /*
+        * MODULOS PARA REGISTRO DE OBJETOS
+        */
+
+        JLabel LabelRegistroDeElementos = new JLabel("Registro de elementos");
+        LabelRegistroDeElementos.setBounds(51, 85, 258, 31);
+        LabelRegistroDeElementos.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        getContentPane().add(LabelRegistroDeElementos);
+
         JButton BotonAgregarProducto = new JButton("Registrar un nuevo producto");
         BotonAgregarProducto.setBounds(51, 158, 258, 41);
         BotonAgregarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -55,7 +65,46 @@ public class Mantenimiento extends JFrame {
         });
         getContentPane().setLayout(null);
         getContentPane().add(BotonAgregarProducto);
-        
+
+        JButton BotonRegistrarEmpleado = new JButton("Registrar un empleado");
+        BotonRegistrarEmpleado.setBounds(691, 158, 258, 41);
+        BotonRegistrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonRegistrarEmpleado);
+
+        BotonRegistrarEmpleado.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                VentanaRegistroEmpleado registroEmpleado = new VentanaRegistroEmpleado();
+                registroEmpleado.setVisible(true);
+            }
+        });
+
+        JButton BotonRegistrarCliente = new JButton("Registrar datos de nuevo cliente");
+        BotonRegistrarCliente.setBounds(348, 158, 300, 41);
+        BotonRegistrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonRegistrarCliente);
+
+        BotonRegistrarCliente.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                VentanaRegistroCliente pantallaRegistrarCLiente = new VentanaRegistroCliente();
+                pantallaRegistrarCLiente.setVisible(true);
+            }
+        });
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        /*
+        * MODULOS PARA MOSTRAR DATOS
+        */
+
+        JLabel LabelMostrarDatos = new JLabel("Mostrar datos");
+        LabelMostrarDatos.setBounds(51, 244, 258, 31);
+        LabelMostrarDatos.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        getContentPane().add(LabelMostrarDatos);
+
         JButton BotonListaEmpleados = new JButton("Mostrar lista de empleados");
         BotonListaEmpleados.setBounds(51, 309, 258, 41);
         BotonListaEmpleados.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -68,41 +117,50 @@ public class Mantenimiento extends JFrame {
         		listaEmpleados.setVisible(true);
         	}
         });
-        
-        JButton BotonRegistrarEmpleado = new JButton("Registrar un empleado");
-        BotonRegistrarEmpleado.setBounds(691, 158, 258, 41);
-        BotonRegistrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonRegistrarEmpleado);
-        
-        BotonRegistrarEmpleado.addActionListener(new ActionListener() 
-        {
-        	public void actionPerformed(ActionEvent e) 
+
+        JButton BotonMostrarInventario = new JButton("Mostrar inventario");
+        BotonMostrarInventario.setBounds(383, 309, 241, 41);
+        BotonMostrarInventario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonMostrarInventario);
+
+        BotonMostrarInventario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
         	{
-        		VentanaRegistroEmpleado registroEmpleado = new VentanaRegistroEmpleado();
-        		registroEmpleado.setVisible(true);
+
         	}
         });
-        
-        JButton BotonRegistrarCliente = new JButton("Registrar datos de nuevo cliente");
-        BotonRegistrarCliente.setBounds(348, 158, 300, 41);
-        BotonRegistrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonRegistrarCliente);
-        
-        BotonRegistrarCliente.addActionListener(new ActionListener() 
-        {
-        	public void actionPerformed(ActionEvent e) 
-            {
-            	VentanaRegistroCliente pantallaRegistrarCLiente = new VentanaRegistroCliente();
-            	pantallaRegistrarCLiente.setVisible(true);
+
+        JButton BotonMostrarClientes = new JButton("Mostrar clientes registrados");
+        BotonMostrarClientes.setBounds(691, 309, 258, 41);
+        BotonMostrarClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonMostrarClientes);
+
+        JButton BotonBuscarProducto = new JButton("Buscar un  producto");
+        BotonBuscarProducto.setBounds(383, 489, 241, 41);
+        BotonBuscarProducto.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
             }
         });
+
+        BotonBuscarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonBuscarProducto);
+
+        JButton BotonBuscarCliente = new JButton("Buscar un cliente");
+        BotonBuscarCliente.setBounds(691, 489, 189, 41);
+        BotonBuscarCliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        BotonBuscarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonBuscarCliente);
         
         ////////////////////////////////////////////////////////////////////////////
         
         /*
-         * BUSQUEDA DE EMPLEADO
+         * MODULOS BUSQUEDA DE ELEMENTOS (SE BUSCA POR IDENTIFICADOR)
          */
-        
+
         JLabel LabelMostrarEmpleado = new JLabel("Busqueda de elementos");
         LabelMostrarEmpleado.setBounds(51, 421, 279, 31);
         LabelMostrarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -121,12 +179,16 @@ public class Mantenimiento extends JFrame {
         		busquedaEmpleado.setVisible(true);
         	}
         });
-        
+
         ////////////////////////////////////////////////////////////////////////////
-        
+
+        /*
+         * BOTONES DE PIE DE VENTANA
+         */
+
         JButton Cerrar = new JButton("Cerrar");
-        Cerrar.setBounds(436, 651, 135, 41);
-        Cerrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        Cerrar.setBounds(307, 676, 104, 31);
+        Cerrar.setFont(new Font("Tahoma", Font.BOLD, 15));
         Cerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Cierra la ventana actual de Mantenimiento
@@ -135,45 +197,17 @@ public class Mantenimiento extends JFrame {
             }
         });
         getContentPane().add(Cerrar);
-        
-        JLabel LabelRegistroDeElementos = new JLabel("Registro de elementos");
-        LabelRegistroDeElementos.setBounds(51, 85, 258, 31);
-        LabelRegistroDeElementos.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        getContentPane().add(LabelRegistroDeElementos);
-        
-        JLabel LabelMostrarDatos = new JLabel("Mostrar datos");
-        LabelMostrarDatos.setBounds(51, 244, 258, 31);
-        LabelMostrarDatos.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        getContentPane().add(LabelMostrarDatos);
-        
-        JButton BotonMostrarInventario = new JButton("Mostrar inventario");
-        BotonMostrarInventario.setBounds(383, 309, 241, 41);
-        BotonMostrarInventario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonMostrarInventario);
-        
-        JButton BotonMostrarClientes = new JButton("Mostrar clientes registrados");
-        BotonMostrarClientes.setBounds(691, 309, 258, 41);
-        BotonMostrarClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonMostrarClientes);
-        
-        JButton btnNewButton = new JButton("Buscar un  producto");
-        btnNewButton.setBounds(383, 489, 241, 41);
-        btnNewButton.addActionListener(new ActionListener() {
+
+        JButton BotonVolverAMenuPrincipal = new JButton("Volver a ventana principal");
+        BotonVolverAMenuPrincipal.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+                dispose();
+                Principal volverAMenuPrincipal = new Principal();
+                volverAMenuPrincipal.setVisible(true);
         	}
         });
-        
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(btnNewButton);
-        
-        JButton btnNewButton_1 = new JButton("Buscar un cliente");
-        btnNewButton_1.setBounds(691, 489, 189, 41);
-        btnNewButton_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(btnNewButton_1);
+        BotonVolverAMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 15));
+        BotonVolverAMenuPrincipal.setBounds(51, 676, 230, 31);
+        getContentPane().add(BotonVolverAMenuPrincipal);
     }
 }

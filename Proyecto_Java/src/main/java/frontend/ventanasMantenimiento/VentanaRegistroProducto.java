@@ -9,19 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import backend.modelos.Producto;
+import backend.saves.Datos;
 
 public class VentanaRegistroProducto extends JFrame
 {
@@ -41,10 +32,15 @@ public class VentanaRegistroProducto extends JFrame
     private JTextField txtStock;
     private JList<String> listProductos;
     private DefaultListModel<String> modeloLista;
+    
+    // productos que se han agregados, que se muestran en pantalla
     private ArrayList<Producto> productosRegistrados;
+    
+    // arraylist de todos los productos en el inventario
     private ArrayList<Producto> inventario;
 
-    public VentanaRegistroProducto(ArrayList<Producto> productosParametro) {
+    public VentanaRegistroProducto(ArrayList<Producto> productosParametro) 
+    {	
     	setResizable(false);
         this.inventario = productosParametro;
 
@@ -58,12 +54,12 @@ public class VentanaRegistroProducto extends JFrame
 
         JLabel lblTitulo = new JLabel("Registro de Producto");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 24));
         lblTitulo.setBounds(0, 20, 400, 30);
         contentPane.add(lblTitulo);
 
         JLabel lblId = new JLabel("ID:");
-        lblId.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblId.setBounds(50, 100, 100, 20);
         contentPane.add(lblId);
 
@@ -73,7 +69,7 @@ public class VentanaRegistroProducto extends JFrame
         txtId.setColumns(10);
 
         JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNombre.setBounds(50, 140, 100, 20);
         contentPane.add(lblNombre);
 
@@ -83,7 +79,7 @@ public class VentanaRegistroProducto extends JFrame
         txtNombre.setColumns(10);
 
         JLabel lblPrecio = new JLabel("Precio:");
-        lblPrecio.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblPrecio.setBounds(50, 180, 100, 20);
         contentPane.add(lblPrecio);
 
@@ -93,7 +89,7 @@ public class VentanaRegistroProducto extends JFrame
         txtPrecio.setColumns(10);
 
         JLabel lblStock = new JLabel("Stock:");
-        lblStock.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        lblStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblStock.setBounds(50, 220, 100, 20);
         contentPane.add(lblStock);
 
@@ -103,12 +99,14 @@ public class VentanaRegistroProducto extends JFrame
         txtStock.setColumns(10);
 
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 16));
         btnRegistrar.setBackground(new Color(0, 153, 0));
         btnRegistrar.setForeground(Color.WHITE);
-        btnRegistrar.setBounds(150, 270, 120, 35);
-        btnRegistrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnRegistrar.setBounds(79, 382, 120, 35);
+        btnRegistrar.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 registrarProducto();
             }
         });
@@ -129,14 +127,31 @@ public class VentanaRegistroProducto extends JFrame
         panelLista.add(scrollPane);
 
         productosRegistrados = new ArrayList<>();
+        
+        JButton BotonCancelar = new JButton("Cancelar");
+        BotonCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
+        BotonCancelar.setBackground(new Color(204, 0, 0));
+        BotonCancelar.setForeground(Color.WHITE);
+        BotonCancelar.setBounds(239, 381, 120, 35);
 
-        // Guardar los productos registrados al cerrar la ventana
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                //guardarProductosRegistrados();
+        BotonCancelar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (txtId.getText().isEmpty() && txtNombre.getText().isEmpty() && txtPrecio.getText().isEmpty() && txtStock.getText().isEmpty())
+                {
+                    dispose();
+
+                } else if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty()
+                        || txtPrecio.getText().isEmpty() || txtStock.getText().isEmpty()) {
+                    limpiarCampos();
+                }
+
+
             }
         });
+
+        contentPane.add(BotonCancelar);
     }
 
     private void registrarProducto() {
@@ -214,6 +229,7 @@ public class VentanaRegistroProducto extends JFrame
         txtStock.setText("");
     }
 
+    // actualizar la lista de productos que aparecen en la ventana
     private void actualizarListaProductos() {
         modeloLista.clear();
         for (Producto producto : productosRegistrados) {
@@ -224,11 +240,4 @@ public class VentanaRegistroProducto extends JFrame
             modeloLista.addElement(itemProducto);
         }
     }
-
-    /*private void guardarProductosRegistrados() {
-        // Guardar los productos registrados en el inventario
-        for (Producto producto : productosRegistrados) {
-            inventario.agregarProducto(producto);
-        }
-    }*/
 }

@@ -2,142 +2,245 @@ package frontend.ventanasMantenimiento;
 
 import backend.modelos.Cliente;
 import backend.saves.Datos;
-import backend.modelos.*;
-
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class VentanaRegistroCliente extends JFrame {
 
-    private JTextField nombreField;
-    private JTextField apellidoField;
-    private JTextField idField;
-    private JTextField telefonoField;
-    private JTextField puntosField;
-    private JButton registrarButton;
-    private JButton cancelarButton;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField txtId;
+    private JTextField txtNombre;
+    private JTextField txtApellido;
+    private JTextField txtTelefono;
+    private JTextField txtPuntos;
+    private JList<String> listClientes;
+    private DefaultListModel<String> modeloLista;
 
-    public VentanaRegistroCliente() {
-    	setResizable(false);
-        // Configuración de la ventana
-        setTitle("Registro de Cliente");
-        setSize(400, 350);
+    // Clientes que se han agregado, que se muestran en pantalla
+    private ArrayList<Cliente> clientesRegistrados;
+
+    // ArrayList de todos los clientes en el sistema
+    private ArrayList<Cliente> clientes;
+
+    public VentanaRegistroCliente() 
+    {
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setBounds(100, 100, 800, 500);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(240, 240, 240));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        // Crear el panel principal
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2, 10, 10));
+        JLabel lblTitulo = new JLabel("Registro de Cliente");
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 24));
+        lblTitulo.setBounds(0, 20, 400, 30);
+        contentPane.add(lblTitulo);
 
-        // Crear y añadir los componentes al panel
-        panel.add(new JLabel("ID:"));
-        idField = new JTextField();
-        panel.add(idField);
+        JLabel lblId = new JLabel("ID:");
+        lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblId.setBounds(50, 100, 100, 20);
+        contentPane.add(lblId);
 
-        panel.add(new JLabel("Nombre:"));
-        nombreField = new JTextField();
-        panel.add(nombreField);
+        txtId = new JTextField();
+        txtId.setBounds(150, 100, 200, 25);
+        contentPane.add(txtId);
+        txtId.setColumns(10);
 
-        panel.add(new JLabel("Apellido:"));
-        apellidoField = new JTextField();
-        panel.add(apellidoField);
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNombre.setBounds(50, 140, 100, 20);
+        contentPane.add(lblNombre);
 
-        panel.add(new JLabel("Teléfono:"));
-        telefonoField = new JTextField();
-        panel.add(telefonoField);
+        txtNombre = new JTextField();
+        txtNombre.setBounds(150, 140, 200, 25);
+        contentPane.add(txtNombre);
+        txtNombre.setColumns(10);
 
-        panel.add(new JLabel("Puntos:"));
-        puntosField = new JTextField();
-        panel.add(puntosField);
+        JLabel lblApellido = new JLabel("Apellido:");
+        lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblApellido.setBounds(50, 180, 100, 20);
+        contentPane.add(lblApellido);
 
-        registrarButton = new JButton("Registrar");
-        panel.add(registrarButton);
+        txtApellido = new JTextField();
+        txtApellido.setBounds(150, 180, 200, 25);
+        contentPane.add(txtApellido);
+        txtApellido.setColumns(10);
 
-        cancelarButton = new JButton("Cancelar");
-        panel.add(cancelarButton);
+        JLabel lblTelefono = new JLabel("Teléfono:");
+        lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblTelefono.setBounds(50, 220, 100, 20);
+        contentPane.add(lblTelefono);
 
-        // Añadir el panel a la ventana
-        getContentPane().add(panel);
+        txtTelefono = new JTextField();
+        txtTelefono.setBounds(150, 220, 200, 25);
+        contentPane.add(txtTelefono);
+        txtTelefono.setColumns(10);
 
-        // Añadir ActionListeners a los botones
-        registrarButton.addActionListener(new ActionListener() {
-            @Override
+        JLabel lblPuntos = new JLabel("Puntos:");
+        lblPuntos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblPuntos.setBounds(50, 260, 100, 20);
+        contentPane.add(lblPuntos);
+
+        txtPuntos = new JTextField();
+        txtPuntos.setBounds(150, 260, 200, 25);
+        contentPane.add(txtPuntos);
+        txtPuntos.setColumns(10);
+
+        JButton btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnRegistrar.setBackground(new Color(0, 153, 0));
+        btnRegistrar.setForeground(Color.WHITE);
+        btnRegistrar.setBounds(79, 382, 120, 35);
+        btnRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Cliente clienteARegistrar = registrarCliente();
-                
-                // revisamos que no haya un id repetido en el hashmap.
-                HashMap<Integer, Cliente> lookUp = Datos.getTablaLookUpClientes();
-                
-                if (lookUp.containsKey(clienteARegistrar.getId()) )
-                {
-                	JOptionPane.showMessageDialog(null, "ERROR: EL ID PROPORCIONADO YA ESTA EN USO.", "Error", JOptionPane.ERROR_MESSAGE);
-                	dispose();
-                }
-                
-                ModelosApp callbackModelosApp = new ModelosApp();
-                callbackModelosApp.registrarCliente(clienteARegistrar.getId(), 
-                									clienteARegistrar.getNombre(), 
-                									clienteARegistrar.getApellido(),
-                									clienteARegistrar.getPuntos(),
-                									clienteARegistrar.getTelefono());
-                
-                limpiarCampos();
-                dispose();
-                
+                registrarCliente();
             }
         });
+        contentPane.add(btnRegistrar);
 
-        cancelarButton.addActionListener(new ActionListener() {
-            @Override
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        btnCancelar.setBackground(new Color(204, 0, 0));
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBounds(239, 381, 120, 35);
+        btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                limpiarCampos();
+                if (txtId.getText().isEmpty() && txtNombre.getText().isEmpty() &&
+                        txtApellido.getText().isEmpty() && txtTelefono.getText().isEmpty() &&
+                        txtPuntos.getText().isEmpty()) {
+                    // Si TODOS los campos están vacíos, el botón de cancelar actúa como botón de dispose.
+                    dispose();
+                } else {
+                    // Si al menos un campo está vacío, se limpian los campos
+                    limpiarCampos();
+                }
+            }
+        });
+        contentPane.add(btnCancelar);
+
+        JPanel panelLista = new JPanel();
+        panelLista.setBorder(BorderFactory.createTitledBorder("Clientes Registrados"));
+        panelLista.setBounds(400, 80, 350, 300);
+        contentPane.add(panelLista);
+        panelLista.setLayout(null);
+
+        modeloLista = new DefaultListModel<>();
+        listClientes = new JList<>(modeloLista);
+        listClientes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+
+        JScrollPane scrollPane = new JScrollPane(listClientes);
+        scrollPane.setBounds(10, 20, 330, 270);
+        panelLista.add(scrollPane);
+
+        clientesRegistrados = new ArrayList<>();
+
+        // Guardar los clientes registrados al cerrar la ventana
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // guardarClientesRegistrados();
             }
         });
     }
 
-    private Cliente registrarCliente() {
-        try {
-            int id = Integer.parseInt(idField.getText());
-            String nombre = nombreField.getText();
-            String apellido = apellidoField.getText();
-            String telefono = telefonoField.getText();
-            double puntos = Double.parseDouble(puntosField.getText());
+    private void registrarCliente() {
+        if (validarDatos()) {
+            int id = Integer.parseInt(txtId.getText());
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String telefono = txtTelefono.getText();
+            double puntos = Double.parseDouble(txtPuntos.getText());
 
-            // Validación básica
-            if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || id < 0 || puntos < 0) {
-                JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos y ser válidos", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                // Crear un objeto Cliente
-                Cliente cliente = new Cliente(id, nombre, apellido, telefono, puntos);
-                //JOptionPane.showMessageDialog(this, "Cliente registrado con éxito:" + cliente.getNombreCompleto() + "\n", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                limpiarCampos();
-                
-                return cliente;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID y Puntos deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+            // Crear un nuevo cliente con los datos ingresados
+            Cliente nuevoCliente = new Cliente(id, nombre, apellido, telefono, puntos);
+
+            // Agregar el cliente al sistema
+            clientes = Datos.getClientes();
+            HashMap<Integer, Cliente> clientesMap = Datos.getTablaLookUpClientes();
+
+            clientes.add(nuevoCliente);
+            Datos.setClientes(clientes);
+            clientesMap.put(id, nuevoCliente);
+            Datos.setTablaLookUpClientes(clientesMap);
+
+            // Agregar el cliente a la lista de clientes registrados que se muestra en pantalla
+            clientesRegistrados.add(nuevoCliente);
+            // Actualizar la lista de clientes en la ventana
+            actualizarListaClientes();
+
+            // Mostrar un mensaje de éxito en una ventana emergente
+            JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpiar los campos de texto
+            limpiarCampos();
         }
-        
-        return null;
+    }
+
+    private boolean validarDatos() {
+        // Validar que todos los campos estén completos
+        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() ||
+                txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() ||
+                txtPuntos.getText().isEmpty()) {
+            mostrarMensajeError("Por favor, complete todos los campos");
+            return false;
+        }
+
+        // Validar que el ID sea un número entero válido
+        try {
+            Integer.parseInt(txtId.getText());
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("El ID debe ser un número entero válido");
+            return false;
+        }
+
+        // Validar que los puntos sean un número decimal válido
+        try {
+            Double.parseDouble(txtPuntos.getText());
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("Los puntos deben ser un número decimal válido");
+            return false;
+        }
+
+        // Validar que el ID no esté ocupado
+        if (Datos.getTablaLookUpClientes().containsKey(Integer.parseInt(txtId.getText()))) {
+            mostrarMensajeError("El ID ya está ocupado. Por favor, ingrese un ID diferente.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void mostrarMensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error de validación", JOptionPane.ERROR_MESSAGE);
     }
 
     private void limpiarCampos() {
-        idField.setText("");
-        nombreField.setText("");
-        apellidoField.setText("");
-        telefonoField.setText("");
-        puntosField.setText("");
+        txtId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtPuntos.setText("");
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new VentanaRegistroCliente().setVisible(true);
-            }
-        });
+    // Actualizar la lista de clientes que aparecen en la ventana
+    private void actualizarListaClientes() {
+        modeloLista.clear();
+        for (Cliente cliente : clientesRegistrados) {
+            String itemCliente = "ID: " + cliente.getId() +
+                    " | Nombre: " + cliente.getNombre() +
+                    " | Apellido: " + cliente.getApellido() +
+                    " | Teléfono: " + cliente.getTelefono() +
+                    " | Puntos: " + cliente.getPuntos();
+            modeloLista.addElement(itemCliente);
+        }
     }
 }

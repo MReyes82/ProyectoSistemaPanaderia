@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
 * Todos los metodos asumen que los datos han sido validados previamente
 * Las unicas validaciones realizadas son para verificar si el elemento a modificar o eliminar existe
  */
+
+// TODO: ARREGLAR MODULOS DE REGISTRO DE OBJETOS
+
 public class ModelosApp
 {
     public ModelosApp()
@@ -44,6 +47,7 @@ public class ModelosApp
         empleados.add(nuevoVendedor);
         Datos.setEmpleadosCajeros(empleados);
         empleadosMap.put(id, nuevoVendedor);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
 
 
         System.out.println("Empleado vendedor agregado con exito");
@@ -52,7 +56,7 @@ public class ModelosApp
 
     public void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        /*ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
         Vendedor nuevoVendedor = new Vendedor(
@@ -68,7 +72,7 @@ public class ModelosApp
         empleados.add(nuevoVendedor);
         Datos.setEmpleadosCajeros(empleados);
         empleadosMap.put(id, nuevoVendedor);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
+        Datos.setTablaLookUpEmpleados(empleadosMap);*/
 
         System.out.println("Empleado de limpieza agregado con exito");
         return;
@@ -76,7 +80,7 @@ public class ModelosApp
 
     public void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        /*ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
         Vendedor nuevoVendedor = new Vendedor(
@@ -92,7 +96,7 @@ public class ModelosApp
         empleados.add(nuevoVendedor);
         Datos.setEmpleadosCajeros(empleados);
         empleadosMap.put(id, nuevoVendedor);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
+        Datos.setTablaLookUpEmpleados(empleadosMap);*/
 
         System.out.println("Empleado panadero agregado con exito");
         return;

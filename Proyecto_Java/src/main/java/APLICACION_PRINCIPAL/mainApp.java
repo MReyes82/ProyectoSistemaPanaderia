@@ -3,10 +3,14 @@ package APLICACION_PRINCIPAL;
 import backend.saves.Datos;
 import frontend.ventanasLogin.Login;
 
+// NOTAS: MODULOS DE LECTURA Y ESCRITURA DESACTIVADOS
+// CON FINES DE PRUEBA, SE CARGARAN DATOS DE PRUEBA
+
 public class mainApp {
     public static void main(String[] args) {
         Datos.inicializarDatos();
-        iniciarModulosInfo();
+        Datos.cargarElementosTEST();
+        //iniciarModulosInfo();
 
         Login comienzoDelPrograma = new Login();
         comienzoDelPrograma.iniciarFrontEnd();
@@ -33,6 +37,7 @@ public class mainApp {
         try {
             Datos.guardarDatosArrayList();
             Datos.guardarDatosHashMap();
+
         } catch (Exception e) {
             System.out.println("Archivos vacios, no se pudo guardar la informacion");
             e.printStackTrace();

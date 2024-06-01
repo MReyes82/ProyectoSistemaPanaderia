@@ -30,14 +30,16 @@ public class Login extends JFrame {
     private String user = "user";
     private String pass = "user123";
 
-    public void iniciarFrontEnd() {
+    public void iniciarFrontEnd()
+    {
         EventQueue.invokeLater(
-                new Runnable() {
-                    public void run() {
+                new Runnable()
+                {
+                    public void run()
+                    {
                         try {
                             Login pantallaInicio = new Login();
                             pantallaInicio.setVisible(true);
-                            // hola tilin
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -70,8 +72,8 @@ public class Login extends JFrame {
                         null, null, null);
 
                 if (confirmacion == JOptionPane.YES_OPTION) {
-                    ClassLoader classLoader = mainApp.class.getClassLoader();
-                    mainApp.cargarDatos(classLoader);
+                    //ClassLoader classLoader = mainApp.class.getClassLoader();
+                    //mainApp.cargarDatos(classLoader);
                     System.out.println("Adios!");
 
                     // System.exit es el comando que se utiliza para cerrar la aplicacion totalmente
