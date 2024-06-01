@@ -45,6 +45,7 @@ public class VentanaRegistroProducto extends JFrame
     private ArrayList<Producto> inventario;
 
     public VentanaRegistroProducto(ArrayList<Producto> productosParametro) {
+    	setResizable(false);
         this.inventario = productosParametro;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

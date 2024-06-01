@@ -30,6 +30,7 @@ public class Soporte extends JFrame
 
     public Soporte() 
     {
+    	setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
         setTitle("LOGIN DE ADMINISTRADOR");

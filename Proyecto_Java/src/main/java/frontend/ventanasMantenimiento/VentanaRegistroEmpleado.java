@@ -23,6 +23,7 @@ public class VentanaRegistroEmpleado extends JFrame {
     private JButton cancelarButton;
 
     public VentanaRegistroEmpleado() {
+    	setResizable(false);
         // Configuración de la ventana
         setTitle("Registro de Empleado");
         setSize(400, 400);
@@ -69,7 +70,7 @@ public class VentanaRegistroEmpleado extends JFrame {
         panel.add(cancelarButton);
 
         // Añadir el panel a la ventana
-        add(panel);
+        getContentPane().add(panel);
 
         // Añadir ActionListeners a los botones
         registrarButton.addActionListener(new ActionListener() {

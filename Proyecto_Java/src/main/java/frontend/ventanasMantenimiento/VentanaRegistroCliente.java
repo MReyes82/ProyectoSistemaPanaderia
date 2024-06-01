@@ -21,6 +21,7 @@ public class VentanaRegistroCliente extends JFrame {
     private JButton cancelarButton;
 
     public VentanaRegistroCliente() {
+    	setResizable(false);
         // Configuración de la ventana
         setTitle("Registro de Cliente");
         setSize(400, 350);
@@ -59,7 +60,7 @@ public class VentanaRegistroCliente extends JFrame {
         panel.add(cancelarButton);
 
         // Añadir el panel a la ventana
-        add(panel);
+        getContentPane().add(panel);
 
         // Añadir ActionListeners a los botones
         registrarButton.addActionListener(new ActionListener() {
