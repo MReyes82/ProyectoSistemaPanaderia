@@ -1,23 +1,26 @@
 package frontend.ventanasMantenimiento;
 
+import APLICACION_PRINCIPAL.mainApp;
 import backend.saves.Datos;
+
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import backend.modelos.Producto;
+import frontend.ventanasLogin.Login;
 import frontend.ventanasLogin.Soporte;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 public class Mantenimiento extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -28,14 +31,15 @@ public class Mantenimiento extends JFrame {
                 }
             }
         });
-    }*/
+    }
 
     public Mantenimiento() {
     	setResizable(false);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // la unica forma de salir es regresar al login de soporte y cerrar la aplicacion
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
         setTitle("Ventana de mantenimiento");
-        
+
         JButton BotonAgregarProducto = new JButton("Registrar un nuevo producto");
         BotonAgregarProducto.setBounds(51, 158, 258, 41);
         BotonAgregarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
