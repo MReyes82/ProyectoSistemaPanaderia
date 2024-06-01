@@ -1,14 +1,12 @@
 package frontend;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
+
 import backend.modelos.Producto;
 
 public class EliminarProductoCanasta extends JFrame 
@@ -19,11 +17,12 @@ public class EliminarProductoCanasta extends JFrame
     private JComboBox<Producto> comboBoxProductos;
     private Principal principal;
 
-    public EliminarProductoCanasta(Principal principal) {
+    public EliminarProductoCanasta(Principal principal)
+    {
         this.principal = principal;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 200);
+        setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -32,17 +31,27 @@ public class EliminarProductoCanasta extends JFrame
         ArrayList<Producto> productosSeleccionados = principal.getProductosSeleccionados();
 
         comboBoxProductos = new JComboBox<>(productosSeleccionados.toArray(new Producto[0]));
-        comboBoxProductos.setBounds(27, 50, 290, 22);
+        comboBoxProductos.setBounds(27, 119, 290, 22);
         contentPane.add(comboBoxProductos);
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(172, 100, 89, 23);
+        btnEliminar.setBounds(172, 200, 89, 23);
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 eliminarProductoSeleccionado();
             }
         });
         contentPane.add(btnEliminar);
+
+        JLabel LabelAddProducto = new JLabel("Seleccione un producto para eliminar");
+        LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        LabelAddProducto.setBounds(66, 22, 302, 23);
+        contentPane.add(LabelAddProducto);
+
+        JLabel LabelSeleccionarProducto = new JLabel("Seleccionar producto:");
+        LabelSeleccionarProducto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        LabelSeleccionarProducto.setBounds(27, 86, 141, 22);
+        contentPane.add(LabelSeleccionarProducto);
     }
 
     private void eliminarProductoSeleccionado() 

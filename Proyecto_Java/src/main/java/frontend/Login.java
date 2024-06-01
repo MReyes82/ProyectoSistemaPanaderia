@@ -20,6 +20,8 @@ import backend.saves.Datos;
 import backend.saves.archivosAlmacenamiento.*;
 import backend.saves.archivosClases.*;
 import APLICACION_PRINCIPAL.mainApp;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class Login extends JFrame {
 
@@ -42,6 +44,7 @@ public class Login extends JFrame {
     			try {
     				Login pantallaInicio = new Login();
     				pantallaInicio.setVisible(true);
+    				// hola tilin
     				
     			} catch (Exception e) {
     				e.printStackTrace();
@@ -90,12 +93,12 @@ public class Login extends JFrame {
 
         // Añadir imagen
         JLabel lblImagen = new JLabel(new ImageIcon("src/main/java/backend/saves/image.jpeg"));
-        lblImagen.setBounds(380, 50, 256, 256); // Ajusta la posición y tamaño de la imagen
+        lblImagen.setBounds(376, 50, 256, 266); // Ajusta la posición y tamaño de la imagen
         contentPane.add(lblImagen);
 
         JLabel lblNewLabel = new JLabel("Usuario");
-        lblNewLabel.setBounds(440, 320, 143, 20);
-        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        lblNewLabel.setBounds(450, 311, 107, 29);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
         contentPane.add(lblNewLabel);
         
         Usuario = new JTextField();
@@ -104,8 +107,8 @@ public class Login extends JFrame {
         Usuario.setColumns(10);
         
         JLabel Contra = new JLabel("Contraseña");
-        Contra.setBounds(400, 392, 213, 29);
-        Contra.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        Contra.setBounds(422, 392, 163, 29);
+        Contra.setFont(new Font("Tahoma", Font.PLAIN, 30));
         contentPane.add(Contra);
         
         contra_usuario = new JPasswordField();
@@ -123,8 +126,8 @@ public class Login extends JFrame {
         contentPane.add(btnNewButton_1);
         
         JLabel lblNewLabel_1 = new JLabel("Bienvenido");
-        lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 20));
-        lblNewLabel_1.setBounds(436, 12, 152, 39);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel_1.setBounds(428, 12, 152, 39);
         contentPane.add(lblNewLabel_1);
         
         Ingreso_usuario.addActionListener(new ActionListener() {

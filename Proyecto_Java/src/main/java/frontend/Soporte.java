@@ -15,7 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Soporte extends JFrame {
+public class Soporte extends JFrame 
+{
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -26,20 +27,8 @@ public class Soporte extends JFrame {
     private final String adminUser = "admin";
     private final String adminPass = "1234";
 
-    /*public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Soporte frame = new Soporte();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }*/
-
-    public Soporte() {
+    public Soporte() 
+    {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
         setTitle("LOGIN DE ADMINISTRADOR");
@@ -77,31 +66,31 @@ public class Soporte extends JFrame {
         });
         
         JLabel lblNewLabel = new JLabel("Usuario Admin");
-        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-        lblNewLabel.setBounds(387, 264, 193, 20);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel.setBounds(407, 255, 193, 29);
         contentPane.add(lblNewLabel);
         
         admin = new JTextField();
-        admin.setBounds(380, 295, 212, 20);
+        admin.setBounds(398, 295, 212, 20);
         contentPane.add(admin);
         admin.setColumns(10);
         
         JLabel clave = new JLabel("Contraseña Admin");
-        clave.setFont(new Font("Times New Roman", Font.BOLD, 30));
-        clave.setBounds(361, 337, 251, 29);
+        clave.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        clave.setBounds(378, 337, 251, 29);
         contentPane.add(clave);
         
         clave_admin = new JPasswordField();
-        clave_admin.setBounds(380, 377, 212, 20);
+        clave_admin.setBounds(398, 377, 212, 20);
         contentPane.add(clave_admin);
         
         JButton aceptar_admin = new JButton("Ingresar");
         aceptar_admin.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        aceptar_admin.setBounds(369, 435, 235, 39);
+        aceptar_admin.setBounds(386, 435, 235, 39);
         contentPane.add(aceptar_admin);
         
-        JButton retornoLogin = new JButton("Regresar");
-        retornoLogin.setBounds(26, 631, 161, 66);
+        JButton retornoLogin = new JButton("Regresar a login de usuario");
+        retornoLogin.setBounds(26, 658, 302, 39);
         retornoLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
         contentPane.add(retornoLogin);
         

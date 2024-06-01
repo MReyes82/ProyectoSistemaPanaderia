@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import backend.modelos.Producto;
 import backend.saves.*;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class AgregarProductoCanasta extends JFrame {
 
@@ -24,27 +26,15 @@ public class AgregarProductoCanasta extends JFrame {
     private JSpinner spinnerCantidad;
     private ArrayList<Producto> productosDisponibles;
     private Principal principal;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    AgregarProductoCanasta frame = new AgregarProductoCanasta(null);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    private JLabel LabelAddProducto;
+    private JLabel LabelSeleccionarProducto;
+    private JLabel LabelCantidad;
 
     /**
      * Create the frame.
      */
     public AgregarProductoCanasta(Principal principal) {
+    	setResizable(false);
         this.principal = principal;
         productosDisponibles = Datos.getInventario();
 
@@ -56,21 +46,36 @@ public class AgregarProductoCanasta extends JFrame {
         contentPane.setLayout(null);
 
         comboBoxProductos = new JComboBox<>(productosDisponibles.toArray(new Producto[0]));
-        comboBoxProductos.setBounds(27, 109, 290, 22);
+        comboBoxProductos.setBounds(27, 119, 290, 22);
         contentPane.add(comboBoxProductos);
 
         spinnerCantidad = new JSpinner();
-        spinnerCantidad.setBounds(327, 110, 50, 20);
+        spinnerCantidad.setBounds(337, 120, 50, 20);
         contentPane.add(spinnerCantidad);
 
         JButton btnAceptar = new JButton("Aceptar");
-        btnAceptar.setBounds(172, 174, 89, 23);
+        btnAceptar.setBounds(172, 200, 89, 23);
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 procesarCompra();
             }
         });
         contentPane.add(btnAceptar);
+        
+        LabelAddProducto = new JLabel("Seleccione un producto y su cantidad");
+        LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        LabelAddProducto.setBounds(66, 22, 302, 23);
+        contentPane.add(LabelAddProducto);
+        
+        LabelSeleccionarProducto = new JLabel("Seleccionar producto:");
+        LabelSeleccionarProducto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        LabelSeleccionarProducto.setBounds(27, 86, 141, 22);
+        contentPane.add(LabelSeleccionarProducto);
+        
+        LabelCantidad = new JLabel("Cantidad:");
+        LabelCantidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        LabelCantidad.setBounds(337, 95, 70, 14);
+        contentPane.add(LabelCantidad);
     }
 
     private void procesarCompra() {

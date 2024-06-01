@@ -21,25 +21,10 @@ public class Recibo extends JFrame {
     private double total;
 
     /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Recibo frame = new Recibo();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
      * Create the frame.
      */
-    public Recibo() {
+    public Recibo() 
+    {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -70,18 +55,16 @@ public class Recibo extends JFrame {
         });
         scrollPane.setViewportView(table);
 
-        JLabel lblNewLabel = new JLabel("Total");
-        lblNewLabel.setBounds(42, 194, 46, 14);
-        contentPane.add(lblNewLabel);
-
-        JButton Imprime_resibo = new JButton("Imprimir");
-        Imprime_resibo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        JButton ImprimirRecibo = new JButton("Imprimir");
+        ImprimirRecibo.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
             }
         });
-        Imprime_resibo.setBounds(301, 209, 89, 23);
-        contentPane.add(Imprime_resibo);
+        ImprimirRecibo.setBounds(301, 209, 89, 23);
+        contentPane.add(ImprimirRecibo);
     }
 
     public JTable getTable() {
