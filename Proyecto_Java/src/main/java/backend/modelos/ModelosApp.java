@@ -29,7 +29,7 @@ public class ModelosApp
         // constructor
     }
 
-    public void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno)
+    public void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
         ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
@@ -40,7 +40,6 @@ public class ModelosApp
             apellido,
             edad,
             salario,
-            comision,
             turno
         );
 
@@ -56,23 +55,22 @@ public class ModelosApp
 
     public void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        /*ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        ArrayList<Limpieza> empleados = Datos.getEmpleadosLimpieza();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        Vendedor nuevoVendedor = new Vendedor(
+        Limpieza nuevoLimpieza = new Limpieza(
             id,
             nombre,
             apellido,
             edad,
             salario,
-            0.0,
             turno
         );
 
-        empleados.add(nuevoVendedor);
-        Datos.setEmpleadosCajeros(empleados);
-        empleadosMap.put(id, nuevoVendedor);
-        Datos.setTablaLookUpEmpleados(empleadosMap);*/
+        empleados.add(nuevoLimpieza);
+        Datos.setEmpleadosLimpieza(empleados);
+        empleadosMap.put(id, nuevoLimpieza);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
 
         System.out.println("Empleado de limpieza agregado con exito");
         return;
@@ -80,23 +78,22 @@ public class ModelosApp
 
     public void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        /*ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        ArrayList<Panadero> empleados = Datos.getEmpleadosPanaderos();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        Vendedor nuevoVendedor = new Vendedor(
+        Panadero nuevoPanadero = new Panadero(
             id,
             nombre,
             apellido,
             edad,
             salario,
-            0.0,
             turno
         );
 
-        empleados.add(nuevoVendedor);
-        Datos.setEmpleadosCajeros(empleados);
-        empleadosMap.put(id, nuevoVendedor);
-        Datos.setTablaLookUpEmpleados(empleadosMap);*/
+        empleados.add(nuevoPanadero);
+        Datos.setEmpleadosPanaderos(empleados);
+        empleadosMap.put(id, nuevoPanadero);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
 
         System.out.println("Empleado panadero agregado con exito");
         return;

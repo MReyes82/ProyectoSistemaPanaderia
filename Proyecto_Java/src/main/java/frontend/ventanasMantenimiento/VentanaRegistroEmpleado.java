@@ -1,5 +1,6 @@
 package frontend.ventanasMantenimiento;
 
+import backend.modelos.ModelosApp;
 import backend.modelos.herenciaEmpleados.*;
 import backend.saves.Datos;
 
@@ -184,29 +185,30 @@ public class VentanaRegistroEmpleado extends JFrame
             Turno turno = (Turno) turnoComboBox.getSelectedItem();
             String tipoEmpleado = (String) tipoEmpleadoComboBox.getSelectedItem();
 
+            ModelosApp callbackModelosApp = new ModelosApp();
+
+
             // Agregar el empleado al sistema
             switch (tipoEmpleado) 
             {
                 case "Limpieza":
-                    //nuevoEmpleado = new Limpieza(id, nombre, apellido, edad, salario, turno);
-                    agregarEmpleadoLimpieza(id, nombre, apellido, edad, salario, turno);
+                    callbackModelosApp.agregarEmpleadoLimpieza(id, nombre, apellido, edad, salario, turno);
                     
                     break;
                     
                 case "Vendedor":
-                    //nuevoEmpleado = new Vendedor(id, nombre, apellido, edad, salario, 0.05, turno);
-                    agregarEmpleadoVendedor(id, nombre, apellido, edad, salario, 0.05, turno);
+                    callbackModelosApp.agregarEmpleadoVendedor(id, nombre, apellido, edad, salario, turno);
 
                     break;
                     
                 case "Panadero":
-                    //nuevoEmpleado = new Panadero(id, nombre, apellido, edad, salario, turno);
-                    agregarEmpleadoPanadero(id, nombre, apellido, edad, salario, turno);
+                    callbackModelosApp.agregarEmpleadoPanadero(id, nombre, apellido, edad, salario, turno);
 
                     break;
             }
 
             // Actualizar la lista de empleados en la ventana
+            empleadosRegistrados.add(new Empleado(id, nombre, apellido, edad, salario, turno));
             actualizarListaEmpleados();
 
             // Mostrar un mensaje de éxito en una ventana emergente
@@ -286,53 +288,5 @@ public class VentanaRegistroEmpleado extends JFrame
                     " | Turno: " + empleado.getTurno();
             modeloLista.addElement(itemEmpleado);
         }
-    }
-    
-    private void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno) {
-        ArrayList<Vendedor> empleadosVendedores = Datos.getEmpleadosCajeros();
-        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
-
-        Vendedor nuevoVendedor = new Vendedor(id, nombre, apellido, edad, salario, comision, turno);
-
-        empleadosVendedores.add(nuevoVendedor);
-        Datos.setEmpleadosCajeros(empleadosVendedores);
-        empleadosMap.put(id, nuevoVendedor);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
-        
-        empleadosRegistrados.add(nuevoVendedor);
-
-        System.out.println("Empleado vendedor agregado con éxito");
-    }
-
-    private void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno) {
-        ArrayList<Limpieza> empleadosLimpieza = Datos.getEmpleadosLimpieza();
-        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
-
-        Limpieza nuevoLimpieza = new Limpieza(id, nombre, apellido, edad, salario, turno);
-
-        empleadosLimpieza.add(nuevoLimpieza);
-        Datos.setEmpleadosLimpieza(empleadosLimpieza);
-        empleadosMap.put(id, nuevoLimpieza);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
-        
-        empleadosRegistrados.add(nuevoLimpieza);
-
-        System.out.println("Empleado de limpieza agregado con éxito");
-    }
-
-    private void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, Turno turno) {
-        ArrayList<Panadero> empleadosPanaderos = Datos.getEmpleadosPanaderos();
-        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
-
-        Panadero nuevoPanadero = new Panadero(id, nombre, apellido, edad, salario, turno);
-
-        empleadosPanaderos.add(nuevoPanadero);
-        Datos.setEmpleadosPanaderos(empleadosPanaderos);
-        empleadosMap.put(id, nuevoPanadero);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
-        
-        empleadosRegistrados.add(nuevoPanadero);
-
-        System.out.println("Empleado panadero agregado con éxito");
     }
 }

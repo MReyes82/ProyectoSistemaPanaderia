@@ -1,6 +1,7 @@
 package frontend.ventanasMantenimiento;
 
 import backend.modelos.Cliente;
+import backend.modelos.ModelosApp;
 import backend.saves.Datos;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -142,14 +143,6 @@ public class VentanaRegistroCliente extends JFrame {
         panelLista.add(scrollPane);
 
         clientesRegistrados = new ArrayList<>();
-
-        // Guardar los clientes registrados al cerrar la ventana
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                // guardarClientesRegistrados();
-            }
-        });
     }
 
     private void registrarCliente() {
@@ -164,14 +157,8 @@ public class VentanaRegistroCliente extends JFrame {
             Cliente nuevoCliente = new Cliente(id, nombre, apellido, telefono, puntos);
 
             // Agregar el cliente al sistema
-            clientes = Datos.getClientes();
-            HashMap<Integer, Cliente> clientesMap = Datos.getTablaLookUpClientes();
-
-            clientes.add(nuevoCliente);
-            Datos.setClientes(clientes);
-            clientesMap.put(id, nuevoCliente);
-            Datos.setTablaLookUpClientes(clientesMap);
-
+            ModelosApp callbackRegistrarCliente = new ModelosApp();
+            callbackRegistrarCliente.registrarCliente(id, nombre, apellido, puntos, telefono);
             // Agregar el cliente a la lista de clientes registrados que se muestra en pantalla
             clientesRegistrados.add(nuevoCliente);
             // Actualizar la lista de clientes en la ventana

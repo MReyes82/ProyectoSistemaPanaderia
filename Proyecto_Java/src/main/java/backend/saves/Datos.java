@@ -223,7 +223,7 @@ public class Datos {
         Cliente cliente2 = new Cliente(3, "José", "Hernández", "123456789", 15.0);
 
         // Crear objeto de prueba para Empleado
-        Vendedor empleado = new Vendedor(1, "Juan", "López", 30, 10.00, 0.05, Turno.MATUTINO);
+        Vendedor empleado = new Vendedor(1, "Juan", "López", 30, 10.00, Turno.MATUTINO);
 
         // Crear objeto de prueba para Limpieza
         Limpieza limpieza = new Limpieza(2, "Ana", "Gómez", 25, 8.00, Turno.VESPERTINO);
@@ -231,7 +231,7 @@ public class Datos {
         // Crear objeto de prueba para Panadero
         Panadero panadero = new Panadero(3, "Pedro", "Martínez", 35, 12.00, Turno.MATUTINO);
 
-        Vendedor vendedor = new Vendedor(4, "Lucía", "Fernández", 28, 9.00, 0.10, Turno.MATUTINO);
+        Vendedor vendedor = new Vendedor(4, "Lucía", "Fernández", 28, 9.00, Turno.MATUTINO);
 
         inventario.add(pastel);
         inventario.add(pan);

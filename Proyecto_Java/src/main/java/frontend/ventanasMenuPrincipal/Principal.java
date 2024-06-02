@@ -1,28 +1,19 @@
 package frontend.ventanasMenuPrincipal;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import backend.modelos.Producto;
 import frontend.ventanasLogin.Login;
 import frontend.ventanasLogin.Soporte;
 
-import javax.swing.JButton;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 
 public class Principal extends JFrame {
 
@@ -94,7 +85,13 @@ public class Principal extends JFrame {
         aceptar_pagar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                calcularTotalCuenta();
+                if (productosSeleccionados.size() == 0)
+                {
+                    // Mostrar un JOptionPane con un mensaje de error
+                    JOptionPane.showMessageDialog(null, "No hay productos agregados en el carrito");
+                } else {
+                    calcularTotalCuenta();
+                }
             }
         });
         
@@ -113,9 +110,7 @@ public class Principal extends JFrame {
         {
         	public void actionPerformed(ActionEvent e)
             {
-                productosSeleccionados.clear();
-                cantidadesSeleccionadas.clear();
-                modeloTabla.setRowCount(0);
+                limpiarCarrito();
             }
         });
         
@@ -248,5 +243,15 @@ public class Principal extends JFrame {
         
         // Mostrar el recibo
         recibo.setVisible(true);
+        limpiarCarrito();
+    }
+
+    public void limpiarCarrito()
+    {
+        productosSeleccionados.clear();
+        cantidadesSeleccionadas.clear();
+        modeloTabla.setRowCount(0);
+
+        return;
     }
 }

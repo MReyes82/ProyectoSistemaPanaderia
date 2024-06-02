@@ -17,16 +17,12 @@ public class EmpleadoIDInputFrame extends JFrame {
 
     public EmpleadoIDInputFrame() 
     {
-    	// cargar datos de prueba
-        //Datos.inicializarDatos();
-        //Datos.cargarElementosTEST();
-    	
-    	
         // Configuración del JFrame
         setTitle("Entrada de Identificador de Empleado");
         setSize(454, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         // Crear panel para los componentes
         JPanel panel = new JPanel();
@@ -100,15 +96,5 @@ public class EmpleadoIDInputFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, "Entrada invalida, Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        // Ejecutar la interfaz gráfica en el hilo de despacho de eventos
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new EmpleadoIDInputFrame();
-            }
-        });
     }
 }

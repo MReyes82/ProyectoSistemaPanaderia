@@ -151,11 +151,4 @@ public class VentanaListaEmpleados extends JFrame {
 
         return todosEmpleados;
     }
-
-    public static void main(String[] args) {
-        // Mostrar la ventana
-        SwingUtilities.invokeLater(() -> {
-            new VentanaListaEmpleados().setVisible(true);
-        });
-    }
 }

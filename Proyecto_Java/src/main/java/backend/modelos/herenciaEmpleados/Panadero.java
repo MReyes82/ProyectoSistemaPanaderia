@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Panadero extends Empleado
 {
-    //ArrayList<Producto> especialidades;
+    //public String especialidad;
 
     public Panadero() {
         super();
@@ -22,20 +22,7 @@ public class Panadero extends Empleado
         Turno turno
     ){
         super(id, nombre, apellido, edad, salario, turno);
-        //this.especialidades = especialidades;
     }
-
-    /*public ArrayList<Producto> getEspecialidades() {
-        return this.especialidades;
-    }*/
-
-    /*public void agregarEspecialidad(Producto especialidad) {
-        this.especialidades.add(especialidad);
-    }*/
-
-    /*public void setEspecialidades(ArrayList<Producto> especialidades) {
-        this.especialidades = especialidades;
-    }*/
 
     @Override
     public String toString() {

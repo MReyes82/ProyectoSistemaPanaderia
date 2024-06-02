@@ -21,19 +21,6 @@ public class Mantenimiento extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Mantenimiento frame = new Mantenimiento();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     public Mantenimiento() {
     	setResizable(false);
         // la unica forma de salir es regresar al login de soporte y cerrar la aplicacion

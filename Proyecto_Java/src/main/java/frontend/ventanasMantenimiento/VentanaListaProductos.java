@@ -148,11 +148,4 @@ public class VentanaListaProductos extends JFrame {
     private List<Producto> obtenerTodosLosProductos() {
         return Datos.getInventario();
     }
-
-    public static void main(String[] args) {
-        // Mostrar la ventana
-        SwingUtilities.invokeLater(() -> {
-            new VentanaListaProductos().setVisible(true);
-        });
-    }
 }

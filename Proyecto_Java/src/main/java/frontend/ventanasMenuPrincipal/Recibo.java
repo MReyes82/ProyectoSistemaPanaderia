@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class Recibo extends JFrame {
 
@@ -54,14 +55,17 @@ public class Recibo extends JFrame {
         scrollPane.setViewportView(table);
 
         JButton ImprimirRecibo = new JButton("Imprimir");
+        ImprimirRecibo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         ImprimirRecibo.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
             {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
+
+                dispose();
             }
         });
-        ImprimirRecibo.setBounds(301, 209, 89, 23);
+        ImprimirRecibo.setBounds(289, 209, 101, 23);
         contentPane.add(ImprimirRecibo);
     }
 

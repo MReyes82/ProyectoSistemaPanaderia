@@ -147,11 +147,4 @@ public class VentanaListaClientes extends JFrame {
     private List<Cliente> obtenerTodosLosClientes() {
         return Datos.getClientes();
     }
-
-    public static void main(String[] args) {
-        // Mostrar la ventana
-        SwingUtilities.invokeLater(() -> {
-            new VentanaListaClientes().setVisible(true);
-        });
-    }
 }

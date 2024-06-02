@@ -5,12 +5,10 @@ import java.util.ArrayList;
 
 public class Vendedor extends Empleado
 {
-    private double comision;
     private ArrayList<Venta> ventasRealizadas;
 
     public Vendedor() {
         super();
-        this.comision = 0.0;
         this.ventasRealizadas = new ArrayList<Venta>();
     }
 
@@ -20,20 +18,10 @@ public class Vendedor extends Empleado
         String apellido,
         int edad,
         double salario,
-        double comision,
         Turno turno
     ){
         super(id, nombre, apellido, edad, salario, turno);
-        this.comision = comision;
         this.ventasRealizadas = new ArrayList<Venta>();
-    }
-
-    public double getComision() {
-        return this.comision;
-    }
-
-    public void setComision(double comision) {
-        this.comision = comision;
     }
 
     public ArrayList<Venta> getVentasRealizadas() {
