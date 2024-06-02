@@ -28,6 +28,15 @@ public class Producto implements Serializable
         this.stock = stock;
     }
 
+    // constructor para realizar copias de productos
+    public Producto(Producto producto)
+    {
+        this.id = producto.getId();
+        this.nombre = producto.getNombre();
+        this.precio = producto.getPrecio();
+        this.stock = producto.getStock();
+    }
+
     public int getId() {
         return this.id;
     }

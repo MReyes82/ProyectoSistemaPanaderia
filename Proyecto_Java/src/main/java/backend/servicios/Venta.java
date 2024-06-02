@@ -11,36 +11,33 @@ public class Venta implements Serializable
 {
     private int id;
     private Date fecha;
-    private Cliente cliente;
-
+    private int idACliente;
     //private ArrayList<Producto> productosAdquiridos;
     private double totalVenta;
-    private Vendedor identificadorVendedor; // referenci al vendedor que realizo la venta
+    private int idAVendedor; // referenci al vendedor que realizo la venta
 
     public Venta()
     {
         this.id = -1;
         this.fecha = new Date();
-        this.cliente = new Cliente();
+        this.idACliente = -1;
         //this.productosAdquiridos = new ArrayList<Producto>();
         this.totalVenta = 0;
-        this.identificadorVendedor = new Vendedor();
+        this.idAVendedor = -1;
     }
 
     public Venta(
         int id,
         Date fecha,
-        Cliente cliente,
-        //ArrayList<Producto> productosAdquiridos,
+        int idACliente,
         double totalVenta,
-        Vendedor identificadorVendedor
+        int idAVendedor
     ){
         this.id = id;
         this.fecha = fecha;
-        this.cliente = cliente;
-        //this.productosAdquiridos = productosAdquiridos;
+        this.idACliente = idACliente;
         this.totalVenta = totalVenta;
-        this.identificadorVendedor = identificadorVendedor;
+        this.idAVendedor = idAVendedor;
     }
 
     public int getId() {
@@ -59,15 +56,19 @@ public class Venta implements Serializable
         this.fecha = fecha;
     }
 
-    public Cliente getCliente() {
-        return this.cliente;
-    }
+    public int getIdACliente() {
+		return idACliente;
+	}
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+	public void setIdACliente(int idACliente) {
+		this.idACliente = idACliente;
+	}
 
-    public void setTotalVente(double totalVenta)
+	public void setTotalVenta(double totalVenta) {
+		this.totalVenta = totalVenta;
+	}
+
+	public void setTotalVente(double totalVenta)
     {
     	this.totalVenta = totalVenta;
     }
@@ -77,11 +78,11 @@ public class Venta implements Serializable
     	return this.totalVenta;
     }
 
-    public Vendedor getIdentificadorVendedor() {
-        return this.identificadorVendedor;
-    }
+	public int getIdAVendedor() {
+		return idAVendedor;
+	}
 
-    public void setIdentificadorVendedor(Vendedor identificadorVendedor) {
-        this.identificadorVendedor = identificadorVendedor;
-    }
+	public void setIdAVendedor(int idAVendedor) {
+		this.idAVendedor = idAVendedor;
+	}
 }

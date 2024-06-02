@@ -8,9 +8,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
+import java.awt.Window.Type;
 
 public class Recibo extends JFrame {
 
@@ -18,12 +19,14 @@ public class Recibo extends JFrame {
     private JPanel contentPane;
     private JTable table;
     private double total;
+    private Principal principal;
 
     /**
      * Create the frame.
      */
-    public Recibo() 
-    {
+    public Recibo(Principal principal) {
+        this.principal = principal;
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -38,15 +41,15 @@ public class Recibo extends JFrame {
 
         table = new JTable();
         table.setModel(new DefaultTableModel(
-            new Object[][] {
-                {null, null, null},
-            },
-            new String[] {
-                "Producto", "Cantidad", "Costo"
-            }
+                new Object[][] {
+                        {null, null, null},
+                },
+                new String[] {
+                        "Producto", "Cantidad", "Costo"
+                }
         ) {
             boolean[] columnEditables = new boolean[] {
-                false, false, false
+                    false, false, false
             };
             public boolean isCellEditable(int row, int column) {
                 return columnEditables[column];
@@ -56,17 +59,54 @@ public class Recibo extends JFrame {
 
         JButton ImprimirRecibo = new JButton("Imprimir");
         ImprimirRecibo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        ImprimirRecibo.addActionListener(new ActionListener() 
+        ImprimirRecibo.setBackground(new Color(0, 153,204));
+        ImprimirRecibo.setForeground(Color.WHITE);
+
+        ImprimirRecibo.addActionListener(new ActionListener()
         {
-            public void actionPerformed(ActionEvent e) 
+            public void actionPerformed(ActionEvent e)
             {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
-
+                principal.actualizarInventarioReal();
                 dispose();
             }
         });
         ImprimirRecibo.setBounds(289, 209, 101, 23);
         contentPane.add(ImprimirRecibo);
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        btnCancelar.setBackground(new Color(204, 0, 0));
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBounds(32, 209, 101, 23);
+        contentPane.add(btnCancelar);
+
+        btnCancelar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                int confirmacion = JOptionPane.showConfirmDialog(Recibo.this,
+                        "¿Está seguro que desea cancelar la compra?",
+                        "Cancelar compra", JOptionPane.YES_NO_OPTION);
+
+                if (confirmacion == JOptionPane.YES_OPTION)
+                {
+                    dispose();
+                    int confirmacionLimpiarCarrito = JOptionPane.showConfirmDialog(Recibo.this,
+                            "¿Desea limpiar el carrito?",
+                            "Limpiar carrito", JOptionPane.YES_NO_OPTION);
+
+                    if (confirmacionLimpiarCarrito == JOptionPane.YES_OPTION) 
+                    {
+                        principal.limpiarCarrito();
+                    }
+
+                } else
+                {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
 
     public JTable getTable() {

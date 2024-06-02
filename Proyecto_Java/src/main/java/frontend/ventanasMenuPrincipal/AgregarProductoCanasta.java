@@ -16,6 +16,8 @@ import backend.modelos.Producto;
 import backend.saves.*;
 
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
 
 public class AgregarProductoCanasta extends JFrame {
@@ -33,10 +35,11 @@ public class AgregarProductoCanasta extends JFrame {
     /**
      * Create the frame.
      */
-    public AgregarProductoCanasta(Principal principal) {
-    	setResizable(false);
+    public AgregarProductoCanasta(Principal principal) 
+    {
+        setResizable(false);
         this.principal = principal;
-        productosDisponibles = Datos.getInventario();
+        productosDisponibles = new ArrayList<>(principal.getCopiaInventario().values());
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -54,45 +57,62 @@ public class AgregarProductoCanasta extends JFrame {
         contentPane.add(spinnerCantidad);
 
         JButton btnAceptar = new JButton("Aceptar");
-        btnAceptar.setBounds(172, 200, 89, 23);
+        btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        btnAceptar.setBounds(96, 198, 102, 30);
+        btnAceptar.setBackground(new Color(0, 153, 0));
+        btnAceptar.setForeground(Color.WHITE);
         btnAceptar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 procesarCompra();
             }
         });
         contentPane.add(btnAceptar);
-        
+
         LabelAddProducto = new JLabel("Seleccione un producto y su cantidad");
         LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
         LabelAddProducto.setBounds(66, 22, 302, 23);
         contentPane.add(LabelAddProducto);
-        
+
         LabelSeleccionarProducto = new JLabel("Seleccionar producto:");
         LabelSeleccionarProducto.setFont(new Font("Tahoma", Font.PLAIN, 14));
         LabelSeleccionarProducto.setBounds(27, 86, 141, 22);
         contentPane.add(LabelSeleccionarProducto);
-        
+
         LabelCantidad = new JLabel("Cantidad:");
         LabelCantidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
         LabelCantidad.setBounds(337, 95, 70, 14);
         contentPane.add(LabelCantidad);
+        
+        JButton cancelar = new JButton("Cancelar");
+        cancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        cancelar.setBackground(new Color(204, 0,0));
+        cancelar.setForeground(Color.WHITE);
+        cancelar.setBounds(221, 198, 102, 30);
+        contentPane.add(cancelar);
+        
+        cancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                dispose();
+            }
+        });
     }
 
-    private void procesarCompra() {
+    private void procesarCompra() 
+    {
         Producto productoSeleccionado = (Producto) comboBoxProductos.getSelectedItem();
-        if (productoSeleccionado != null) {
+        if (productoSeleccionado != null) 
+        {
             int cantidad = (Integer) spinnerCantidad.getValue();
-            if (cantidad > 0 && cantidad <= productoSeleccionado.getStock()) {
+            
+            if (cantidad > 0 && cantidad <= productoSeleccionado.getStock()) 
+            {
                 double total = cantidad * productoSeleccionado.getPrecio();
                 productoSeleccionado.setStock(productoSeleccionado.getStock() - cantidad);
-                
-                //Datos.setProducto(productoSeleccionado);
-                HashMap<Integer, Producto> tablaActualizada = Datos.getTablaLookUpProductos();
-                tablaActualizada.put(productoSeleccionado.getId(), productoSeleccionado);
-                Datos.setTablaLookUpProductos(tablaActualizada);
-                
 
-                if (principal != null) {
+                if (principal != null) 
+                {
                     principal.agregarProductoATabla(productoSeleccionado, cantidad, total);
                     dispose();
                 }

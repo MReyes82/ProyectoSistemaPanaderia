@@ -172,13 +172,6 @@ public class ModelosApp
         return;
     }
 
-    public void actualizarStock()
-    {
-        // Este metodo se manda a llamar en la ventana de ventas
-        // SOLO tras generar la venta.
-
-    }
-
     public void registrarCliente(int id, String nombre, String apellido, double puntos, String telefono)
     {
         ArrayList<Cliente> clientes = Datos.getClientes();

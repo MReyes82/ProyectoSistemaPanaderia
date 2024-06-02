@@ -10,17 +10,15 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-import java.io.*;
-
 /*
 * Metodos relacionados con funciones para la realizacion de ventas
 * generacion de facturas y manejo de inventario
  */
 
-public class Serviciosapp
+public class ServiciosApp
 {
     // regresa el total de la venta para poder usarla en la generacion de facturas
-    public double crearVenta(int idVenta, int identificadorACliente, Vendedor cajeroQueRealizaVenta)
+    public double crearVenta(int idVenta, int identificadorACliente, int idCajeroQueRealizaVenta)
     {
         HashMap<Integer, Cliente> clientes = Datos.getTablaLookUpClientes();
 
@@ -61,9 +59,9 @@ public class Serviciosapp
         Venta nuevaVenta = new Venta(
             idVenta,
             fecha,
-            cliente,
+            identificadorACliente,
             0.0,//total,
-                cajeroQueRealizaVenta
+            idCajeroQueRealizaVenta
         );
 
         double totalVenta = 0.0;
@@ -81,7 +79,7 @@ public class Serviciosapp
             return -1;
         }
         // agregar la venta al historial del cajero
-        agregarVentaACajero(cajeroQueRealizaVenta, nuevaVenta);
+        //agregarVentaACajero(cajeroQueRealizaVenta, nuevaVenta);
         // actualizar el inventario
         Datos.setTablaLookUpProductos(inventario);
 
@@ -93,7 +91,7 @@ public class Serviciosapp
         return totalVenta;
     }
 
-    public void generarFactura(int idVenta, int identificadorACliente, double totalVenta, Vendedor cajeroQueRealizaVenta)
+    public void generarFactura(int idVenta, int identificadorACliente, double totalVenta, int cajeroQueRealizaVenta)
     {
         double ventaRealizada = crearVenta(idVenta, identificadorACliente, cajeroQueRealizaVenta);
 
@@ -108,7 +106,7 @@ public class Serviciosapp
 
         Factura facturaVentaRealizada = new Factura(
             idVenta,
-            ventaRecienCreada.getCliente(),
+            identificadorACliente,
             ventaRecienCreada,
             ventaRealizada
         );
@@ -133,27 +131,31 @@ public class Serviciosapp
 
     // metodo para actualizar el inventario despues de una venta
     // regresa true si se actualizo correctamente
-    public Boolean actualizarInventario(Producto productoActual, HashMap<Integer, Producto> tablaLookUpProductos)
+    public void actualizarInventario(ArrayList<Producto> productosSeleccionados)
     {
-        // NOTA:
-        // Se asume que el producto actual ya existe en el inventario
-        // Ademas, las validaciones de stock se realiza razones practicas
-        // A nivel de mayor escabilidad, no es necesario validar el stock
-        // Pues solo se podra vender productos que esten en el inventario fisico
+        /*
+        REFACTOR: se cambio la implementacion anterior
+        */
 
-        if (productoActual.getStock() == 0)
+        // actualizamos la tabla original de productos, usando la lista de productos seleccionados
+        // los cuales, ya tienen el stock modificado a la que sera la nueva cantidad
+        HashMap<Integer, Producto> tablaLookUpProductos = Datos.getTablaLookUpProductos();
+        ArrayList<Producto> productos = Datos.getInventario();
+        for (Producto producto : productosSeleccionados)
         {
-            //System.out.println("STOCK INSUFICIENTE: " + productoActual.getNombre());
-            JOptionPane.showMessageDialog(null, "STOCK INSUFICIENTE: " + productoActual.getNombre(), "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+            // sobreescribimos el producto en la tabla original
+            // usando el mismo id, la implementacion de HashMap
+            // se encarga de sobreescribir el producto
+            tablaLookUpProductos.put(producto.getId(), producto);
+
+            // actualizamos el producto en la lista de productos
+            tablaLookUpProductos.put(producto.getId(), producto);
         }
 
-        // restamos uno ya que el objeto de Producto que recibe como parametro
-        // pertene a un ArrayList en el cual se repite el producto
-        // de acuerdo a la cantidad que se desea comprar
-        productoActual.setStock(productoActual.getStock() - 1);
-        tablaLookUpProductos.put(productoActual.getId(), productoActual);
+        // actualizamos la tabla de productos
+        Datos.setTablaLookUpProductos(tablaLookUpProductos);
+        Datos.setInventario(productos);
 
-        return true;
+        return;
     }
 }

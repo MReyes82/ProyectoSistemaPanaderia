@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import backend.modelos.Producto;
 
-public class EliminarProductoCanasta extends JFrame 
+public class EliminarProductoCanasta extends JFrame
 {
 
     private static final long serialVersionUID = 1L;
@@ -35,13 +35,36 @@ public class EliminarProductoCanasta extends JFrame
         contentPane.add(comboBoxProductos);
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(172, 200, 89, 23);
-        btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        btnEliminar.setBounds(96, 198, 102, 30);
+        btnEliminar.setBackground(new Color(254, 0, 0));
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 eliminarProductoSeleccionado();
             }
         });
         contentPane.add(btnEliminar);
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        btnCancelar.setBounds(221, 198, 102, 30);
+        btnCancelar.setBackground(new Color(255, 255, 255));
+        btnCancelar.setForeground(Color.RED);
+
+        btnCancelar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                dispose();
+            }
+        });
+
+        contentPane.add(btnCancelar);
+
+
 
         JLabel LabelAddProducto = new JLabel("Seleccione un producto para eliminar");
         LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -54,10 +77,10 @@ public class EliminarProductoCanasta extends JFrame
         contentPane.add(LabelSeleccionarProducto);
     }
 
-    private void eliminarProductoSeleccionado() 
+    private void eliminarProductoSeleccionado()
     {
         Producto productoSeleccionado = (Producto) comboBoxProductos.getSelectedItem();
-        if (productoSeleccionado != null) 
+        if (productoSeleccionado != null)
         {
             principal.eliminarProductoDeTabla(productoSeleccionado);
             JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
