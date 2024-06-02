@@ -7,29 +7,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import backend.saves.*;
-import backend.modelos.herenciaEmpleados.Empleado;
+import backend.saves.Datos;
+import backend.modelos.Cliente;
 
-public class VentanaListaEmpleados extends JFrame {
-    private JTable tablaEmpleados;
+public class VentanaListaClientes extends JFrame {
+    private JTable tablaClientes;
     private DefaultTableModel modeloTabla;
+    private List<Cliente> listaClientes;
 
-    public VentanaListaEmpleados() {
-        setTitle("Lista de Empleados");
+    public VentanaListaClientes() 
+    {
+        setTitle("Lista de Clientes");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         inicializarComponentes();
     }
 
-    private void inicializarComponentes() 
-    {
+    private void inicializarComponentes() {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
+        // cargar datos de prueba
         //Datos.inicializarDatos();
         //Datos.cargarElementosTEST();
-
+        
         // Columnas de la tabla
-        String[] columnas = {"ID", "Nombre", "Apellido", "Edad", "Salario", "Turno"};
+        String[] columnas = {"ID", "Nombre", "Apellido", "Teléfono", "Puntos"};
 
         // Modelo de la tabla
         modeloTabla = new DefaultTableModel(columnas, 0) {
@@ -39,10 +41,10 @@ public class VentanaListaEmpleados extends JFrame {
             }
         };
 
-        tablaEmpleados = new JTable(modeloTabla);
-        JScrollPane scrollPane = new JScrollPane(tablaEmpleados);
+        tablaClientes = new JTable(modeloTabla);
+        JScrollPane scrollPane = new JScrollPane(tablaClientes);
 
-        // Llenar la tabla con los datos de los empleados
+        // Llenar la tabla con los datos de los clientes
         llenarTabla();
 
         // Panel para la tabla
@@ -68,14 +70,13 @@ public class VentanaListaEmpleados extends JFrame {
         btnEditar.setForeground(Color.WHITE);
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tablaEmpleados.getSelectedRow();
+                int selectedRow = tablaClientes.getSelectedRow();
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    Cliente clienteSeleccionado = listaClientes.get(selectedRow);
                     // Acción de edición (a implementar)
-                    Empleado empleadoSeleccionado = obtenerTodosLosEmpleados().get(selectedRow);
-                    VentanaEditarEmpleado editar = new VentanaEditarEmpleado(empleadoSeleccionado);
-                    editar.setVisible(true);
+                    // Aquí puedes utilizar clienteSeleccionado para editarlo
                 }
             }
         });
@@ -85,13 +86,17 @@ public class VentanaListaEmpleados extends JFrame {
         btnEliminar.setBackground(new Color(204, 0, 0));
         btnEliminar.setForeground(Color.WHITE);
         btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = tablaEmpleados.getSelectedRow();
-                if (selectedRow == -1) {
+            public void actionPerformed(ActionEvent e) 
+            {
+                int selectedRow = tablaClientes.getSelectedRow();
+                if (selectedRow == -1) 
+                {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+                    
                 } else {
+                    Cliente clienteSeleccionado = listaClientes.get(selectedRow);
                     // Acción de eliminación (a implementar)
-                    JOptionPane.showMessageDialog(null, "Función no implementada", "Error", JOptionPane.ERROR_MESSAGE);
+                    // Aquí puedes utilizar clienteSeleccionado para eliminarlo
                 }
             }
         });
@@ -111,41 +116,30 @@ public class VentanaListaEmpleados extends JFrame {
     }
 
     private void llenarTabla() {
-        List<Empleado> todosEmpleados = obtenerTodosLosEmpleados();
+        List<Cliente> todosClientes = obtenerTodosLosClientes();
+        listaClientes = new ArrayList<>();
 
-        for (Empleado empleado : todosEmpleados) {
+        for (Cliente cliente : todosClientes) {
             Object[] fila = {
-                    empleado.getId(),
-                    empleado.getNombre(),
-                    empleado.getApellido(),
-                    empleado.getEdad(),
-                    empleado.getSalario(),
-                    empleado.getTurno()
+                    cliente.getId(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getTelefono(),
+                    cliente.getPuntos()
             };
             modeloTabla.addRow(fila);
+            listaClientes.add(cliente); // Agregar el cliente a la lista
         }
     }
 
-    private List<Empleado> obtenerTodosLosEmpleados() {
-        List<Empleado> todosEmpleados = new ArrayList<>();
-
-        if (Datos.getEmpleadosLimpieza() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosLimpieza());
-        }
-        if (Datos.getEmpleadosPanaderos() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosPanaderos());
-        }
-        if (Datos.getEmpleadosCajeros() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosCajeros());
-        }
-
-        return todosEmpleados;
+    private List<Cliente> obtenerTodosLosClientes() {
+        return Datos.getClientes();
     }
 
     public static void main(String[] args) {
         // Mostrar la ventana
         SwingUtilities.invokeLater(() -> {
-            new VentanaListaEmpleados().setVisible(true);
+            new VentanaListaClientes().setVisible(true);
         });
     }
 }

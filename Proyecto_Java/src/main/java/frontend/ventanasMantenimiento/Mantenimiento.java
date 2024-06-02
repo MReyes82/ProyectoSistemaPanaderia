@@ -126,7 +126,8 @@ public class Mantenimiento extends JFrame {
         BotonMostrarInventario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-
+                VentanaListaProductos listaProductos = new VentanaListaProductos();
+                listaProductos.setVisible(true);
         	}
         });
 
@@ -135,26 +136,14 @@ public class Mantenimiento extends JFrame {
         BotonMostrarClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
         getContentPane().add(BotonMostrarClientes);
 
-        JButton BotonBuscarProducto = new JButton("Buscar un  producto");
-        BotonBuscarProducto.setBounds(383, 489, 241, 41);
-        BotonBuscarProducto.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
+        BotonMostrarClientes.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		VentanaListaClientes listaClientes = new VentanaListaClientes();
+        		listaClientes.setVisible(true);
+        	}
         });
 
-        BotonBuscarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonBuscarProducto);
-
-        JButton BotonBuscarCliente = new JButton("Buscar un cliente");
-        BotonBuscarCliente.setBounds(691, 489, 189, 41);
-        BotonBuscarCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        BotonBuscarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        getContentPane().add(BotonBuscarCliente);
-        
         ////////////////////////////////////////////////////////////////////////////
         
         /*
@@ -179,6 +168,34 @@ public class Mantenimiento extends JFrame {
         		busquedaEmpleado.setVisible(true);
         	}
         });
+
+        JButton BotonBuscarProducto = new JButton("Buscar un  producto");
+        BotonBuscarProducto.setBounds(383, 489, 241, 41);
+        BotonBuscarProducto.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            	ProductoIDInputFrame busquedaProducto = new ProductoIDInputFrame();
+                busquedaProducto.setVisible(true);
+            }
+        });
+
+        BotonBuscarProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonBuscarProducto);
+
+        JButton BotonBuscarCliente = new JButton("Buscar un cliente");
+        BotonBuscarCliente.setBounds(691, 489, 189, 41);
+        BotonBuscarCliente.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            	ClienteIDInputFrame busquedaCliente = new ClienteIDInputFrame();
+            	busquedaCliente.setVisible(true);
+            }
+        });
+
+        BotonBuscarCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        getContentPane().add(BotonBuscarCliente);
 
         ////////////////////////////////////////////////////////////////////////////
 

@@ -102,12 +102,36 @@ public class ModelosApp
         return;
     }
 
+    public Cliente buscarCliente(int id)
+    {
+        HashMap<Integer, Cliente> clientesMap = Datos.getTablaLookUpClientes();
+
+        if (!clientesMap.containsKey(id))
+        {
+            return null;
+        }
+
+        return clientesMap.get(id);
+    }
+
+    public Producto buscarProducto(int id)
+    {
+        HashMap<Integer, Producto> productosMap = Datos.getTablaLookUpProductos();
+
+        if (!productosMap.containsKey(id))
+        {
+            return null;
+        }
+
+        return productosMap.get(id);
+    }
+
     public Empleado buscarEmpleado(int id)
     {
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        if (!empleadosMap.containsKey(id)) {
-            JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!empleadosMap.containsKey(id))
+        {
             return null;
         }
 

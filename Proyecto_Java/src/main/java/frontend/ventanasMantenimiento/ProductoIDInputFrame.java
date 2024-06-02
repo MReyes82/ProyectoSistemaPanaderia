@@ -1,29 +1,28 @@
 package frontend.ventanasMantenimiento;
 
 import javax.swing.*;
-
-import backend.modelos.herenciaEmpleados.Empleado;
-import backend.saves.Datos;
-import backend.modelos.ModelosApp;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EmpleadoIDInputFrame extends JFrame {
+import backend.modelos.Producto;
+import backend.saves.Datos;
+import backend.modelos.ModelosApp;
 
+public class ProductoIDInputFrame extends JFrame
+{
     private JTextField idField;
     private JLabel messageLabel;
 
-    public EmpleadoIDInputFrame() 
+    public ProductoIDInputFrame()
     {
     	// cargar datos de prueba
         //Datos.inicializarDatos();
         //Datos.cargarElementosTEST();
-    	
-    	
+
+
         // Configuración del JFrame
-        setTitle("Entrada de Identificador de Empleado");
+        setTitle("Entrada de Identificador de Producto");
         setSize(454, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -55,60 +54,49 @@ public class EmpleadoIDInputFrame extends JFrame {
         // Añadir panel al JFrame
         getContentPane().add(panel);
 
-        JLabel lblNewLabel = new JLabel("Ingrese el identificador del empleado");
+        JLabel lblNewLabel = new JLabel("Ingrese el identificador del producto");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lblNewLabel.setBounds(85, 48, 268, 25);
         panel.add(lblNewLabel);
 
         JButton BotonCancelar = new JButton("Cancelar");
+        BotonCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
+        BotonCancelar.setBackground(new Color(204, 0, 0));
+        BotonCancelar.setForeground(Color.WHITE);
+        BotonCancelar.setBounds(239, 139, 100, 30);
         BotonCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        BotonCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
-        BotonCancelar.setBackground(new Color(204, 0, 0));
-        BotonCancelar.setForeground(Color.WHITE);
-        BotonCancelar.setBounds(239, 139, 100, 30);
         panel.add(BotonCancelar);
 
-        // Hacer visible el JFrame
         setVisible(true);
     }
 
-    // Listener para el botón de enviar
-    private class SubmitButtonListener implements ActionListener {
+    public class SubmitButtonListener implements ActionListener
+    {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             ModelosApp callbackModelosApp = new ModelosApp();
             String input = idField.getText();
+
             try {
                 int id = Integer.parseInt(input);
-                if (id >= 0) {
-                    Empleado empleadoBusqueda = callbackModelosApp.buscarEmpleado(id);
+                Producto producto = callbackModelosApp.buscarProducto(id);
 
-                    if (empleadoBusqueda != null) {
-                        new VentanaEmpleado(empleadoBusqueda);
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (producto != null)
+                {
+                    new VentanaProducto(producto);
+                    dispose();
+                    
                 } else {
-                    JOptionPane.showMessageDialog(null, "El identificador debe ser un número entero positivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Entrada invalida, Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        // Ejecutar la interfaz gráfica en el hilo de despacho de eventos
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new EmpleadoIDInputFrame();
-            }
-        });
     }
 }

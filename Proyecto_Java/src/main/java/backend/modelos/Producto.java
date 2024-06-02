@@ -2,7 +2,7 @@ package backend.modelos;
 
 import java.io.Serializable;
 
-public class Producto implements Serializable, Cloneable
+public class Producto implements Serializable
 {
     private int id;
     private String nombre;
@@ -63,17 +63,6 @@ public class Producto implements Serializable, Cloneable
     @Override
     public String toString() {
         return this.nombre + " - " + this.precio + " - " + this.stock;
-    }
-    
-    @Override
-    public Producto clone()
-    {
-    	try {
-    		return (Producto) super.clone();
-    		
-    	} catch (CloneNotSupportedException e) {
-    		throw new AssertionError();
-    	}
     }
 }
 

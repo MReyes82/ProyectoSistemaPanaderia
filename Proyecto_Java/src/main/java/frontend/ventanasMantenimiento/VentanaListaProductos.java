@@ -7,15 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import backend.saves.*;
-import backend.modelos.herenciaEmpleados.Empleado;
+import backend.saves.Datos;
+import backend.modelos.Producto;
 
-public class VentanaListaEmpleados extends JFrame {
-    private JTable tablaEmpleados;
+public class VentanaListaProductos extends JFrame {
+    private JTable tablaProductos;
     private DefaultTableModel modeloTabla;
+    private List<Producto> listaProductos;
 
-    public VentanaListaEmpleados() {
-        setTitle("Lista de Empleados");
+    public VentanaListaProductos() {
+        setTitle("Lista de Productos");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -24,12 +25,14 @@ public class VentanaListaEmpleados extends JFrame {
 
     private void inicializarComponentes() 
     {
+    	
         JPanel panelPrincipal = new JPanel(new BorderLayout());
+        // carga de datos para test
         //Datos.inicializarDatos();
         //Datos.cargarElementosTEST();
 
         // Columnas de la tabla
-        String[] columnas = {"ID", "Nombre", "Apellido", "Edad", "Salario", "Turno"};
+        String[] columnas = {"ID", "Nombre", "Precio", "Stock"};
 
         // Modelo de la tabla
         modeloTabla = new DefaultTableModel(columnas, 0) {
@@ -39,10 +42,10 @@ public class VentanaListaEmpleados extends JFrame {
             }
         };
 
-        tablaEmpleados = new JTable(modeloTabla);
-        JScrollPane scrollPane = new JScrollPane(tablaEmpleados);
+        tablaProductos = new JTable(modeloTabla);
+        JScrollPane scrollPane = new JScrollPane(tablaProductos);
 
-        // Llenar la tabla con los datos de los empleados
+        // Llenar la tabla con los datos de los productos
         llenarTabla();
 
         // Panel para la tabla
@@ -68,14 +71,13 @@ public class VentanaListaEmpleados extends JFrame {
         btnEditar.setForeground(Color.WHITE);
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tablaEmpleados.getSelectedRow();
+                int selectedRow = tablaProductos.getSelectedRow();
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    Producto productoSeleccionado = listaProductos.get(selectedRow);
                     // Acción de edición (a implementar)
-                    Empleado empleadoSeleccionado = obtenerTodosLosEmpleados().get(selectedRow);
-                    VentanaEditarEmpleado editar = new VentanaEditarEmpleado(empleadoSeleccionado);
-                    editar.setVisible(true);
+                    // Aquí puedes utilizar productoSeleccionado para editarlo
                 }
             }
         });
@@ -86,12 +88,13 @@ public class VentanaListaEmpleados extends JFrame {
         btnEliminar.setForeground(Color.WHITE);
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tablaEmpleados.getSelectedRow();
+                int selectedRow = tablaProductos.getSelectedRow();
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    Producto productoSeleccionado = listaProductos.get(selectedRow);
                     // Acción de eliminación (a implementar)
-                    JOptionPane.showMessageDialog(null, "Función no implementada", "Error", JOptionPane.ERROR_MESSAGE);
+                    // Aquí puedes utilizar productoSeleccionado para eliminarlo
                 }
             }
         });
@@ -111,41 +114,29 @@ public class VentanaListaEmpleados extends JFrame {
     }
 
     private void llenarTabla() {
-        List<Empleado> todosEmpleados = obtenerTodosLosEmpleados();
+        List<Producto> todosProductos = obtenerTodosLosProductos();
+        listaProductos = new ArrayList<>();
 
-        for (Empleado empleado : todosEmpleados) {
+        for (Producto producto : todosProductos) {
             Object[] fila = {
-                    empleado.getId(),
-                    empleado.getNombre(),
-                    empleado.getApellido(),
-                    empleado.getEdad(),
-                    empleado.getSalario(),
-                    empleado.getTurno()
+                    producto.getId(),
+                    producto.getNombre(),
+                    producto.getPrecio(),
+                    producto.getStock()
             };
             modeloTabla.addRow(fila);
+            listaProductos.add(producto); // Agregar el producto a la lista
         }
     }
 
-    private List<Empleado> obtenerTodosLosEmpleados() {
-        List<Empleado> todosEmpleados = new ArrayList<>();
-
-        if (Datos.getEmpleadosLimpieza() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosLimpieza());
-        }
-        if (Datos.getEmpleadosPanaderos() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosPanaderos());
-        }
-        if (Datos.getEmpleadosCajeros() != null) {
-            todosEmpleados.addAll(Datos.getEmpleadosCajeros());
-        }
-
-        return todosEmpleados;
+    private List<Producto> obtenerTodosLosProductos() {
+        return Datos.getInventario();
     }
 
     public static void main(String[] args) {
         // Mostrar la ventana
         SwingUtilities.invokeLater(() -> {
-            new VentanaListaEmpleados().setVisible(true);
+            new VentanaListaProductos().setVisible(true);
         });
     }
 }

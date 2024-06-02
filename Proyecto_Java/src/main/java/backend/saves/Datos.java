@@ -219,6 +219,8 @@ public class Datos {
         Producto sabritas = new Producto(3, "Sabritas", 22.50, 18);
 
         Cliente cliente = new Cliente(1, "Carlos", "Pérez", "123456789", 10.5);
+        Cliente cliente1 = new Cliente(2, "María", "González", "987654321", 5.0);
+        Cliente cliente2 = new Cliente(3, "José", "Hernández", "123456789", 15.0);
 
         // Crear objeto de prueba para Empleado
         Vendedor empleado = new Vendedor(1, "Juan", "López", 30, 10.00, 0.05, Turno.MATUTINO);
@@ -240,7 +242,11 @@ public class Datos {
         tablaLookUpProductos.put(pastel.getId(), pastel);
 
         clientes.add(cliente);
+        clientes.add(cliente1);
+        clientes.add(cliente2);
         tablaLookUpClientes.put(cliente.getId(), cliente);
+        tablaLookUpClientes.put(cliente1.getId(), cliente1);
+        tablaLookUpClientes.put(cliente2.getId(), cliente2);
 
         empleadosLimpieza.add(limpieza);
         tablaLookUpEmpleados.put(limpieza.getId(), limpieza);

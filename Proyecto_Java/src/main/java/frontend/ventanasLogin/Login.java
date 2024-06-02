@@ -49,6 +49,7 @@ public class Login extends JFrame {
     }
 
     public Login() {
+    	setResizable(false);
         setTitle("LOGIN DE USUARIO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1024, 768);
