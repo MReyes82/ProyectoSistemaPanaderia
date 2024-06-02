@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaCliente extends JFrame {
+public class VentanaCliente extends JFrame 
+{
     public VentanaCliente(Cliente cliente) {
         setTitle("Detalles del Cliente");
         setSize(400, 300);

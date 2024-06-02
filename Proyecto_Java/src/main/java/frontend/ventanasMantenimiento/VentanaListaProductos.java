@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import backend.modelos.ModelosApp;
 import backend.saves.Datos;
 import backend.modelos.Producto;
 
@@ -59,8 +61,10 @@ public class VentanaListaProductos extends JFrame {
         btnCerrar.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnCerrar.setBackground(new Color(204, 0, 0));
         btnCerrar.setForeground(Color.WHITE);
-        btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnCerrar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 dispose();
             }
         });
@@ -69,15 +73,22 @@ public class VentanaListaProductos extends JFrame {
         btnEditar.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnEditar.setBackground(new Color(0, 153, 204));
         btnEditar.setForeground(Color.WHITE);
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnEditar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 int selectedRow = tablaProductos.getSelectedRow();
-                if (selectedRow == -1) {
+
+                if (selectedRow == -1)
+                {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+
                 } else {
-                    Producto productoSeleccionado = listaProductos.get(selectedRow);
                     // Acción de edición (a implementar)
                     // Aquí puedes utilizar productoSeleccionado para editarlo
+                    Producto productoSeleccionado = listaProductos.get(selectedRow);
+                    VentanaEditarProducto editar = new VentanaEditarProducto(productoSeleccionado);
+                    editar.setVisible(true);
                 }
             }
         });
@@ -86,15 +97,20 @@ public class VentanaListaProductos extends JFrame {
         btnEliminar.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnEliminar.setBackground(new Color(204, 0, 0));
         btnEliminar.setForeground(Color.WHITE);
-        btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnEliminar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 int selectedRow = tablaProductos.getSelectedRow();
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    Producto productoSeleccionado = listaProductos.get(selectedRow);
                     // Acción de eliminación (a implementar)
                     // Aquí puedes utilizar productoSeleccionado para eliminarlo
+                    Producto productoAEliminar = listaProductos.get(selectedRow);
+                    new ModelosApp().eliminarProducto(productoAEliminar.getId());
+                    JOptionPane.showMessageDialog(null, "Producto eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
             }
         });

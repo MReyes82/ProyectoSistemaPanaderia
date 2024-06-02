@@ -175,26 +175,11 @@ public class ModelosApp
         return;
     }
 
-    public void actualizarSalario(int id, double nuevoSalario)
+    public void actualizarStock()
     {
-        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
-        Empleado empleadoAEditar;
+        // Este metodo se manda a llamar en la ventana de ventas
+        // SOLO tras generar la venta.
 
-        try {
-            empleadoAEditar = buscarEmpleado(id);
-
-        } catch (Exception e) {
-            System.out.println("Empleado no encontrado");
-            return;
-        }
-
-        empleadoAEditar.setSalario(nuevoSalario);
-        empleadosMap.put(id, empleadoAEditar);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
-
-        System.out.println("Salario actualizado con exito");
-
-        return;
     }
 
     public void registrarCliente(int id, String nombre, String apellido, double puntos, String telefono)
@@ -266,6 +251,31 @@ public class ModelosApp
         Datos.setTablaLookUpProductos(tablaLookUpProductos);
 
         System.out.println("Producto eliminado con exito");
+
+        return;
+    }
+
+    public void eliminarCliente(int id)
+    {
+        HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
+        Cliente clienteAEditar;
+
+        try {
+            clienteAEditar = tablaLookUpClientes.get(id);
+
+        } catch (Exception e) {
+            System.out.println("Cliente no encontrado");
+            return;
+        }
+
+        ArrayList<Cliente> clientes = Datos.getClientes();
+        clientes.remove(clienteAEditar);
+        Datos.setClientes(clientes);
+
+        tablaLookUpClientes.remove(id);
+        Datos.setTablaLookUpClientes(tablaLookUpClientes);
+
+        System.out.println("Cliente eliminado con exito");
 
         return;
     }

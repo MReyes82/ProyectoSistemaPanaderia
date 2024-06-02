@@ -92,7 +92,7 @@ public class ProductoIDInputFrame extends JFrame
                     dispose();
                     
                 } else {
-                    JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Entrada invalida, Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);

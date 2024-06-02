@@ -83,13 +83,13 @@ public class ClienteIDInputFrame extends JFrame
                         new VentanaCliente(clienteBusqueda);
                         dispose();
                     } else {
-                        messageLabel.setText("No se encontró un cliente con ese identificador");
+                        JOptionPane.showMessageDialog(null, "No se encontró un cliente con ese identificador", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    messageLabel.setText("El identificador debe ser un valor positivo");
+                    JOptionPane.showMessageDialog(null, "El identificador debe ser un valor positivo", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException ex) {
-                messageLabel.setText("El identificador debe ser un número entero válido");
+                JOptionPane.showMessageDialog(null, "El identificador debe ser un número entero válido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

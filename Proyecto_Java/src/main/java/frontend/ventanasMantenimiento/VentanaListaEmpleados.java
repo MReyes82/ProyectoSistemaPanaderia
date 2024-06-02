@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import backend.modelos.ModelosApp;
 import backend.saves.*;
 import backend.modelos.herenciaEmpleados.Empleado;
 
@@ -66,11 +68,16 @@ public class VentanaListaEmpleados extends JFrame {
         btnEditar.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnEditar.setBackground(new Color(0, 153, 204));
         btnEditar.setForeground(Color.WHITE);
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnEditar.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 int selectedRow = tablaEmpleados.getSelectedRow();
-                if (selectedRow == -1) {
+                
+                if (selectedRow == -1) 
+                {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+                    
                 } else {
                     // Acción de edición (a implementar)
                     Empleado empleadoSeleccionado = obtenerTodosLosEmpleados().get(selectedRow);
@@ -91,7 +98,10 @@ public class VentanaListaEmpleados extends JFrame {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Acción de eliminación (a implementar)
-                    JOptionPane.showMessageDialog(null, "Función no implementada", "Error", JOptionPane.ERROR_MESSAGE);
+                    Empleado empleadoSeleccionado = obtenerTodosLosEmpleados().get(selectedRow);
+                    new ModelosApp().eliminarEmpleado(empleadoSeleccionado.getId());
+                    JOptionPane.showMessageDialog(null, "Empleado eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
             }
         });

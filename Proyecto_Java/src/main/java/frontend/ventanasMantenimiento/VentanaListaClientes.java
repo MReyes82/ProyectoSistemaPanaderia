@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import backend.modelos.ModelosApp;
 import backend.saves.Datos;
 import backend.modelos.Cliente;
 
@@ -68,15 +70,22 @@ public class VentanaListaClientes extends JFrame {
         btnEditar.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnEditar.setBackground(new Color(0, 153, 204));
         btnEditar.setForeground(Color.WHITE);
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnEditar.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 int selectedRow = tablaClientes.getSelectedRow();
-                if (selectedRow == -1) {
+                
+                if (selectedRow == -1) 
+                {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
+                    
                 } else {
-                    Cliente clienteSeleccionado = listaClientes.get(selectedRow);
                     // Acción de edición (a implementar)
                     // Aquí puedes utilizar clienteSeleccionado para editarlo
+                    Cliente clienteSeleccionado = listaClientes.get(selectedRow);
+                    VentanaEditarCliente ventanaEditarCliente = new VentanaEditarCliente(clienteSeleccionado);
+                    ventanaEditarCliente.setVisible(true);
                 }
             }
         });
@@ -94,9 +103,12 @@ public class VentanaListaClientes extends JFrame {
                     JOptionPane.showMessageDialog(null, "Selecciona un elemento primero", "Error", JOptionPane.ERROR_MESSAGE);
                     
                 } else {
-                    Cliente clienteSeleccionado = listaClientes.get(selectedRow);
                     // Acción de eliminación (a implementar)
                     // Aquí puedes utilizar clienteSeleccionado para eliminarlo
+                    Cliente clienteAEliminar = listaClientes.get(selectedRow);
+                    new ModelosApp().eliminarCliente(clienteAEliminar.getId());
+                    JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
             }
         });

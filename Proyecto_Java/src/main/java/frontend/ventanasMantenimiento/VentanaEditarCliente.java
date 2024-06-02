@@ -19,7 +19,8 @@ public class VentanaEditarCliente extends JFrame {
 
     private Cliente cliente;
 
-    public VentanaEditarCliente(Cliente cliente) {
+    public VentanaEditarCliente(Cliente cliente)
+    {
         this.cliente = cliente;
 
         // Configuración de la ventana
