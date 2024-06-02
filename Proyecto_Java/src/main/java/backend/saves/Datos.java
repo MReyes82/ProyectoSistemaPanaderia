@@ -23,6 +23,10 @@ public class Datos {
     public static HashMap<Integer, Cliente> tablaLookUpClientes = new HashMap<>();
     public static HashMap<Integer, Venta> tablaLookUpVentas = new HashMap<>();
 
+    // Identificador que se coloca al iniciar sesion
+    // Sirve para adjudicar las ventas realizadas a dicho vendedor.
+    public static int identificadorVendedorActual = -1;
+
     // métodos para escribir datos
     public static void guardarDatos(OutputStream outputStream, Object data) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {

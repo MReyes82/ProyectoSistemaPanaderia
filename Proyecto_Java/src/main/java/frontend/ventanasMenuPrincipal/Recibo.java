@@ -68,6 +68,8 @@ public class Recibo extends JFrame {
             {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
                 principal.actualizarInventarioReal();
+                principal.identificadorDelCliente = -1; // reestablecemos el identificador del cliente tras la venta.
+
                 dispose();
             }
         });

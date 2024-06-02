@@ -143,13 +143,18 @@ public class ServiciosApp
         ArrayList<Producto> productos = Datos.getInventario();
         for (Producto producto : productosSeleccionados)
         {
-            // sobreescribimos el producto en la tabla original
-            // usando el mismo id, la implementacion de HashMap
-            // se encarga de sobreescribir el producto
             tablaLookUpProductos.put(producto.getId(), producto);
 
-            // actualizamos el producto en la lista de productos
-            tablaLookUpProductos.put(producto.getId(), producto);
+            for (int i = 0 ; i < productos.size() ; i++)
+            {
+                Producto productoActual = productos.get(i);
+
+                if (productoActual.getId() == producto.getId())
+                {
+                    productos.set(i, producto);
+                    break;
+                }
+            }
         }
 
         // actualizamos la tabla de productos

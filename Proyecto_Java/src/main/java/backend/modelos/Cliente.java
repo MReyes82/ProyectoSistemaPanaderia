@@ -103,10 +103,10 @@ public class Cliente implements Serializable
 
     @Override
     public String toString() {
-        return "id: " + this.id +
-            ", nombre: " + this.nombre +
-            ", apellido: " + this.apellido +
-            ", telefono: " + this.telefono +
-            ", puntos: " + this.puntos;
+        return "\nid: " + this.id +
+            "\nnombre: " + this.nombre +
+            "\napellido: " + this.apellido +
+            "\ntelefono: " + this.telefono +
+            "\npuntos: " + this.puntos;
     }
 }

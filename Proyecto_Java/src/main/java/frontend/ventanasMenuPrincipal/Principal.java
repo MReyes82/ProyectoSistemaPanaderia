@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import backend.modelos.Producto;
+import backend.modelos.herenciaEmpleados.Vendedor;
 import backend.servicios.ServiciosApp;
 import frontend.ventanasLogin.Login;
 import frontend.ventanasLogin.Soporte;
@@ -39,6 +40,7 @@ public class Principal extends JFrame {
         productosSeleccionados = new ArrayList<>();
         cantidadesSeleccionadas = new ArrayList<>();
         copiaInventario = clonarInventario(Datos.getTablaLookUpProductos());
+        identificadorDelCliente = -1;
 
         setTitle("MENU PRINCIPAL DEL SISTEMA");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -104,11 +106,19 @@ public class Principal extends JFrame {
 
         JButton BotonAgregarIdCliente = new JButton("Ingresar identificador de cliente");
         BotonAgregarIdCliente.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        BotonAgregarIdCliente.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                establecerIdentificadorCliente();
+            }
+        });
+
 
         JLabel LabelProductosAgregados = new JLabel("Productos agregados:");
         LabelProductosAgregados.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-        JButton BotonLimpiarCarrito = new JButton("Limpiar Carrito");
+        JButton BotonLimpiarCarrito = new JButton("Vaciar Carrito");
 
         BotonLimpiarCarrito.addActionListener(new ActionListener()
         {
@@ -193,6 +203,8 @@ public class Principal extends JFrame {
                 soporte.setVisible(true);
             }
         });
+
+        establecerIdentificadorVendedor();
     }
 
     private HashMap<Integer, Producto> clonarInventario(HashMap<Integer, Producto> inventarioOriginal) {
@@ -276,5 +288,69 @@ public class Principal extends JFrame {
     {
         new ServiciosApp().actualizarInventario(productosSeleccionados);
         limpiarCarrito();
+    }
+
+    public void establecerIdentificadorVendedor() // metodo para establecer el identificador del vendedor actual al cual se le adjudicaran las ventas
+    {
+        System.out.println("Debug 0");
+        if (Datos.identificadorVendedorActual != -1) // si no es -1 quiere decir que hay un identificador establecido
+        return;
+
+        Integer tmp = -1;
+        while (tmp == null || tmp < 0)
+        {
+            try {
+                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su identificador de vendedor: "));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese un identificador válido");
+            }
+
+            // verificamos que el identificaodr corresponda a un vendedor registrado
+            if (Datos.getTablaLookUpEmpleados().containsKey(tmp)) // si el identificador existe en el hashmap de empleados
+            {
+                System.out.println("Debug 1");
+                // Usamos if identados para evitar null exception si se proporciona un identificador invalido (que no corresponda a ningun empleado)
+
+                if (Datos.getTablaLookUpEmpleados().get(tmp) instanceof Vendedor) // si el empleado es un vendedor
+                {
+                    System.out.println("Debug 2");
+                    Datos.identificadorVendedorActual = tmp;
+                    return;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un vendedor");
+                    tmp = -1;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un empleado registrado");
+                tmp = -1;
+            }
+        }
+    }
+
+    public void establecerIdentificadorCliente()
+    {
+        Integer tmp = -1;
+        while (tmp == null || tmp < 0)
+        {
+            try {
+                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador del cliente: "));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese un identificador válido");
+            }
+
+            // verificamos que el identificaodr corresponda a un cliente registrado
+            if (Datos.getTablaLookUpClientes().containsKey(tmp)) // si el identificador existe en el hashmap de clientes
+            {
+                identificadorDelCliente = tmp;
+                JOptionPane.showMessageDialog(null, "Cliente encontrado: " + Datos.getTablaLookUpClientes().get(tmp).toString());
+
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un cliente registrado");
+                // caso contrario al identificador del vendedor, aqui no forzamos a que siga en el ciclo while
+                // si no se proporciona un identificador valido, simplemente no se establece el identificador del cliente
+            }
+        }
     }
 }
