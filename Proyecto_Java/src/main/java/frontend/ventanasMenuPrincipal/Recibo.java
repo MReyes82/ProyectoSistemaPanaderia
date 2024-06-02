@@ -6,6 +6,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import backend.saves.Datos;
+import backend.servicios.ServiciosApp;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.*;
@@ -68,6 +72,15 @@ public class Recibo extends JFrame {
             {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
                 principal.actualizarInventarioReal();
+                
+                ServiciosApp callbackServiciosApp = new ServiciosApp();
+                
+                callbackServiciosApp.crearVenta
+                ( principal.identificadorDelCliente, 
+                  Datos.getIdentificadorVendedorActual(),
+                  total
+                );
+                
                 principal.identificadorDelCliente = -1; // reestablecemos el identificador del cliente tras la venta.
 
                 dispose();

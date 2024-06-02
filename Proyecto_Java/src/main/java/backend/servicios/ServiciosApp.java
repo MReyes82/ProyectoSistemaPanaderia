@@ -17,108 +17,69 @@ import javax.swing.JOptionPane;
 
 public class ServiciosApp
 {
-    // regresa el total de la venta para poder usarla en la generacion de facturas
-    public double crearVenta(int idVenta, int identificadorACliente, int idCajeroQueRealizaVenta)
+    // regresa el total de la venta para poder usarla en la generacion de facturas\
+    public void crearVenta(int identificadorACliente, int idCajeroQueRealizaVenta, double totalDeLaventa)
     {
-        HashMap<Integer, Cliente> clientes = Datos.getTablaLookUpClientes();
+        /*
+        * REFACTOR: se cambio la implementacion anterior
+        * para simplificarla
+        */
 
-        if (clientes == null)
-        {
-            //System.out.println("No hay clientes registrados");
-            JOptionPane.showMessageDialog(null, "ERROR: NO HAY CLIENTES REGISTRADOS", "Error", JOptionPane.ERROR_MESSAGE);
-            return -1;
-        }
+        if (identificadorACliente == -1)
+        System.out.println("Debug: id de cliente es -1");        // generamos un id random para la venta
+        int idVenta;
 
-        if (!clientes.containsKey(identificadorACliente))
-        {
-            System.out.println("Cliente no encontrado");
-            JOptionPane.showMessageDialog(null, "ERROR: CLIENTE NO ENCONTRADO", "Error", JOptionPane.ERROR_MESSAGE);
-            identificadorACliente = -1;
-        }
+        do {
+             idVenta = (int) (Math.random() * 1000000) + 1;
+
+        } while (Datos.getTablaLookUpVentas().containsKey(idVenta)); // mientras que el id generado ya exista en el historial de ventas
 
         // seteamos el tiempo actual para la fecha de la venta
         long tiempoActual = System.currentTimeMillis(); // tiempo en milisegundos
         Date fecha = new Date(tiempoActual); // convertimos el tiempo a una fecha
+        Venta nuevaVenta = new Venta(idVenta, fecha, identificadorACliente, totalDeLaventa, idCajeroQueRealizaVenta);
 
-        // revisamos si el identificador del parametro es -1
-        // es decir, si no se encontro el cliente
-        Cliente cliente;
-        if (identificadorACliente == -1) {
-            // si no se encontro el cliente, se crea un cliente nuevo
-            // sin embargo, este sera una instancia vacia
-            // se valida que es una instancia vacia si su identificador es -1
-            cliente = new Cliente();
-        }else{
-            // obtenemos el cliente que realizo la compra
-            cliente = clientes.get(identificadorACliente);
-        }
-        
-        // calcular el total de la venta
-        
-
-        Venta nuevaVenta = new Venta(
-            idVenta,
-            fecha,
-            identificadorACliente,
-            0.0,//total,
-            idCajeroQueRealizaVenta
-        );
-
-        double totalVenta = 0.0;
-        // Referencia al hashmap para actualizar el inventario
-        HashMap<Integer, Producto> inventario = Datos.getTablaLookUpProductos();
-
-        
-        // valifacion de que se haya realizado la venta
-        // Si el total es 0 quiere decir que no se vendio nada
-        // debido a la falta de stock de todos los productos
-        if (totalVenta == 0)
-        {
-        	JOptionPane.showMessageDialog(null, "ERROR: NO SE PUDO REALIZAR LA VENTA", "Error", JOptionPane.ERROR_MESSAGE);
-        	//System.out.println("No se pudo realizar la venta");
-            return -1;
-        }
-        // agregar la venta al historial del cajero
-        //agregarVentaACajero(cajeroQueRealizaVenta, nuevaVenta);
-        // actualizar el inventario
-        Datos.setTablaLookUpProductos(inventario);
-
-        // agregar la venta al historial de ventas
+        // metemos el valor al hashmap de ventas
         HashMap<Integer, Venta> historialVentas = Datos.getTablaLookUpVentas();
         historialVentas.put(idVenta, nuevaVenta);
         Datos.setTablaLookUpVentas(historialVentas);
 
-        return totalVenta;
+        // agregamos la venta al historial del vendedor
+        // Nota: no se realiza validacion de si el vendedor existe
+        // ya que la validacion se maneja en la interfaz
+        // (Clase "Principal")
+        Vendedor cajero = (Vendedor) Datos.getTablaLookUpEmpleados().get(idCajeroQueRealizaVenta);
+        agregarVentaACajero(cajero, nuevaVenta);
+
+        crearFactura(idVenta, identificadorACliente, totalDeLaventa, nuevaVenta);
+
+        return;
     }
 
-    public void generarFactura(int idVenta, int identificadorACliente, double totalVenta, int cajeroQueRealizaVenta)
+    public void crearFactura(int idVenta, int referenciaCliente, double totalDeLaVenta, Venta referenciaVenta)
     {
-        double ventaRealizada = crearVenta(idVenta, identificadorACliente, cajeroQueRealizaVenta);
+        /*
+        * REFACTOR: se cambio la implementacion anterior
+        * para simplificarla
+        */
+        System.out.println("Debug: Creando factura para venta con id: " + idVenta + " y cliente con id: " + referenciaCliente);
 
-        // validacion de que se haya realizado la venta
-        if (ventaRealizada == -1 || identificadorACliente == -1)
+        Factura nuevaFactura = new Factura(idVenta, referenciaCliente, referenciaVenta, totalDeLaVenta);
+
+        // agregamos la factura al historial de facturas del cliente, validando que se haya proporcionado un id a cliente
+        if (referenciaCliente != -1)
         {
-        	JOptionPane.showMessageDialog(null, "ERROR GENERANDO LA FACTURA", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            Cliente cliente = Datos.getTablaLookUpClientes().get(referenciaCliente);
+            cliente.agregarCompra(nuevaFactura);
+
+            // actualizamos los puntos del cliente en base al total de su compra
+            cliente.setPuntos(cliente.getPuntos() + (totalDeLaVenta * 0.01));
+
+            // actualizamos el cliente en la base de datos
+            HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
+            tablaLookUpClientes.put(referenciaCliente, cliente);
+            Datos.setTablaLookUpClientes(tablaLookUpClientes);
         }
-
-        Venta ventaRecienCreada = Datos.getTablaLookUpVentas().get(idVenta);
-
-        Factura facturaVentaRealizada = new Factura(
-            idVenta,
-            identificadorACliente,
-            ventaRecienCreada,
-            ventaRealizada
-        );
-
-        // Agregamos la venta realizada, por medio de la factura al cliente
-        Cliente cliente = Datos.getTablaLookUpClientes().get(identificadorACliente);
-        cliente.agregarCompra(facturaVentaRealizada);
-        // actualizamos los puntos del cliente en base al total de su compra
-        cliente.setPuntos(cliente.getPuntos() + (ventaRealizada * 0.01));
-        // actualizamos el cliente en la base de datos
-        HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
-        tablaLookUpClientes.put(identificadorACliente, cliente);
 
         return;
     }
@@ -162,5 +123,71 @@ public class ServiciosApp
         Datos.setInventario(productos);
 
         return;
+    }
+
+    // REFACTOR: metodo para establecer un identificador de cliente para realizar una venta
+    public int establecerIdentificadorCliente()
+    {
+        Integer tmp = -1;
+
+        while (tmp == null || tmp < 0)
+        {
+            try
+            {
+                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador del cliente"));
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un identificador valido.");
+            }
+
+            if (Datos.getTablaLookUpClientes().containsKey(tmp))
+            {
+                JOptionPane.showMessageDialog(null, "Cliente encontrado: " + Datos.getTablaLookUpClientes().get(tmp).toString());
+                return tmp;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente no encontrado, no se asignara un cliente a la venta.");
+            }
+        }
+
+        return -1; // en caso de que no se encuentra el cliente, el valor se queda igual cuando no hay id de cliente; -1
+    }
+
+    // REFACTOR: metodo para establecer un identificador de vendedor para realizar una venta
+    public void establecerIdentificadorVendedor()
+    {
+        if (Datos.getIdentificadorVendedorActual() !=  -1) // si no es -1 quiere decir que hay un identificador establecido
+        {
+            return;
+        }
+
+        Integer tmp = -1;
+
+        while (tmp == null || tmp < 0)
+        {
+            try {
+                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador del vendedor"));
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un identificador valido.");
+            }
+
+            // verificamos que el identificaodr corresponda a un vendedor registrado
+            if (Datos.getTablaLookUpEmpleados().containsKey(tmp))
+            {
+                if (Datos.getTablaLookUpEmpleados().get(tmp) instanceof Vendedor)
+                {
+                    Datos.setIdentificadorVendedorActual(tmp);
+                    return;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un vendedor.");
+                    tmp = -1;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a ningun empleado registrado.");
+                tmp = -1;
+            }
+        }
     }
 }

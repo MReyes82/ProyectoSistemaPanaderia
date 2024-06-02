@@ -31,6 +31,8 @@ public class Principal extends JFrame {
 
     // identificador para asignar una venta a un cliente
     int identificadorDelCliente;
+    // callback para los servicios de la aplicacion
+    ServiciosApp callbackServicios = new ServiciosApp();
 
     /**
      * Create the frame.
@@ -41,6 +43,7 @@ public class Principal extends JFrame {
         cantidadesSeleccionadas = new ArrayList<>();
         copiaInventario = clonarInventario(Datos.getTablaLookUpProductos());
         identificadorDelCliente = -1;
+
 
         setTitle("MENU PRINCIPAL DEL SISTEMA");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -110,7 +113,7 @@ public class Principal extends JFrame {
         {
             public void actionPerformed(ActionEvent e)
             {
-                establecerIdentificadorCliente();
+                identificadorDelCliente = callbackServicios.establecerIdentificadorCliente();
             }
         });
 
@@ -204,7 +207,7 @@ public class Principal extends JFrame {
             }
         });
 
-        establecerIdentificadorVendedor();
+        callbackServicios.establecerIdentificadorVendedor();
     }
 
     private HashMap<Integer, Producto> clonarInventario(HashMap<Integer, Producto> inventarioOriginal) {
@@ -290,10 +293,9 @@ public class Principal extends JFrame {
         limpiarCarrito();
     }
 
-    public void establecerIdentificadorVendedor() // metodo para establecer el identificador del vendedor actual al cual se le adjudicaran las ventas
+    /*public void establecerIdentificadorVendedor() // metodo para establecer el identificador del vendedor actual al cual se le adjudicaran las ventas
     {
-        System.out.println("Debug 0");
-        if (Datos.identificadorVendedorActual != -1) // si no es -1 quiere decir que hay un identificador establecido
+        if (Datos.getIdentificadorVendedorActual() != -1) // si no es -1 quiere decir que hay un identificador establecido
         return;
 
         Integer tmp = -1;
@@ -308,13 +310,11 @@ public class Principal extends JFrame {
             // verificamos que el identificaodr corresponda a un vendedor registrado
             if (Datos.getTablaLookUpEmpleados().containsKey(tmp)) // si el identificador existe en el hashmap de empleados
             {
-                System.out.println("Debug 1");
                 // Usamos if identados para evitar null exception si se proporciona un identificador invalido (que no corresponda a ningun empleado)
 
                 if (Datos.getTablaLookUpEmpleados().get(tmp) instanceof Vendedor) // si el empleado es un vendedor
                 {
-                    System.out.println("Debug 2");
-                    Datos.identificadorVendedorActual = tmp;
+                    Datos.setIdentificadorVendedorActual(tmp);
                     return;
 
                 } else {
@@ -352,5 +352,5 @@ public class Principal extends JFrame {
                 // si no se proporciona un identificador valido, simplemente no se establece el identificador del cliente
             }
         }
-    }
+    }*/
 }

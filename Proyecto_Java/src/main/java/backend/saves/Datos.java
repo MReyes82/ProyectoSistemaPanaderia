@@ -216,6 +216,14 @@ public class Datos {
         Datos.tablaLookUpVentas = tablaLookUpVentas;
     }
 
+    public static int getIdentificadorVendedorActual() {
+        return identificadorVendedorActual;
+    }
+
+    public static void setIdentificadorVendedorActual(int identificadorVendedorActual) {
+        Datos.identificadorVendedorActual = identificadorVendedorActual;
+    }
+
     // objetos predefinidos de prueba
     public static void cargarElementosTEST() {
         Producto pan = new Producto(1, "Donas bimbo", 23.00, 15);

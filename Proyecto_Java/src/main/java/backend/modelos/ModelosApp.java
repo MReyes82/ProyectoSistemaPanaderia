@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 * Las unicas validaciones realizadas son para verificar si el elemento a modificar o eliminar existe
  */
 
-// TODO: ARREGLAR MODULOS DE REGISTRO DE OBJETOS
-
 public class ModelosApp
 {
     public ModelosApp()
