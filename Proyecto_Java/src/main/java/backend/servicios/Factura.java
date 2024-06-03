@@ -5,26 +5,26 @@ import backend.modelos.Cliente;
 public class Factura
 {
     private int id;
-    private Cliente referenciaCliente;
+    private int referenciaCliente;
     private Venta referenciaVenta;
     private double total;
 
     public Factura()
     {
         this.id = -1;
-        this.referenciaCliente = new Cliente();
+        this.referenciaCliente = -1;
         this.referenciaVenta = new Venta();
         this.total = 0;
     }
 
     public Factura(
         int id,
-        Cliente refernciaCliente,
+        int referenciaCliente,
         Venta referenciaVenta,
         double total
     ){
         this.id = id;
-        this.referenciaCliente = refernciaCliente;
+        this.referenciaCliente = referenciaCliente;
         this.referenciaVenta = referenciaVenta;
         this.total = total;
     }
@@ -37,15 +37,15 @@ public class Factura
         this.id = id;
     }
 
-    public Cliente getRefernciaCliente() {
-        return this.referenciaCliente;
-    }
+    public int getReferenciaCliente() {
+		return referenciaCliente;
+	}
 
-    public void setRefernciaCliente(Cliente refernciaCliente) {
-        this.referenciaCliente = refernciaCliente;
-    }
+	public void setReferenciaCliente(int referenciaCliente) {
+		this.referenciaCliente = referenciaCliente;
+	}
 
-    public Venta getReferenciaVenta() {
+	public Venta getReferenciaVenta() {
         return this.referenciaVenta;
     }
 

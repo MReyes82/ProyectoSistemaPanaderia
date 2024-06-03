@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 * Todos los metodos asumen que los datos han sido validados previamente
 * Las unicas validaciones realizadas son para verificar si el elemento a modificar o eliminar existe
  */
+
 public class ModelosApp
 {
     public ModelosApp()
@@ -26,7 +27,7 @@ public class ModelosApp
         // constructor
     }
 
-    public void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, double comision, Turno turno)
+    public void agregarEmpleadoVendedor(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
         ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
@@ -37,13 +38,13 @@ public class ModelosApp
             apellido,
             edad,
             salario,
-            comision,
             turno
         );
 
         empleados.add(nuevoVendedor);
         Datos.setEmpleadosCajeros(empleados);
         empleadosMap.put(id, nuevoVendedor);
+        Datos.setTablaLookUpEmpleados(empleadosMap);
 
 
         System.out.println("Empleado vendedor agregado con exito");
@@ -52,22 +53,21 @@ public class ModelosApp
 
     public void agregarEmpleadoLimpieza(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        ArrayList<Limpieza> empleados = Datos.getEmpleadosLimpieza();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        Vendedor nuevoVendedor = new Vendedor(
+        Limpieza nuevoLimpieza = new Limpieza(
             id,
             nombre,
             apellido,
             edad,
             salario,
-            0.0,
             turno
         );
 
-        empleados.add(nuevoVendedor);
-        Datos.setEmpleadosCajeros(empleados);
-        empleadosMap.put(id, nuevoVendedor);
+        empleados.add(nuevoLimpieza);
+        Datos.setEmpleadosLimpieza(empleados);
+        empleadosMap.put(id, nuevoLimpieza);
         Datos.setTablaLookUpEmpleados(empleadosMap);
 
         System.out.println("Empleado de limpieza agregado con exito");
@@ -76,34 +76,57 @@ public class ModelosApp
 
     public void agregarEmpleadoPanadero(int id, String nombre, String apellido, int edad, double salario, Turno turno)
     {
-        ArrayList<Vendedor> empleados = Datos.getEmpleadosCajeros();
+        ArrayList<Panadero> empleados = Datos.getEmpleadosPanaderos();
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        Vendedor nuevoVendedor = new Vendedor(
+        Panadero nuevoPanadero = new Panadero(
             id,
             nombre,
             apellido,
             edad,
             salario,
-            0.0,
             turno
         );
 
-        empleados.add(nuevoVendedor);
-        Datos.setEmpleadosCajeros(empleados);
-        empleadosMap.put(id, nuevoVendedor);
+        empleados.add(nuevoPanadero);
+        Datos.setEmpleadosPanaderos(empleados);
+        empleadosMap.put(id, nuevoPanadero);
         Datos.setTablaLookUpEmpleados(empleadosMap);
 
         System.out.println("Empleado panadero agregado con exito");
         return;
     }
 
+    public Cliente buscarCliente(int id)
+    {
+        HashMap<Integer, Cliente> clientesMap = Datos.getTablaLookUpClientes();
+
+        if (!clientesMap.containsKey(id))
+        {
+            return null;
+        }
+
+        return clientesMap.get(id);
+    }
+
+    public Producto buscarProducto(int id)
+    {
+        HashMap<Integer, Producto> productosMap = Datos.getTablaLookUpProductos();
+
+        if (!productosMap.containsKey(id))
+        {
+            return null;
+        }
+
+        return productosMap.get(id);
+    }
+
     public Empleado buscarEmpleado(int id)
     {
         HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
 
-        if (!empleadosMap.containsKey(id)) {
-            JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!empleadosMap.containsKey(id))
+        {
             return null;
         }
 
@@ -143,28 +166,6 @@ public class ModelosApp
         Datos.setTablaLookUpEmpleados(empleadosMap);
 
         System.out.println("Empleado eliminado con exito");
-
-        return;
-    }
-
-    public void actualizarSalario(int id, double nuevoSalario)
-    {
-        HashMap<Integer, Empleado> empleadosMap = Datos.getTablaLookUpEmpleados();
-        Empleado empleadoAEditar;
-
-        try {
-            empleadoAEditar = buscarEmpleado(id);
-
-        } catch (Exception e) {
-            System.out.println("Empleado no encontrado");
-            return;
-        }
-
-        empleadoAEditar.setSalario(nuevoSalario);
-        empleadosMap.put(id, empleadoAEditar);
-        Datos.setTablaLookUpEmpleados(empleadosMap);
-
-        System.out.println("Salario actualizado con exito");
 
         return;
     }
@@ -238,6 +239,31 @@ public class ModelosApp
         Datos.setTablaLookUpProductos(tablaLookUpProductos);
 
         System.out.println("Producto eliminado con exito");
+
+        return;
+    }
+
+    public void eliminarCliente(int id)
+    {
+        HashMap<Integer, Cliente> tablaLookUpClientes = Datos.getTablaLookUpClientes();
+        Cliente clienteAEditar;
+
+        try {
+            clienteAEditar = tablaLookUpClientes.get(id);
+
+        } catch (Exception e) {
+            System.out.println("Cliente no encontrado");
+            return;
+        }
+
+        ArrayList<Cliente> clientes = Datos.getClientes();
+        clientes.remove(clienteAEditar);
+        Datos.setClientes(clientes);
+
+        tablaLookUpClientes.remove(id);
+        Datos.setTablaLookUpClientes(tablaLookUpClientes);
+
+        System.out.println("Cliente eliminado con exito");
 
         return;
     }

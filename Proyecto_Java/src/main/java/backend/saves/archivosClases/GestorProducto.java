@@ -4,41 +4,38 @@ import backend.modelos.Producto;
 import java.io.*;
 import java.util.ArrayList;
 
-public class GestorProducto
-{
-    public void guardarDatos(String ruta, ArrayList<Producto> inventario) throws IOException {
-        try {
-            FileOutputStream archivoOut = new FileOutputStream(ruta);
-            ObjectOutputStream objetoOut = new ObjectOutputStream(archivoOut);
+public class GestorProducto {
 
+    // Método para guardar datos usando OutputStream
+    public void guardarDatos(OutputStream outputStream, ArrayList<Producto> inventario) throws IOException {
+        try (ObjectOutputStream objetoOut = new ObjectOutputStream(outputStream)) {
             objetoOut.writeObject(inventario);
-            objetoOut.close();
-            archivoOut.close();
+        }
+    }
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+    // Método para cargar datos usando InputStream
+    public ArrayList<Producto> cargarDatos(InputStream inputStream) throws IOException, ClassNotFoundException {
+        ArrayList<Producto> inventario = null;
+        try (ObjectInputStream objetoIn = new ObjectInputStream(inputStream)) {
+            inventario = (ArrayList<Producto>) objetoIn.readObject();
+        }
+        return inventario;
+    }
+
+    // Métodos anteriores que usan rutas de archivos (opcional)
+    public void guardarDatos(String ruta, ArrayList<Producto> inventario) throws IOException {
+        try (FileOutputStream archivoOut = new FileOutputStream(ruta);
+             ObjectOutputStream objetoOut = new ObjectOutputStream(archivoOut)) {
+            objetoOut.writeObject(inventario);
         }
     }
 
     public ArrayList<Producto> cargarDatos(String ruta) throws IOException, ClassNotFoundException {
         ArrayList<Producto> inventario = null;
-
-        try {
-            FileInputStream archivoIn = new FileInputStream(ruta);
-            ObjectInputStream objetoIn = new ObjectInputStream(archivoIn);
-
+        try (FileInputStream archivoIn = new FileInputStream(ruta);
+             ObjectInputStream objetoIn = new ObjectInputStream(archivoIn)) {
             inventario = (ArrayList<Producto>) objetoIn.readObject();
-            objetoIn.close();
-            archivoIn.close();
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-
-        } catch (ClassNotFoundException c) {
-            System.out.println("Clase no encontrada");
-            c.printStackTrace();
         }
-
         return inventario;
     }
 }

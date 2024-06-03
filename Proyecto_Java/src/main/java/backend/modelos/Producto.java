@@ -2,7 +2,7 @@ package backend.modelos;
 
 import java.io.Serializable;
 
-public class Producto implements Serializable, Cloneable
+public class Producto implements Serializable
 {
     private int id;
     private String nombre;
@@ -26,6 +26,15 @@ public class Producto implements Serializable, Cloneable
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+    }
+
+    // constructor para realizar copias de productos
+    public Producto(Producto producto)
+    {
+        this.id = producto.getId();
+        this.nombre = producto.getNombre();
+        this.precio = producto.getPrecio();
+        this.stock = producto.getStock();
     }
 
     public int getId() {
@@ -63,17 +72,6 @@ public class Producto implements Serializable, Cloneable
     @Override
     public String toString() {
         return this.nombre + " - " + this.precio + " - " + this.stock;
-    }
-    
-    @Override
-    public Producto clone()
-    {
-    	try {
-    		return (Producto) super.clone();
-    		
-    	} catch (CloneNotSupportedException e) {
-    		throw new AssertionError();
-    	}
     }
 }
 

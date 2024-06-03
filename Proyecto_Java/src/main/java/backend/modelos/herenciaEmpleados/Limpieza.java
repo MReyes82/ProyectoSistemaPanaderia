@@ -2,6 +2,7 @@ package backend.modelos.herenciaEmpleados;
 
 public class Limpieza extends Empleado
 {
+    // public String areaDesignada;
     public Limpieza() {
         super();
     }
