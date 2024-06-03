@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import APLICACION_PRINCIPAL.mainApp;
 import backend.saves.Datos;
 import frontend.ventanasMenuPrincipal.Principal;
+import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 
@@ -92,31 +93,33 @@ public class Login extends JFrame {
         ImageIcon icon = new ImageIcon(imagen.getResource("imagenes/image.jpeg"));
         //JLabel lblImagen = new JLabel(new ImageIcon("src/main/resources/imagenes/image.jpeg"));
         JLabel lblImagen = new JLabel(icon);
-        lblImagen.setBounds(376, 59, 256, 244); // Ajusta la posición y tamaño de la imagen
+        lblImagen.setBounds(379, 59, 256, 244); // Ajusta la posición y tamaño de la imagen
         contentPane.add(lblImagen);
 
         JLabel lblNewLabel = new JLabel("Usuario");
-        lblNewLabel.setBounds(450, 311, 107, 29);
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setBounds(389, 311, 235, 29);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
         contentPane.add(lblNewLabel);
 
         Usuario = new JTextField();
-        Usuario.setBounds(386, 350, 235, 20);
+        Usuario.setBounds(389, 350, 235, 20);
         contentPane.add(Usuario);
         Usuario.setColumns(10);
 
         JLabel Contra = new JLabel("Contraseña");
-        Contra.setBounds(422, 392, 163, 29);
+        Contra.setHorizontalAlignment(SwingConstants.CENTER);
+        Contra.setBounds(389, 392, 235, 29);
         Contra.setFont(new Font("Tahoma", Font.PLAIN, 30));
         contentPane.add(Contra);
 
         contra_usuario = new JPasswordField();
-        contra_usuario.setBounds(386, 432, 235, 20);
+        contra_usuario.setBounds(389, 432, 235, 20);
         contentPane.add(contra_usuario);
 
         JButton Ingreso_usuario = new JButton("Ingresar");
         Ingreso_usuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        Ingreso_usuario.setBounds(386, 490, 235, 39);
+        Ingreso_usuario.setBounds(389, 490, 235, 39);
         contentPane.add(Ingreso_usuario);
 
         JButton btnNewButton_1 = new JButton("Login de administrador");
@@ -125,8 +128,9 @@ public class Login extends JFrame {
         contentPane.add(btnNewButton_1);
 
         JLabel lblNewLabel_1 = new JLabel("Bienvenido");
+        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblNewLabel_1.setBounds(428, 12, 152, 39);
+        lblNewLabel_1.setBounds(376, 12, 256, 39);
         contentPane.add(lblNewLabel_1);
 
         Ingreso_usuario.addActionListener(new ActionListener() {

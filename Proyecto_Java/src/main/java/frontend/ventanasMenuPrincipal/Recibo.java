@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Window.Type;
 
 public class Recibo extends JFrame {
 
@@ -45,9 +44,7 @@ public class Recibo extends JFrame {
 
         table = new JTable();
         table.setModel(new DefaultTableModel(
-                new Object[][] {
-                        {null, null, null},
-                },
+                new Object[][] {},
                 new String[] {
                         "Producto", "Cantidad", "Costo"
                 }
@@ -63,24 +60,22 @@ public class Recibo extends JFrame {
 
         JButton ImprimirRecibo = new JButton("Imprimir");
         ImprimirRecibo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        ImprimirRecibo.setBackground(new Color(0, 153,204));
+        ImprimirRecibo.setBackground(new Color(0, 153, 204));
         ImprimirRecibo.setForeground(Color.WHITE);
 
-        ImprimirRecibo.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
+        ImprimirRecibo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(Recibo.this, "Total de la cuenta: " + total);
                 principal.actualizarInventarioReal();
-                
+
                 ServiciosApp callbackServiciosApp = new ServiciosApp();
-                
-                callbackServiciosApp.crearVenta
-                ( principal.identificadorDelCliente, 
-                  Datos.getIdentificadorVendedorActual(),
-                  total
+
+                callbackServiciosApp.crearVenta(
+                    principal.identificadorDelCliente,
+                    Datos.getIdentificadorVendedorActual(),
+                    total
                 );
-                
+
                 principal.identificadorDelCliente = -1; // reestablecemos el identificador del cliente tras la venta.
 
                 dispose();
@@ -96,28 +91,23 @@ public class Recibo extends JFrame {
         btnCancelar.setBounds(32, 209, 101, 23);
         contentPane.add(btnCancelar);
 
-        btnCancelar.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 int confirmacion = JOptionPane.showConfirmDialog(Recibo.this,
                         "¿Está seguro que desea cancelar la compra?",
                         "Cancelar compra", JOptionPane.YES_NO_OPTION);
 
-                if (confirmacion == JOptionPane.YES_OPTION)
-                {
+                if (confirmacion == JOptionPane.YES_OPTION) {
                     dispose();
                     int confirmacionLimpiarCarrito = JOptionPane.showConfirmDialog(Recibo.this,
                             "¿Desea limpiar el carrito?",
                             "Limpiar carrito", JOptionPane.YES_NO_OPTION);
 
-                    if (confirmacionLimpiarCarrito == JOptionPane.YES_OPTION) 
-                    {
+                    if (confirmacionLimpiarCarrito == JOptionPane.YES_OPTION) {
                         principal.limpiarCarrito();
                     }
 
-                } else
-                {
+                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }

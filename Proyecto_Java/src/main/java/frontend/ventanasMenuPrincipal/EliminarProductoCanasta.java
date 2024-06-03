@@ -19,6 +19,8 @@ public class EliminarProductoCanasta extends JFrame
 
     public EliminarProductoCanasta(Principal principal)
     {
+    	setTitle("Eliminar producto del carrito");
+    	setResizable(false);
         this.principal = principal;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,12 +70,12 @@ public class EliminarProductoCanasta extends JFrame
 
         JLabel LabelAddProducto = new JLabel("Seleccione un producto para eliminar");
         LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        LabelAddProducto.setBounds(66, 22, 302, 23);
+        LabelAddProducto.setBounds(27, 22, 341, 23);
         contentPane.add(LabelAddProducto);
 
         JLabel LabelSeleccionarProducto = new JLabel("Seleccionar producto:");
         LabelSeleccionarProducto.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        LabelSeleccionarProducto.setBounds(27, 86, 141, 22);
+        LabelSeleccionarProducto.setBounds(27, 86, 290, 22);
         contentPane.add(LabelSeleccionarProducto);
     }
 

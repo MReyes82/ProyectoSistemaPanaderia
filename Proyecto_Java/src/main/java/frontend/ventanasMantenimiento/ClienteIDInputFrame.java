@@ -28,33 +28,34 @@ public class ClienteIDInputFrame extends JFrame
 
         idField = new JTextField();
         idField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        idField.setBounds(69, 90, 300, 25);
+        idField.setBounds(72, 90, 300, 25);
         panel.add(idField);
 
         messageLabel = new JLabel("", JLabel.CENTER);
-        messageLabel.setBounds(50, 70, 300, 25);
+        messageLabel.setBounds(77, 67, 300, 25);
         panel.add(messageLabel);
 
         JButton submitButton = new JButton("Enviar");
-        submitButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+        submitButton.setFont(new Font("Dialog", Font.BOLD, 13));
         submitButton.setBackground(new Color(0, 153, 204));
         submitButton.setForeground(Color.WHITE);
-        submitButton.setBounds(97, 138, 100, 30);
+        submitButton.setBounds(102, 138, 100, 30);
         submitButton.addActionListener(new SubmitButtonListener());
         panel.add(submitButton);
 
         getContentPane().add(panel);
 
         JLabel lblNewLabel = new JLabel("Ingrese el identificador del cliente");
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel.setBounds(85, 48, 268, 25);
+        lblNewLabel.setBounds(72, 48, 300, 25);
         panel.add(lblNewLabel);
 
         JButton BotonCancelar = new JButton("Cancelar");
-        BotonCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
+        BotonCancelar.setFont(new Font("Dialog", Font.BOLD, 13));
         BotonCancelar.setBackground(new Color(204, 0, 0));
         BotonCancelar.setForeground(Color.WHITE);
-        BotonCancelar.setBounds(207, 138, 100, 30);
+        BotonCancelar.setBounds(250, 138, 100, 30);
         BotonCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();

@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.SwingConstants;
 
 public class Soporte extends JFrame 
 {
@@ -68,22 +69,24 @@ public class Soporte extends JFrame
         });
         
         JLabel lblNewLabel = new JLabel("Usuario Admin");
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblNewLabel.setBounds(407, 255, 193, 29);
+        lblNewLabel.setBounds(381, 255, 251, 29);
         contentPane.add(lblNewLabel);
         
         admin = new JTextField();
-        admin.setBounds(398, 295, 212, 20);
+        admin.setBounds(392, 295, 229, 20);
         contentPane.add(admin);
         admin.setColumns(10);
         
         JLabel clave = new JLabel("Contraseña Admin");
+        clave.setHorizontalAlignment(SwingConstants.CENTER);
         clave.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        clave.setBounds(378, 337, 251, 29);
+        clave.setBounds(343, 337, 327, 29);
         contentPane.add(clave);
         
         clave_admin = new JPasswordField();
-        clave_admin.setBounds(398, 377, 212, 20);
+        clave_admin.setBounds(394, 377, 226, 20);
         contentPane.add(clave_admin);
         
         JButton aceptar_admin = new JButton("Ingresar");
@@ -92,7 +95,7 @@ public class Soporte extends JFrame
         contentPane.add(aceptar_admin);
         
         JButton retornoLogin = new JButton("Regresar a login de usuario");
-        retornoLogin.setBounds(26, 658, 302, 39);
+        retornoLogin.setBounds(26, 658, 340, 39);
         retornoLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
         contentPane.add(retornoLogin);
         

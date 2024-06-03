@@ -31,7 +31,7 @@ public class EmpleadoIDInputFrame extends JFrame {
         // Campo de texto para ingresar el ID
         idField = new JTextField();
         idField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        idField.setBounds(69, 90, 300, 25); // Posición y tamaño
+        idField.setBounds(72, 90, 300, 25); // Posición y tamaño
         panel.add(idField);
 
         // Etiqueta para mostrar mensajes
@@ -41,7 +41,7 @@ public class EmpleadoIDInputFrame extends JFrame {
 
         // Botón para enviar el ID
         JButton submitButton = new JButton("Enviar");
-        submitButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+        submitButton.setFont(new Font("Dialog", Font.BOLD, 13));
         submitButton.setBackground(new Color(0, 153, 204));
         submitButton.setForeground(Color.WHITE);
         submitButton.setBounds(97, 138, 100, 30); // Posición y tamaño
@@ -52,8 +52,9 @@ public class EmpleadoIDInputFrame extends JFrame {
         getContentPane().add(panel);
 
         JLabel lblNewLabel = new JLabel("Ingrese el identificador del empleado");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel.setBounds(85, 48, 268, 25);
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+        lblNewLabel.setBounds(72, 48, 300, 25);
         panel.add(lblNewLabel);
 
         JButton BotonCancelar = new JButton("Cancelar");
@@ -62,7 +63,7 @@ public class EmpleadoIDInputFrame extends JFrame {
                 dispose();
             }
         });
-        BotonCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
+        BotonCancelar.setFont(new Font("Dialog", Font.BOLD, 13));
         BotonCancelar.setBackground(new Color(204, 0, 0));
         BotonCancelar.setForeground(Color.WHITE);
         BotonCancelar.setBounds(239, 139, 100, 30);

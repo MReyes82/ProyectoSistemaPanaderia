@@ -135,36 +135,37 @@ public class Principal extends JFrame {
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addGap(45)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addComponent(BotonAgregarIdCliente)
-                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(BotonLimpiarCarrito, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(LabelProductosAgregados, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 956, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(LabelTextoCarrito, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(69, Short.MAX_VALUE))
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addGap(45)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(BotonAgregarIdCliente)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(BotonLimpiarCarrito, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 956, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+        					.addComponent(LabelProductosAgregados, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(LabelTextoCarrito, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)))
+        			.addContainerGap(79, Short.MAX_VALUE))
         );
         gl_contentPane.setVerticalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LabelTextoCarrito, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(17)
-                                .addComponent(LabelProductosAgregados)
-                                .addPreferredGap(ComponentPlacement.UNRELATED)
-                                .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-                                .addGap(48)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(BotonLimpiarCarrito, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(BotonAgregarIdCliente, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                                .addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-                                .addGap(54))
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(LabelTextoCarrito, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addGap(17)
+        			.addComponent(LabelProductosAgregados)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
+        			.addGap(48)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addComponent(BotonLimpiarCarrito, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+        				.addComponent(BotonAgregarIdCliente, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+        			.addComponent(aceptar_pagar, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        			.addGap(54))
         );
         contentPane.setLayout(gl_contentPane);
 
@@ -292,65 +293,4 @@ public class Principal extends JFrame {
         new ServiciosApp().actualizarInventario(productosSeleccionados);
         limpiarCarrito();
     }
-
-    /*public void establecerIdentificadorVendedor() // metodo para establecer el identificador del vendedor actual al cual se le adjudicaran las ventas
-    {
-        if (Datos.getIdentificadorVendedorActual() != -1) // si no es -1 quiere decir que hay un identificador establecido
-        return;
-
-        Integer tmp = -1;
-        while (tmp == null || tmp < 0)
-        {
-            try {
-                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su identificador de vendedor: "));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ingrese un identificador válido");
-            }
-
-            // verificamos que el identificaodr corresponda a un vendedor registrado
-            if (Datos.getTablaLookUpEmpleados().containsKey(tmp)) // si el identificador existe en el hashmap de empleados
-            {
-                // Usamos if identados para evitar null exception si se proporciona un identificador invalido (que no corresponda a ningun empleado)
-
-                if (Datos.getTablaLookUpEmpleados().get(tmp) instanceof Vendedor) // si el empleado es un vendedor
-                {
-                    Datos.setIdentificadorVendedorActual(tmp);
-                    return;
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un vendedor");
-                    tmp = -1;
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un empleado registrado");
-                tmp = -1;
-            }
-        }
-    }
-
-    public void establecerIdentificadorCliente()
-    {
-        Integer tmp = -1;
-        while (tmp == null || tmp < 0)
-        {
-            try {
-                tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador del cliente: "));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ingrese un identificador válido");
-            }
-
-            // verificamos que el identificaodr corresponda a un cliente registrado
-            if (Datos.getTablaLookUpClientes().containsKey(tmp)) // si el identificador existe en el hashmap de clientes
-            {
-                identificadorDelCliente = tmp;
-                JOptionPane.showMessageDialog(null, "Cliente encontrado: " + Datos.getTablaLookUpClientes().get(tmp).toString());
-
-                return;
-            } else {
-                JOptionPane.showMessageDialog(null, "El identificador proporcionado no corresponde a un cliente registrado");
-                // caso contrario al identificador del vendedor, aqui no forzamos a que siga en el ciclo while
-                // si no se proporciona un identificador valido, simplemente no se establece el identificador del cliente
-            }
-        }
-    }*/
 }

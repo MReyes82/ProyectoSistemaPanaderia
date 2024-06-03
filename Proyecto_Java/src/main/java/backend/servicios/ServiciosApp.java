@@ -136,18 +136,24 @@ public class ServiciosApp
             {
                 tmp = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador del cliente"));
 
+            } catch (NullPointerException e) {
+                //JOptionPane.showMessageDialog(null, "No se proporciono un identificador de cliente, no se asignara un cliente a la venta.");
+                return -1;
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese un identificador valido.");
             }
 
-            if (Datos.getTablaLookUpClientes().containsKey(tmp))
-            {
-                JOptionPane.showMessageDialog(null, "Cliente encontrado: " + Datos.getTablaLookUpClientes().get(tmp).toString());
-                return tmp;
+            if (tmp < 0)
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un identificador valido.");
+        }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Cliente no encontrado, no se asignara un cliente a la venta.");
-            }
+        if (Datos.getTablaLookUpClientes().containsKey(tmp))
+        {
+            JOptionPane.showMessageDialog(null, "Cliente encontrado: " + Datos.getTablaLookUpClientes().get(tmp).toString());
+            return tmp;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado, no se asignara un cliente a la venta.");
         }
 
         return -1; // en caso de que no se encuentra el cliente, el valor se queda igual cuando no hay id de cliente; -1

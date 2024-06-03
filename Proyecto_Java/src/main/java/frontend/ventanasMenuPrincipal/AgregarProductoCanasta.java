@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class AgregarProductoCanasta extends JFrame {
 
@@ -37,6 +38,7 @@ public class AgregarProductoCanasta extends JFrame {
      */
     public AgregarProductoCanasta(Principal principal) 
     {
+    	setTitle("Agregar producto al carrito");
         setResizable(false);
         this.principal = principal;
         productosDisponibles = new ArrayList<>(principal.getCopiaInventario().values());
@@ -70,13 +72,14 @@ public class AgregarProductoCanasta extends JFrame {
         contentPane.add(btnAceptar);
 
         LabelAddProducto = new JLabel("Seleccione un producto y su cantidad");
+        LabelAddProducto.setHorizontalAlignment(SwingConstants.CENTER);
         LabelAddProducto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        LabelAddProducto.setBounds(66, 22, 302, 23);
+        LabelAddProducto.setBounds(27, 22, 360, 23);
         contentPane.add(LabelAddProducto);
 
         LabelSeleccionarProducto = new JLabel("Seleccionar producto:");
         LabelSeleccionarProducto.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        LabelSeleccionarProducto.setBounds(27, 86, 141, 22);
+        LabelSeleccionarProducto.setBounds(27, 86, 290, 22);
         contentPane.add(LabelSeleccionarProducto);
 
         LabelCantidad = new JLabel("Cantidad:");
