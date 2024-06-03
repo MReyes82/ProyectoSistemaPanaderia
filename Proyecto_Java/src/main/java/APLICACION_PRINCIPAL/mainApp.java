@@ -9,9 +9,7 @@ import frontend.ventanasLogin.Login;
 public class mainApp {
     public static void main(String[] args) {
         System.out.println("Bienvenido.");
-        //Datos.inicializarDatos();
         iniciarModulosInfo();
-        //Datos.cargarElementosTEST();
         Login comienzoDelPrograma = new Login();
         comienzoDelPrograma.iniciarFrontEnd();
     }

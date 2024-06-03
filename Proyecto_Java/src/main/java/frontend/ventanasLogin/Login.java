@@ -1,6 +1,6 @@
 package frontend.ventanasLogin;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -90,7 +89,9 @@ public class Login extends JFrame {
 
         // Añadir imagen
         ClassLoader imagen = getClass().getClassLoader();
-        ImageIcon icon = new ImageIcon(imagen.getResource("imagenes/image.jpeg"));
+        //ImageIcon icon = new ImageIcon(imagen.getResource("imagenes/image.jpeg")); // Imagen 1
+        ImageIcon icon = new ImageIcon(imagen.getResource("imagenes/bread.png")); // Imagen 2
+
         //JLabel lblImagen = new JLabel(new ImageIcon("src/main/resources/imagenes/image.jpeg"));
         JLabel lblImagen = new JLabel(icon);
         lblImagen.setBounds(379, 59, 256, 244); // Ajusta la posición y tamaño de la imagen
