@@ -8,10 +8,10 @@ import frontend.ventanasLogin.Login;
 
 public class mainApp {
     public static void main(String[] args) {
-        Datos.inicializarDatos();
-        Datos.cargarElementosTEST();
-        //iniciarModulosInfo();
-
+        System.out.println("Bienvenido.");
+        //Datos.inicializarDatos();
+        iniciarModulosInfo();
+        //Datos.cargarElementosTEST();
         Login comienzoDelPrograma = new Login();
         comienzoDelPrograma.iniciarFrontEnd();
     }

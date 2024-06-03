@@ -160,6 +160,11 @@ public class ServiciosApp
         {
             return;
         }
+        
+        if (Datos.getTablaLookUpEmpleados().isEmpty()) // Contemplando el caso de que sea la primera vez que se ingresa al sistema 
+        {
+        	return;
+        }
 
         Integer tmp = -1;
 

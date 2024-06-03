@@ -74,8 +74,8 @@ public class Login extends JFrame {
                         null, null, null);
 
                 if (confirmacion == JOptionPane.YES_OPTION) {
-                    //ClassLoader classLoader = mainApp.class.getClassLoader();
-                    //mainApp.cargarDatos(classLoader);
+                    ClassLoader classLoader = mainApp.class.getClassLoader();
+                    mainApp.cargarDatos(classLoader);
                     System.out.println("Adios!");
 
                     // System.exit es el comando que se utiliza para cerrar la aplicacion totalmente

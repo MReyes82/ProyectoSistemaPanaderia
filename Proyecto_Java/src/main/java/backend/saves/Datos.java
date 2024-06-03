@@ -44,20 +44,39 @@ public class Datos {
     // métodos para guardar ArrayLists en archivos
     public static void guardarDatosArrayList() {
         try {
+            File directorio = new File("src/main/resources/archivosSerializados");
+            if (!directorio.exists()) {
+                directorio.mkdirs();
+            }
+
+            GestorProducto gestorProducto = new GestorProducto();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/productos.ser")) {
                 guardarDatos(outputStream, inventario);
+                System.out.println("Datos de inventario guardados en src/main/resources/archivosSerializados/productos.ser");
             }
+
+            GestorLimpieza gestorLimpieza = new GestorLimpieza();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/empleadosLimpieza.ser")) {
                 guardarDatos(outputStream, empleadosLimpieza);
+                System.out.println("Datos de empleados de limpieza guardados en src/main/resources/archivosSerializados/empleadosLimpieza.ser");
             }
+
+            GestorPanadero gestorPanadero = new GestorPanadero();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/empleadosPanaderos.ser")) {
                 guardarDatos(outputStream, empleadosPanaderos);
+                System.out.println("Datos de empleados panaderos guardados en src/main/resources/archivosSerializados/empleadosPanaderos.ser");
             }
+
+            GestorVendedor gestorVendedor = new GestorVendedor();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/empleadosCajeros.ser")) {
                 guardarDatos(outputStream, empleadosCajeros);
+                System.out.println("Datos de empleados cajeros guardados en src/main/resources/archivosSerializados/empleadosCajeros.ser");
             }
+
+            GestorCliente gestorCliente = new GestorCliente();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/clientes.ser")) {
                 guardarDatos(outputStream, clientes);
+                System.out.println("Datos de clientes guardados en src/main/resources/archivosSerializados/clientes.ser");
             }
 
         } catch (IOException e) {
@@ -67,17 +86,33 @@ public class Datos {
 
     public static void guardarDatosHashMap() {
         try {
+            File directorio = new File("src/main/resources/archivosSerializados");
+            if (!directorio.exists()) {
+                directorio.mkdirs();
+            }
+
+            GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/productosHashMap.ser")) {
                 guardarDatos(outputStream, tablaLookUpProductos);
+                System.out.println("Datos de productos guardados en src/main/resources/archivosSerializados/productosHashMap.ser");
             }
+
+            GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/empleadosHashMap.ser")) {
                 guardarDatos(outputStream, tablaLookUpEmpleados);
+                System.out.println("Datos de empleados guardados en src/main/resources/archivosSerializados/empleadosHashMap.ser");
             }
+
+            GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/clientesHashMap.ser")) {
                 guardarDatos(outputStream, tablaLookUpClientes);
+                System.out.println("Datos de clientes guardados en src/main/resources/archivosSerializados/clientesHashMap.ser");
             }
+
+            GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
             try (OutputStream outputStream = new FileOutputStream("src/main/resources/archivosSerializados/ventasHashMap.ser")) {
                 guardarDatos(outputStream, tablaLookUpVentas);
+                System.out.println("Datos de ventas guardados en src/main/resources/archivosSerializados/ventasHashMap.ser");
             }
 
         } catch (IOException e) {
@@ -88,20 +123,59 @@ public class Datos {
     // métodos para cargar ArrayLists desde archivos
     public static void cargarDatosArrayList(ClassLoader classLoader) {
         try {
+            GestorProducto gestorProducto = new GestorProducto();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/productos.ser")) {
-                setInventario(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    ArrayList<Producto> productos = cargarDatos(inputStream);
+                    if (productos != null) {
+                        setInventario(productos);
+                        System.out.println("Datos de inventario cargados.");
+                    }
+                }
             }
+
+            GestorLimpieza gestorLimpieza = new GestorLimpieza();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/empleadosLimpieza.ser")) {
-                setEmpleadosLimpieza(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    ArrayList<Limpieza> empleadosLimpieza = cargarDatos(inputStream);
+                    if (empleadosLimpieza != null) {
+                        setEmpleadosLimpieza(empleadosLimpieza);
+                        System.out.println("Datos de empleados de limpieza cargados.");
+                    }
+                }
             }
+
+            GestorPanadero gestorPanadero = new GestorPanadero();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/empleadosPanaderos.ser")) {
-                setEmpleadosPanaderos(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    ArrayList<Panadero> empleadosPanaderos = cargarDatos(inputStream);
+                    if (empleadosPanaderos != null) {
+                        setEmpleadosPanaderos(empleadosPanaderos);
+                        System.out.println("Datos de empleados panaderos cargados.");
+                    }
+                }
             }
+
+            GestorVendedor gestorVendedor = new GestorVendedor();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/empleadosCajeros.ser")) {
-                setEmpleadosCajeros(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    ArrayList<Vendedor> empleadosCajeros = cargarDatos(inputStream);
+                    if (empleadosCajeros != null) {
+                        setEmpleadosCajeros(empleadosCajeros);
+                        System.out.println("Datos de empleados cajeros cargados.");
+                    }
+                }
             }
+
+            GestorCliente gestorCliente = new GestorCliente();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/clientes.ser")) {
-                setClientes(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    ArrayList<Cliente> clientes = cargarDatos(inputStream);
+                    if (clientes != null) {
+                        setClientes(clientes);
+                        System.out.println("Datos de clientes cargados.");
+                    }
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -111,17 +185,48 @@ public class Datos {
 
     public static void cargarDatosHashMap(ClassLoader classLoader) {
         try {
+            GestorTablaProductos gestorTablaProductos = new GestorTablaProductos();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/productosHashMap.ser")) {
-                setTablaLookUpProductos(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    HashMap<Integer, Producto> productosHashMap = cargarDatos(inputStream);
+                    if (productosHashMap != null) {
+                        setTablaLookUpProductos(productosHashMap);
+                        System.out.println("Datos de productos HashMap cargados.");
+                    }
+                }
             }
+
+            GestorTablaEmpleados gestorTablaEmpleados = new GestorTablaEmpleados();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/empleadosHashMap.ser")) {
-                setTablaLookUpEmpleados(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    HashMap<Integer, Empleado> empleadosHashMap = cargarDatos(inputStream);
+                    if (empleadosHashMap != null) {
+                        setTablaLookUpEmpleados(empleadosHashMap);
+                        System.out.println("Datos de empleados HashMap cargados.");
+                    }
+                }
             }
+
+            GestorTablaClientes gestorTablaClientes = new GestorTablaClientes();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/clientesHashMap.ser")) {
-                setTablaLookUpClientes(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    HashMap<Integer, Cliente> clientesHashMap = cargarDatos(inputStream);
+                    if (clientesHashMap != null) {
+                        setTablaLookUpClientes(clientesHashMap);
+                        System.out.println("Datos de clientes HashMap cargados.");
+                    }
+                }
             }
+
+            GestorTablaVentas gestorTablaVentas = new GestorTablaVentas();
             try (InputStream inputStream = classLoader.getResourceAsStream("archivosSerializados/ventasHashMap.ser")) {
-                setTablaLookUpVentas(cargarDatos(inputStream));
+                if (inputStream != null) {
+                    HashMap<Integer, Venta> ventasHashMap = cargarDatos(inputStream);
+                    if (ventasHashMap != null) {
+                        setTablaLookUpVentas(ventasHashMap);
+                        System.out.println("Datos de ventas HashMap cargados.");
+                    }
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {
